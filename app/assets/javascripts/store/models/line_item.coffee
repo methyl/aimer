@@ -2,12 +2,10 @@ class Store.models.LineItem extends Backbone.Model
   constructor: (models, options) ->
     @order = options.order
     super(models, options)
+    @on 'change', => @order.fetch()
 
   queryString: ->
     "?order_token=#{@order.get('token')}"
-
-  toJSON: ->
-    line_item: super()
 
   increaseQuantity: (quantity) ->
     quantity = parseInt(quantity)
@@ -22,12 +20,17 @@ class Store.models.LineItems extends Backbone.Collection
     @order = options.order
     super(models, options)
 
+  create: (item, options = {}) ->
+    _.extend(options, {order: @order})
+    super(item, options)
+
   add: (items, options = {}) ->
     _.extend(options, {order: @order})
     items = [items] unless items.length
     for item in items
-      if existingItem = @getItemByVariantId(item.variant_id)
-        existingItem.increaseQuantity(item.quantity)
+      item = new Store.models.LineItem(item, order: @order) unless item.get?
+      if existingItem = @getItemByVariantId(item.get('variant_id'))
+        existingItem.save({ quantity: item.get('quantity') }, wait: true)
       else
         super(item, options)
 
@@ -38,4 +41,4 @@ class Store.models.LineItems extends Backbone.Collection
     @order.url() + '/line_items'
 
   getItemByVariantId: (variantId) ->
-    @find (item) -> item.get('variant').id == variantId
+    @find (item) -> item.get('variant_id') == variantId

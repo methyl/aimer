@@ -1,7 +1,22 @@
 class Store.models.Product extends Backbone.Model
+  isInCart: ->
+    !! @getLineItem()
 
-class Store.models.Products extends Backbone.Model
+  getLineItem: ->
+    Store.currentOrder.getLineItems().getItemByVariantId(@get('variants')[0].id)
+
+class Store.models.Products extends Backbone.Collection
+  model: Store.models.Product
   url: '/api/products'
+
+  comparator: 'name'
+
+  constructor: (attributes, options = {}) ->
+    options.parse = true unless options.parse?
+    super(attributes, options)
+
+  parse: (response) ->
+    response.products
 
   # constructor: (models, options) ->
   #   @order = options.order

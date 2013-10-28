@@ -1,21 +1,2 @@
-<h1>Koszyk</h1>
-  {{#each items}}
-    {{#with line_item}}
-      Nazwa: {{variant.name}}
-      Ilość: {{quantity}}
-    {{/with}}
-  {{/each}}
-
-<h1>Produkty</h1>
-<ul>
-  {{#each products}}
-    {{#each variants}}
-      <li data-id="{{id}}">
-        Nazwa: {{name}}
-        Cena: {{price}}
-        <a href="#">Dodaj</a>
-        <input name="quantity" />
-      </li>
-    {{/each}}
-  {{/each}}
-</ul>
+<div data-subview="products"></div>
+<div data-subview="cart"></div>

@@ -10,6 +10,7 @@
 
 window.Store = {}
 window.Store.models = {}
+window.Store.presenters = {}
 window.Store.views = {}
 
 class Store.Application

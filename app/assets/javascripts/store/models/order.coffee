@@ -11,7 +11,8 @@ class Store.models.Order extends Backbone.Model
 
   parse: (args...) ->
     attrs = super(args...)
-    attrs.line_items = new Store.models.LineItems(attrs.line_items, order: @)
+    if attrs.line_items?
+      attrs.line_items = new Store.models.LineItems((if attrs.line_items.length > 0 then attrs.line_items else null), order: @)
     attrs
 
   toJSON: ->
@@ -36,6 +37,16 @@ class Store.models.Order extends Backbone.Model
 
   addLineItem: (item) ->
     @getLineItems().add(item)[0].save()
+
+  addProduct: (product, quantity = 1) ->
+    @addLineItem({ variant_id: product.get('variants')[0].id, quantity: quantity })
+      .then(=> @fetch())
+      .done(=> product.trigger('add-to-cart'))
+
+  removeProduct: (product) ->
+    @getLineItems().getItemByVariantId(product.get('variants')[0].id).destroy(wait: true)
+      .then(=> @fetch())
+      .done(=> product.trigger('remove-from-cart'))
 
   # private
 

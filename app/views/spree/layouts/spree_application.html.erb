@@ -5,30 +5,11 @@
 <!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
 <!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
   <head data-hook="inside_head">
+    <%= stylesheet_link_tag 'store/application' %>
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
 
-    <div class="container">
-
-
-      <div id="wrapper" class="row" data-hook>
-
-        <%= breadcrumbs(@taxon) %>
-
-
-        <div id="content" class="columns <%= !content_for?(:sidebar) ? "sixteen" : "twelve" %>" data-hook>
-          <%= flash_messages %>
-          <%= yield %>
-        </div>
-
-        <%= yield :templates %>
-
-      </div>
-
-
-    </div>
-
-    <%= javascript_include_tag :store %>
+    <%= yield %>
 
     <script>
       var Spree = {};

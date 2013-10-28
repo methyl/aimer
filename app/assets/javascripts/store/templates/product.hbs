@@ -1,0 +1,13 @@
+{{#if lineItem}}
+  {{#with lineItem}}
+    <div class="pictures pictures-{{quantity}}"></div>
+    <strong>{{variant.name}}</strong> <br />
+    {{display_amount}}
+    <div class="slider" data-value="{{quantity}}" data-id="{{id}}"></div>
+  {{/with}}
+{{else}}
+  {{#with product}}
+    <strong>{{name}}</strong> <br />
+    {{display_price}}
+  {{/with}}
+{{/if}}

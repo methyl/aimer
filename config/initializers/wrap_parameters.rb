@@ -12,3 +12,15 @@ end
 ActiveSupport.on_load(:active_record) do
   self.include_root_in_json = false
 end
+
+require_dependency 'spree/api/controller_setup'
+
+module Spree
+  module Api
+    class BaseController < ActionController::Metal
+      include ActionController::ParamsWrapper
+
+      wrap_parameters format: :json
+    end
+  end
+end

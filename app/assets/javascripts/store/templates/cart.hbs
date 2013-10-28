@@ -1,0 +1,11 @@
+<ul class="cart">
+  {{#each lineItems}}
+    <li>
+      <strong>{{variant.name}}</strong>
+       -
+      {{display_amount}}
+    </li>
+  {{/each}}
+</ul>
+
+<strong>Suma: </strong> {{order.display_item_total}}

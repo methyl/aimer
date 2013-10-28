@@ -1,3 +1,4 @@
+#= require jquery.ui.slider
 #= require lib/underscore
 #= require lib/backbone
 #= require lib/backbone-ext
