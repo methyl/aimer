@@ -24,4 +24,9 @@ $ ->
   app.run()
   home = new Store.views.Home
 
-  $('body').append(home.render().$el)
+  # quick fix, to be removed
+  if Store.currentOrder.isNew()
+    Store.currentOrder.save().then =>
+      $('body').append(home.render().$el)
+  else
+    $('body').append(home.render().$el)
