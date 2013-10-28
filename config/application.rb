@@ -77,6 +77,6 @@ module Aimer
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += ['store.js', 'store/application.css']
+    config.assets.precompile += ['store.js', 'store.css']
   end
 end
