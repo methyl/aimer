@@ -12,7 +12,6 @@ div.products {
       border-radius: 5px;
       margin: 5px;
       text-align: center;
-      // background: #9e796d url('/assets/dum-dum.jpg') no-repeat center 10px;
       color: #fff;
       box-sizing: border-box;
       color: #2d1d1a;
@@ -70,7 +69,7 @@ div.products {
 
       @for $i from 1 through 4 {
         .pictures-#{$i} {
-          background-image: url("/assets/dum-dum/#{$i}.png");
+          background-image: url(asset-path("dum-dum/#{$i}.png"));
         }
       }
     }
