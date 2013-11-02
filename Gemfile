@@ -48,5 +48,5 @@ gem 'handlebars_assets'
 # To use debugger
 # gem 'debugger'
 
-gem 'spree', :github => "spree/spree", :require => false
+gem 'spree', :github => "methyl/spree", :require => false
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise'

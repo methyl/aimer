@@ -11,23 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130914084796) do
-
-  create_table "spree_activators", force: true do |t|
-    t.string   "description"
-    t.datetime "expires_at"
-    t.datetime "starts_at"
-    t.string   "name"
-    t.string   "event_name"
-    t.string   "type"
-    t.integer  "usage_limit"
-    t.string   "match_policy", default: "all"
-    t.string   "code"
-    t.boolean  "advertise",    default: false
-    t.string   "path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20131102092383) do
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -54,8 +38,6 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.string   "source_type"
     t.integer  "adjustable_id"
     t.string   "adjustable_type"
-    t.integer  "originator_id"
-    t.string   "originator_type"
     t.decimal  "amount",          precision: 10, scale: 2
     t.string   "label"
     t.boolean  "mandatory"
@@ -63,6 +45,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+    t.integer  "order_id"
   end
 
   add_index "spree_adjustments", ["adjustable_id"], name: "index_adjustments_on_order_id"
@@ -102,12 +85,13 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   add_index "spree_configurations", ["name", "type"], name: "index_spree_configurations_on_name_and_type"
 
   create_table "spree_countries", force: true do |t|
-    t.string  "iso_name"
-    t.string  "iso"
-    t.string  "iso3"
-    t.string  "name"
-    t.integer "numcode"
-    t.boolean "states_required", default: true
+    t.string   "iso_name"
+    t.string   "iso"
+    t.string   "iso3"
+    t.string   "name"
+    t.integer  "numcode"
+    t.boolean  "states_required", default: false
+    t.datetime "updated_at"
   end
 
   create_table "spree_credit_cards", force: true do |t|
@@ -117,9 +101,6 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.string   "last_digits"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "start_month"
-    t.string   "start_year"
-    t.string   "issue_number"
     t.integer  "address_id"
     t.string   "gateway_customer_profile_id"
     t.string   "gateway_payment_profile_id"
@@ -157,13 +138,16 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                null: false
-    t.decimal  "price",           precision: 8, scale: 2, null: false
+    t.integer  "quantity",                                                null: false
+    t.decimal  "price",            precision: 8,  scale: 2,               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
-    t.decimal  "cost_price",      precision: 8, scale: 2
+    t.decimal  "cost_price",       precision: 8,  scale: 2
     t.integer  "tax_category_id"
+    t.decimal  "adjustment_total", precision: 10, scale: 2, default: 0.0
+    t.decimal  "tax_total",        precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",      precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id"
@@ -173,13 +157,6 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.integer  "source_id"
     t.string   "source_type"
     t.text     "details"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "spree_mail_methods", force: true do |t|
-    t.string   "environment"
-    t.boolean  "active",      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -220,7 +197,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   add_index "spree_option_values_variants", ["variant_id"], name: "index_spree_option_values_variants_on_variant_id"
 
   create_table "spree_orders", force: true do |t|
-    t.string   "number",               limit: 15
+    t.string   "number",               limit: 32
     t.decimal  "item_total",                      precision: 10, scale: 2, default: 0.0, null: false
     t.decimal  "total",                           precision: 10, scale: 2, default: 0.0, null: false
     t.string   "state"
@@ -240,10 +217,14 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.string   "currency"
     t.string   "last_ip_address"
     t.integer  "created_by_id"
+    t.decimal  "shipment_total",                  precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "tax_total",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",                     precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_orders", ["completed_at"], name: "index_spree_orders_on_completed_at"
   add_index "spree_orders", ["number"], name: "index_spree_orders_on_number"
+  add_index "spree_orders", ["user_id"], name: "index_spree_orders_on_user_id"
 
   create_table "spree_payment_methods", force: true do |t|
     t.string   "type"
@@ -365,6 +346,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   add_index "spree_promotion_rules", ["product_group_id"], name: "index_promotion_rules_on_product_group_id"
@@ -377,6 +359,21 @@ ActiveRecord::Schema.define(version: 20130914084796) do
 
   add_index "spree_promotion_rules_users", ["promotion_rule_id"], name: "index_promotion_rules_users_on_promotion_rule_id"
   add_index "spree_promotion_rules_users", ["user_id"], name: "index_promotion_rules_users_on_user_id"
+
+  create_table "spree_promotions", force: true do |t|
+    t.string   "description"
+    t.datetime "expires_at"
+    t.datetime "starts_at"
+    t.string   "name"
+    t.string   "type"
+    t.integer  "usage_limit"
+    t.string   "match_policy", default: "all"
+    t.string   "code"
+    t.boolean  "advertise",    default: false
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "spree_properties", force: true do |t|
     t.string   "name"
@@ -422,7 +419,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   create_table "spree_shipments", force: true do |t|
     t.string   "tracking"
     t.string   "number"
-    t.decimal  "cost",              precision: 8, scale: 2
+    t.decimal  "cost",              precision: 8,  scale: 2
     t.datetime "shipped_at"
     t.integer  "order_id"
     t.integer  "address_id"
@@ -430,6 +427,9 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "stock_location_id"
+    t.decimal  "adjustment_total",  precision: 10, scale: 2, default: 0.0
+    t.decimal  "tax_total",         precision: 10, scale: 2, default: 0.0
+    t.decimal  "promo_total",       precision: 10, scale: 2, default: 0.0
   end
 
   add_index "spree_shipments", ["number"], name: "index_shipments_on_number"
@@ -458,6 +458,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tracking_url"
+    t.string   "admin_name"
   end
 
   create_table "spree_shipping_methods_zones", id: false, force: true do |t|
@@ -499,9 +500,10 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   end
 
   create_table "spree_states", force: true do |t|
-    t.string  "name"
-    t.string  "abbr"
-    t.integer "country_id"
+    t.string   "name"
+    t.string   "abbr"
+    t.integer  "country_id"
+    t.datetime "updated_at"
   end
 
   create_table "spree_stock_items", force: true do |t|
@@ -511,6 +513,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "backorderable",     default: false
+    t.datetime "deleted_at"
   end
 
   add_index "spree_stock_items", ["stock_location_id", "variant_id"], name: "stock_item_by_loc_and_var_id"
@@ -531,6 +534,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.boolean  "active",                 default: true
     t.boolean  "backorderable_default",  default: false
     t.boolean  "propagate_all_variants", default: true
+    t.string   "admin_name"
   end
 
   create_table "spree_stock_movements", force: true do |t|
@@ -605,6 +609,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
     t.string   "meta_title"
     t.string   "meta_description"
     t.string   "meta_keywords"
+    t.integer  "depth"
   end
 
   add_index "spree_taxons", ["parent_id"], name: "index_taxons_on_parent_id"
@@ -658,6 +663,7 @@ ActiveRecord::Schema.define(version: 20130914084796) do
   end
 
   add_index "spree_users", ["email"], name: "email_idx_unique", unique: true
+  add_index "spree_users", ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
 
   create_table "spree_variants", force: true do |t|
     t.string   "sku",                                   default: "",    null: false
