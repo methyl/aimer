@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/methyl/spree.git
-  revision: bbb575509f7b9e587990152260abe1ea0cc3498f
+  revision: cbd09ec917279a0d4579daaf9d500a3d7b4b357e
   specs:
     spree (2.2.0.beta)
       spree_api (= 2.2.0.beta)
