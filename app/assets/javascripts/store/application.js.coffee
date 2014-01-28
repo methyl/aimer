@@ -49,12 +49,17 @@ class Store.Application
 
   start: ->
     @router.start()
+    @enableRoutedLinks()
 
   setupAjax: =>
     $.ajaxSetup
       headers:
         'X-Spree-Order-Token': @order.get('token')
 
+  enableRoutedLinks: ->
+    $('body').on 'click', 'a[data-route]', (e) =>
+      e.preventDefault()
+      @router.navigate($(e.currentTarget).attr('href'), trigger: true)
 $ ->
   app = new Store.Application
   app.prepare().then(=> app.order.fetch()).done =>

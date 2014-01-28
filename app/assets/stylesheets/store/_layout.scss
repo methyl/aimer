@@ -1,0 +1,39 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+
+body {
+  background: asset-data-url('content-bg.png');
+  font-family: 'Roboto Slab', sans-serif;
+  color: #fff;
+  font-size: 16px;
+
+  > header {
+    background: asset-data-url('header-bg.jpg');
+    height: 608px;
+
+    .top {
+      height: 62px;
+      line-height: 62px;
+    }
+
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+
+      h1 {
+        margin: 0;
+        padding: 0;
+        a {
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+
+#content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}

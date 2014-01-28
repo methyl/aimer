@@ -8,15 +8,16 @@ class Store.views.Products extends Backbone.View
   constructor: (@order) ->
     super(arguments)
     @products = new Store.models.Products
+
+    @order.on 'change', @render
     @load()
 
   render: =>
-    @$el.html(@template())
+    @$el.html(@template(new Store.presenters.Products(@order).toJSON()))
     @addProduct(product) for product in @products.models
     @
 
   load: ->
-    console.log 'hai'
     $.when(@products.fetch()).then(@render)
 
   # private

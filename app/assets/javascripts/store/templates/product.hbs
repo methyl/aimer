@@ -1,13 +1,12 @@
-{{#if lineItem}}
-  {{#with lineItem}}
-    <strong>{{variant.name}}</strong> <br />
-    Suma: {{display_amount}}
-    <div class="slider" data-value="{{quantity}}" data-id="{{id}}"></div>
-  {{/with}}
-{{else}}
-  {{#with product}}
-    <strong>{{name}}</strong> <br />
-    Cena: {{display_price}}
-    <div class="slider" data-value="{{quantity}}" data-id="{{id}}"></div>
-  {{/with}}
-{{/if}}
+<span class="price">
+  {{round_pln_price}}
+</span>
+
+<span class="weight">
+  {{weight}}
+  <span class="pcs">{{pcs}}</span>
+</span>
+
+<div class="slider" data-value="{{quantity}}" data-id="{{id}}"></div>
+
+<input name="quantity" class="quantity" value="{{quantity}}" />

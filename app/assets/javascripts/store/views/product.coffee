@@ -6,6 +6,10 @@ class Store.views.Product extends Backbone.View
     'class': 'product'
     'data-id': @product.get('id')
 
+  events:
+    'keyup input[name=quantity]': 'handleQuantityKeyup'
+    'click input[name=quantity]': 'handleQuantityClick'
+
   constructor: (@product, @order) ->
     super(arguments)
     @listenTo @order, 'change', @render
@@ -14,8 +18,7 @@ class Store.views.Product extends Backbone.View
 
   render: (item) =>
     @$el.html(@template(
-      product: @product.toJSON()
-      lineItem: @getLineItem()?.toJSON()
+      new Store.presenters.Product(@getLineItem() || @product).toJSON()
     ))
     @initializeSlider()
     @
@@ -28,14 +31,24 @@ class Store.views.Product extends Backbone.View
   initializeSlider: ->
     @$('.slider').slider
       min: 0
-      max: 4
+      max: 5
       value: @getLineItem()?.get('quantity') || 0
       stop: (e, ui) =>
-        if ui.value > 0
-          if @order.hasProduct(@product)
-            @getLineItem().save({ quantity: ui.value }, wait: true)
-          else
-            @order.addProduct(@product, quantity: ui.value)
-        else
-          @order.removeProduct(@product)
+        @$('input[name=quantity]').val(ui.value)
+        @setQuantity(ui.value)
 
+  setQuantity: (quantity) ->
+    qunatity = parseInt(quantity, 10)
+    if quantity > 0
+      if @order.hasProduct(@product)
+        @getLineItem().save({ quantity: quantity }, wait: true)
+      else
+        @order.addProduct(@product, quantity: quantity)
+    else
+      @order.removeProduct(@product)
+
+  handleQuantityKeyup: (e) =>
+    @setQuantity($(e.currentTarget).val())
+
+  handleQuantityClick: (e) =>
+    $(e.currentTarget).select()
