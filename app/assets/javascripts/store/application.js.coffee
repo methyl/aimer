@@ -13,20 +13,49 @@ window.Store.models = {}
 window.Store.presenters = {}
 window.Store.views = {}
 
+class Store.Router extends Backbone.Router
+  routes:
+    '': 'products'
+    'checkout': 'checkout'
+
+  constructor: (@app) ->
+    super(arguments)
+
+  start: ->
+    Backbone.history.start()
+
+  products: ->
+    @products = new Store.views.Products(@app.order)
+    @showView(@products)
+
+  checkout: ->
+    @checkout = new Store.views.Checkout(@app.order)
+    @showView(@checkout)
+
+  showView: (view) ->
+    $('#content').html(view.render().$el)
+
 class Store.Application
   constructor: ->
+    @order = new Store.models.Order
+    @router = new Store.Router(@)
 
-  run: ->
-    Store.currentOrder = new Store.models.Order
+  prepare: ->
+    if @order.isNew()
+      @order.save().then(@setupAjax)
+    else
+      @setupAjax()
+      new $.Deferred().resolve()
+
+  start: ->
+    @router.start()
+
+  setupAjax: =>
+    $.ajaxSetup
+      headers:
+        'X-Spree-Order-Token': @order.get('token')
 
 $ ->
   app = new Store.Application
-  app.run()
-  home = new Store.views.Home
-
-  # quick fix, to be removed
-  if Store.currentOrder.isNew()
-    Store.currentOrder.save().then =>
-      $('body').append(home.render().$el)
-  else
-    $('body').append(home.render().$el)
+  app.prepare().then(=> app.order.fetch()).done =>
+    app.start()

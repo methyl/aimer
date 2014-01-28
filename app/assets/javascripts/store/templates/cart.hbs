@@ -1,11 +1,14 @@
-<ul class="cart">
-  {{#each lineItems}}
-    <li>
-      <strong>{{variant.name}}</strong>
-       -
-      {{display_amount}}
-    </li>
-  {{/each}}
-</ul>
+<h1>Podsumowanie koszyka</h1>
 
-<strong>Suma: </strong> {{order.display_total}}
+<h1>Zaloguj się</h1>
+<form class="login">
+  <input type="text" name="login" />
+  <input type="password" name="password" />
+  <button>Zaloguj się</button>
+</form>
+
+<h1>Lub wprowadź email i kup bez rejestracji</h1>
+<form class="without-account">
+  <input type="email" name="email" />
+  <button>Kup bez rejestracji</button>
+</form>

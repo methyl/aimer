@@ -10,7 +10,24 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
 
+    <header>
+      <div class="top">
+      <h1><a href="/">Aimer</a></h1>
+      </div>
+
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#checkout">Zamów</a></li>
+      </ul>
+    </header>
+
+    <div id="content">
+    </div>
     <%= yield %>
+
+    <footer>
+
+    </footer>
 
     <script>
       var Spree = {};

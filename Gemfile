@@ -4,7 +4,7 @@ gem 'rails', '4.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'pry'
 
 
 # Gems used only for assets and not required
@@ -48,5 +48,6 @@ gem 'handlebars_assets'
 # To use debugger
 # gem 'debugger'
 
-gem 'spree', :github => "methyl/spree", :require => false
+# gem 'spree', :github => "spree/spree", :require => false
+gem 'spree', :path => "/Users/lucek/workspace/spree", :require => false
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise'

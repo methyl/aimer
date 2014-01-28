@@ -5,73 +5,7 @@ div.products {
     height: 350px;
 
     li {
-      cursor: pointer;
-      width: 198px;
-      height: 330px;
-      border: 1px solid #2d1d1a;
-      border-radius: 5px;
-      margin: 5px;
-      text-align: center;
-      color: #fff;
-      box-sizing: border-box;
-      color: #2d1d1a;
-      float: left;
-      position: relative;
-      -webkit-transition-property: scale opacity;
-      -webkit-transition-duration: 500ms;
-      opacity: 0.7;
-      -webkit-transform: scale(0.7);
-
-      &.line-item {
-        opacity: 1;
-        -webkit-transform: scale(1);
-      }
-
-      &.product:hover {
-        opacity: 1;
-
-        &:before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(black, 0.3)
-        }
-
-        &:after {
-          content: '+';
-          position: absolute;
-          width: 80px;
-          height: 80px;
-          line-height: 80px;
-          font-size: 58px;
-          font-weight: bold;
-          text-align: center;
-          border: 1px solid #fff;
-          background: rgba(#000, 0.5);
-          color: #0f0;
-          top: 50%;
-          left: 50%;
-          margin-top: -40px;
-          margin-left: -40px;
-          border-radius: 5px;
-        }
-      }
-
-      .pictures {
-        width: 150px;
-        height: 250px;
-        background: no-repeat center;
-        margin: 0 auto;
-      }
-
-      @for $i from 1 through 4 {
-        .pictures-#{$i} {
-          background-image: url(asset-path("dum-dum/#{$i}.png"));
-        }
-      }
+      width: 250px;
     }
   }
 }

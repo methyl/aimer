@@ -1,0 +1,11 @@
+<h1>Sposób płatności</h1>
+
+<form class="payment">
+  <ul>
+    {{#each paymentMethods}}
+      <li>
+        <input type="radio" name="payment_method_id" value="{{id}}">{{name}}
+      </li>
+    {{/each}}
+  </ul>
+</form>

@@ -6,9 +6,8 @@ class Store.views.Product extends Backbone.View
     'class': 'product'
     'data-id': @product.get('id')
 
-  constructor: (@product) ->
+  constructor: (@product, @order) ->
     super(arguments)
-    @order = Store.currentOrder
     @listenTo @order, 'change', @render
     @listenTo @product, 'add-to-cart', @render
     @listenTo @product, 'remove-from-cart', @onRemoveFromCart
@@ -16,30 +15,27 @@ class Store.views.Product extends Backbone.View
   render: (item) =>
     @$el.html(@template(
       product: @product.toJSON()
-      lineItem: @product.getLineItem()?.toJSON()
+      lineItem: @getLineItem()?.toJSON()
     ))
-    if @product.isInCart()
-      @onAddToCart()
+    @initializeSlider()
     @
 
   # private
 
-  onAddToCart: ->
-    @initializeSlider()
-    @$el.removeClass('product').addClass('line-item')
-    @listenTo @product.getLineItem(), 'change', @render
-
-  onRemoveFromCart: ->
-    @$el.addClass('product').removeClass('line-item')
-    @render()
+  getLineItem: ->
+    @order.getLineItemForProduct(@product)
 
   initializeSlider: ->
     @$('.slider').slider
-      min: 1
+      min: 0
       max: 4
-      value: @product.getLineItem().get('quantity')
-      slide: (e, ui) =>
-        @$('div.pictures').removeClass((i, klass) -> klass.match(/pictures-\d/)[0]).addClass("pictures-#{ui.value}")
+      value: @getLineItem()?.get('quantity') || 0
       stop: (e, ui) =>
-        @product.getLineItem().save({ quantity: ui.value }, wait: true)
+        if ui.value > 0
+          if @order.hasProduct(@product)
+            @getLineItem().save({ quantity: ui.value }, wait: true)
+          else
+            @order.addProduct(@product, quantity: ui.value)
+        else
+          @order.removeProduct(@product)
 

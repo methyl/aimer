@@ -11,6 +11,9 @@ Spree.config do |config|
   # Example:
   # Uncomment to override the default site name.
   # config.site_name = "Spree Demo Site"
+  config.address_requires_state = false
 end
+
+Spree::Api::Config.requires_authentication = false
 
 Spree.user_class = "Spree::User"

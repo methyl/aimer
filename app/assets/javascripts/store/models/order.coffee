@@ -18,7 +18,8 @@ class Store.models.Order extends Backbone.Model
   toJSON: ->
     json = super()
     json.line_items = json.line_items.toJSON() if json.line_items?
-    json
+    json = _.omit(json, 'token')
+    { order: json } unless _.isEmpty(json)
 
   save: ->
     super(arguments).done(@saveToLocalStorage)
@@ -38,8 +39,8 @@ class Store.models.Order extends Backbone.Model
   addLineItem: (item) ->
     @getLineItems().add(item)[0].save()
 
-  addProduct: (product, quantity = 1) ->
-    @addLineItem({ variant_id: product.get('variants')[0].id, quantity: quantity })
+  addProduct: (product, options = {}) ->
+    @addLineItem({ variant_id: product.get('variants')[0].id, quantity: options.quantity || 1 })
       .then(=> @fetch())
       .done(=> product.trigger('add-to-cart'))
 
@@ -47,6 +48,16 @@ class Store.models.Order extends Backbone.Model
     @getLineItems().getItemByVariantId(product.get('variants')[0].id).destroy(wait: true)
       .then(=> @fetch())
       .done(=> product.trigger('remove-from-cart'))
+
+  getLineItemForProduct: (product) ->
+    @getLineItems()?.getItemByVariantId(product.get('variants')[0]?.id)
+
+  hasProduct: (product) ->
+    !! @getLineItemForProduct(product)
+
+  clearLocalStorage: ->
+    localStorage.removeItem('AimerStoreOrderNumber')
+    localStorage.removeItem('AimerStoreOrderToken')
 
   # private
 

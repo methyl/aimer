@@ -2,9 +2,11 @@ class Store.views.Cart extends Backbone.View
   template: HandlebarsTemplates['store/templates/cart']
   className: 'cart'
 
-  constructor: ->
+  events:
+    'click .without-account button': 'handleWithoutLoginClick'
+
+  constructor: (@order) ->
     super(arguments)
-    @order = Store.currentOrder
     @listenTo @order, 'change', @render
 
     @load()
@@ -17,3 +19,8 @@ class Store.views.Cart extends Backbone.View
 
   load: =>
     @order.load().done(@render)
+
+  handleWithoutLoginClick: (e) ->
+    e.preventDefault()
+    email = @$('form.without-account [name=email]').val()
+    @trigger('click:process-without-account', email)

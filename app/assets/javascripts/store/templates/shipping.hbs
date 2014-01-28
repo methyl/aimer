@@ -1,0 +1,11 @@
+<h1>Sposób wysyłki</h1>
+
+<form class="shipping">
+  <ul>
+    {{#each shippingRates}}
+      <li>
+        <input type="radio" name="shipping_rate_id" value="{{id}}">{{name}}: {{display_cost}}
+      </li>
+    {{/each}}
+  </ul>
+</form>

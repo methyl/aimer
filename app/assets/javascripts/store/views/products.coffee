@@ -5,12 +5,8 @@ class Store.views.Products extends Backbone.View
   events:
     'click ul.products [data-id]': 'handleProductClick'
 
-  ITEM_MARGIN = 10
-  ANIMATION_DURATION = 500
-
-  constructor: ->
+  constructor: (@order) ->
     super(arguments)
-    @order = Store.currentOrder
     @products = new Store.models.Products
     @load()
 
@@ -20,25 +16,11 @@ class Store.views.Products extends Backbone.View
     @
 
   load: ->
-    $.when(@order.fetch(), @products.fetch()).then(@render)
+    console.log 'hai'
+    $.when(@products.fetch()).then(@render)
 
   # private
 
   addProduct: (product) =>
-    view = new Store.views.Product(product)
+    view = new Store.views.Product(product, @order)
     view.render().$el.appendTo(@$('ul.products'))
-
-  handleProductClick: (e) =>
-    e.preventDefault()
-    el = $(e.currentTarget)
-    product = @products.get(el.data('id'))
-    if product.isInCart()
-      @removeFromCart(product)
-    else
-      @addToCart(product)
-
-  addToCart: (product) =>
-    @order.addProduct(product)
-
-  removeFromCart: (product) =>
-    @order.removeProduct(product)

@@ -16,7 +16,7 @@ class Store.views.LineItem extends Backbone.View
 
   initializeSlider: ->
     @$('.slider').slider
-      min: 1
+      min: 0
       max: 20
       value: @lineItem.get('quantity')
       slide: _.debounce (e, ui) =>
