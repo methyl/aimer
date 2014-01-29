@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131228174909) do
+ActiveRecord::Schema.define(version: 20140128230519) do
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131228174909) do
   end
 
   add_index "spree_adjustments", ["adjustable_id"], name: "index_adjustments_on_order_id"
+  add_index "spree_adjustments", ["source_type", "source_id"], name: "index_spree_adjustments_on_source_type_and_source_id"
 
   create_table "spree_assets", force: true do |t|
     t.integer  "viewable_id"
@@ -284,6 +285,8 @@ ActiveRecord::Schema.define(version: 20131228174909) do
     t.string  "currency"
   end
 
+  add_index "spree_prices", ["variant_id", "currency"], name: "index_spree_prices_on_variant_id_and_currency"
+
   create_table "spree_product_option_types", force: true do |t|
     t.integer  "position"
     t.integer  "product_id"
@@ -347,13 +350,13 @@ ActiveRecord::Schema.define(version: 20131228174909) do
   end
 
   create_table "spree_promotion_actions", force: true do |t|
-    t.integer "activator_id"
+    t.integer "promotion_id"
     t.integer "position"
     t.string  "type"
   end
 
   create_table "spree_promotion_rules", force: true do |t|
-    t.integer  "activator_id"
+    t.integer  "promotion_id"
     t.integer  "user_id"
     t.integer  "product_group_id"
     t.string   "type"
