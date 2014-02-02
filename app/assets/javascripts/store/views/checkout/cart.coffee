@@ -1,6 +1,6 @@
 class Store.views.Checkout.Cart extends Backbone.View
-  template: HandlebarsTemplates['store/templates/cart']
-  className: 'cart'
+  template: HandlebarsTemplates['store/templates/checkout/cart']
+  className: 'checkout-cart'
 
   events:
     'click .without-account button': 'handleWithoutLoginClick'

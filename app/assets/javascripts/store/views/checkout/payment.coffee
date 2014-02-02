@@ -1,6 +1,6 @@
 class Store.views.Checkout.Payment extends Backbone.View
-  template: HandlebarsTemplates['store/templates/payment']
-  className: 'payment'
+  template: HandlebarsTemplates['store/templates/checkout/payment']
+  className: 'checkout-payment'
 
   events:
     'click form.payment input[type=radio]': 'handlePaymentChange'

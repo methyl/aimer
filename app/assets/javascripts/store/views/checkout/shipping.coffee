@@ -1,6 +1,6 @@
 class Store.views.Checkout.Shipping extends Backbone.View
-  template: HandlebarsTemplates['store/templates/shipping']
-  className: 'shipping'
+  template: HandlebarsTemplates['store/templates/checkout/shipping']
+  className: 'checkout-shipping'
 
   events:
     'click form.shipping input[type=radio]': 'handleShipmentChange'

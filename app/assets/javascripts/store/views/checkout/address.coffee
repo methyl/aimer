@@ -1,6 +1,6 @@
 class Store.views.Checkout.Address extends Backbone.View
-  template: HandlebarsTemplates['store/templates/address']
-  className: 'address'
+  template: HandlebarsTemplates['store/templates/checkout/address']
+  className: 'checkout-address'
 
   constructor: (@order) ->
     super(arguments)
