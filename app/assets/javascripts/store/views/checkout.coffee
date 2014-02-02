@@ -60,21 +60,21 @@ class Store.views.Checkout extends Backbone.View
     @products ?= new Store.views.Products
 
   showCart: ->
-    @cart ?= new Store.views.Cart(@order)
+    @cart ?= new Store.views.Checkout.Cart(@order)
     @listenTo @cart, 'click:process-without-account', @processEmail
 
   showAddress: ->
-    @address ?= new Store.views.Address(@order)
+    @address ?= new Store.views.Checkout.Address(@order)
 
   showDelivery: ->
-    @delivery ?= new Store.views.Shipping(@order)
+    @delivery ?= new Store.views.Checkout.Shipping(@order)
     @listenTo @delivery, 'change:shipment', @processShipment
 
   showPayment: ->
-    @payment ?= new Store.views.Payment(@order)
+    @payment ?= new Store.views.Checkout.Payment(@order)
 
   showComplete: ->
-    @complete ?= new Store.views.Complete(@order)
+    @complete ?= new Store.views.Checkout.Complete(@order)
     @order.clearLocalStorage()
 
   processAddress: ->
