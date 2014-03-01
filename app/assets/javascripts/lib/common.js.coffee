@@ -1,4 +1,5 @@
 #= require jquery.ui.slider
+#= require lib/jquery.placeholder
 #= require lib/underscore
 #= require lib/backbone
 #= require lib/backbone-rails-sync

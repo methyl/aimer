@@ -4,6 +4,8 @@ class Store.models.Checkout extends Backbone.Model
   constructor: (attrs, options = {}) ->
     super(attrs, options)
     @order = options.order
+    @listenTo @order, 'change', =>
+      @attributes = @order.attributes
 
   advanceStep: =>
     @sync.call(@, 'put', @, {

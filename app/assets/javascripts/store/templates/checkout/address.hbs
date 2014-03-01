@@ -1,9 +1,13 @@
-<form>
-  Imię <input type="text" name="firstname" value="{{current_address.firstname}}" /> <br />
-  Nazwisko <input type="text" name="lastname" value="{{current_address.lastname}}" /> <br />
-  Ulica <input type="text" name="address1"  value="{{current_address.address1}}"/> <br />
-  Miejscowość <input type="text" name="city" value="{{current_address.city}}" /> <br />
-  Kod pocztowy <input type="text" name="zipcode" value="{{current_address.zipcode}}" /> <br />
-  Telefon <input type="text" name="phone" value="{{current_address.phone}}" /> <br />
+<header>Twoje dane:</header>
+
+<form class="aimer-form">
+  <input placeholder="Jan" type="text" name="firstname" value="{{current_address.firstname}}" />
+  <input placeholder="Kowalski" type="text" name="lastname" value="{{current_address.lastname}}" />
+  <input placeholder="Rynek 1" type="text" name="address1"  value="{{current_address.address1}}"/>
+  <div class="city">
+    <input placeholder="00-000" type="text" name="zipcode" value="{{current_address.zipcode}}" />
+    <input placeholder="Warszawa" type="text" name="city" value="{{current_address.city}}" />
+  </div>
+  <input placeholder="512-000-000" type="text" name="phone" value="{{current_address.phone}}" />
   <input type="hidden" name="country_id" value="1" />
 </form>

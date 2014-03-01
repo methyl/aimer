@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,latin-ext);
 
 body {
   background: asset-data-url('content-bg.png');
@@ -16,7 +16,7 @@ body {
     }
 
     .content {
-      max-width: 1000px;
+      width: 950px;
       margin: 0 auto;
 
       h1 {
@@ -31,9 +31,9 @@ body {
   }
 }
 
-
 #content {
-  max-width: 1000px;
+  width: 950px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
+  min-height: 600px;
 }

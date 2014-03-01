@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Produkt</th>
+      <th>Ilość</th>
+      <th>Kwota</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each order.line_items}}
+      <tr>
+        <td class="number"></td>
+        <td class="name">{{weight}} <em>({{pcs}})</em></td>
+        <td class="quantity">{{quantity}}</td>
+        <td class="price">{{total_pln_price}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<div class="summary">
+  do zapłaty: <strong>{{order.total}}</strong>
+</div>

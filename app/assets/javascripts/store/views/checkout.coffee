@@ -5,6 +5,9 @@ class Store.views.Checkout extends Backbone.View
 
   events:
     'click .next-step': 'advanceStep'
+    'click [data-step]': 'showStep'
+
+  steps: ['cart', 'address', 'delivery', 'payment', 'complete']
 
   ITEM_MARGIN = 10
   ANIMATION_DURATION = 500
@@ -12,13 +15,15 @@ class Store.views.Checkout extends Backbone.View
   constructor: (@order) ->
     super(arguments)
     @checkout = new Store.models.Checkout({}, order: @order)
-    @products = new Store.views.Products(@order)
+    @cartPartial = new Store.views.Cart(order: @order)
+    @currentStep = @steps[0]
     @load()
 
   render: =>
     if @checkout.isLoaded()
       @$el.html(@template())
       @showCurrentView()
+      @assignSubview(@cartPartial, '[data-subview=cart]')
     @
 
   load: ->
@@ -26,42 +31,68 @@ class Store.views.Checkout extends Backbone.View
 
   # private
 
+  isStepAvailable: (step) ->
+    @steps.indexOf(step) <= @steps.indexOf(@checkout.get('state'))
+
   updateCurrentStep: ->
-    @currentStep = @checkout.get('state')
+    @$("[data-step]").removeClass('current')
+    @$("[data-step=#{@getCurrentStep()}]").addClass('current')
+
+  updateAvailableSteps: ->
+    @$("[data-step]").removeClass('available')
+    for step in @steps
+      @$("[data-step=#{step}]").addClass('available') if @isStepAvailable(step)
+
+  showStep: (e) ->
+    e.preventDefault()
+    step = $(e.currentTarget).data('step')
+    @setCurrentStep(step)
+
+  setCurrentStep: (step) ->
+    return unless @isStepAvailable(step)
+    @currentStep = step
+    @showCurrentView()
 
   getCurrentStep: ->
-    @currentStep ?= @checkout.get('state')
+    @currentStep
+    # @step || @checkout.get('state')
+
+  getNextStep: ->
+    @steps[@steps.indexOf(@getCurrentStep()) + 1]
 
   showCurrentView: =>
-    @updateCurrentStep()
     switch @getCurrentStep()
       when 'cart'     then @showCart()
       when 'address'  then @showAddress()
       when 'delivery' then @showDelivery()
       when 'payment'  then @showPayment()
       when 'complete' then @showComplete()
+    @updateCurrentStep()
+    @updateAvailableSteps()
     @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
 
   advanceStep: (e) =>
-    e.preventDefault?()
-    switch @getCurrentStep()
+    e?.preventDefault?()
+    promise = switch @getCurrentStep()
+      when 'cart'
+        @processEmail()
       when 'address'
-        @processAddress().then(@showCurrentView)
+        @processAddress()
       when 'delivery'
-        @processShipment().then(@showCurrentView)
+        @processShipment()
       when 'payment'
-        @processPayment().then(@showCurrentView)
+        @processPayment()
       when 'complete'
         window.location.hash = ''
         window.location.reload()
-      else @showCurrentView()
-
-  showProducts: ->
-    @products ?= new Store.views.Products
+        dfr = new $.Deferred; dfr.resolve(); dfr
+      else dfr = new $.Deferred; dfr.resolve(); dfr
+    promise.then =>
+      @setCurrentStep(@getNextStep())
 
   showCart: ->
     @cart ?= new Store.views.Checkout.Cart(@order)
-    @listenTo @cart, 'click:process-without-account', @processEmail
+    @listenTo @cart, 'click:process-without-account', @advanceStep
 
   showAddress: ->
     @address ?= new Store.views.Checkout.Address(@order)
@@ -83,8 +114,8 @@ class Store.views.Checkout extends Backbone.View
   processShipment: ->
     @checkout.updateShipment(@delivery.getShipment())
 
-  processEmail: (email) ->
-    @checkout.updateEmail(email).then(@showCurrentView)
+  processEmail: ->
+    @checkout.updateEmail(@cart.getEmail())
 
   processPayment: ->
     @checkout.updatePayment(@payment.getPayment())

@@ -25,12 +25,17 @@ class Store.Router extends Backbone.Router
     Backbone.history.start()
 
   products: ->
-    @products = new Store.views.Products(@app.order)
-    @showView(@products)
+    @app.order.load().done =>
+      @products = new Store.views.Products(@app.order)
+      @showView(@products)
 
   checkout: ->
-    @checkout = new Store.views.Checkout(@app.order)
-    @showView(@checkout)
+    @app.order.load().done =>
+      if @app.order.get('step') == 'products' || @app.order.get('line_items').length == 0
+        @navigate('/', trigger: true)
+      else
+        @checkout = new Store.views.Checkout(@app.order)
+        @showView(@checkout)
 
   showView: (view) ->
     $('#content').html(view.render().$el)

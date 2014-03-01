@@ -13,7 +13,7 @@ class Store.views.Products extends Backbone.View
     @load()
 
   render: =>
-    @$el.html(@template(new Store.presenters.Products(@order).toJSON()))
+    @$el.html(@template(new Store.presenters.Order(@order).toJSON()))
     @addProduct(product) for product in @products.models
     @
 

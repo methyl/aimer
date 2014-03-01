@@ -1,10 +1,47 @@
-body {
-  font-family: sans-serif;
-}
-
 .checkout {
-  max-width: 1200px;
-  margin: 0 auto;
   position: relative;
-  padding: 20px;
+  padding-top: 35px;
+
+  .steps {
+    height: 35px;
+    margin-bottom: 35px;
+
+    ul {
+      list-style: none;
+
+      li {
+        display: inline-block;
+
+        a {
+          padding: 10px;
+          display: inline-block;
+          color: #d7c9b8;
+          font-weight: bold;
+          text-decoration: none;
+
+          &.available {
+            color: #6d4d2c;
+          }
+
+          &.current {
+            color: #fff;
+            text-decoration: underline;
+          }
+        }
+      } // li
+    } // ul
+  } // .steps
+
+  .content {
+    float: left;
+  }
+
+  .cart {
+    width: 500px;
+    float: right;
+  }
+
+  > .next {
+    clear: both;
+  }
 }

@@ -4,7 +4,10 @@ class Store.views.Cart extends Backbone.View
 
   constructor: (options = {}) ->
     super(options)
+    @order = options.order
+
+    @listenTo @order, 'change', @render
 
   render: =>
-    @$el.html(@template())
+    @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))
     @

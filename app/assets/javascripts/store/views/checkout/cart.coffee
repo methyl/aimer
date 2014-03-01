@@ -12,8 +12,11 @@ class Store.views.Checkout.Cart extends Backbone.View
     @load()
 
   render: =>
-    @$el.html(@template(order: @order.toJSON(), lineItems: @order.getLineItems()?.toJSON()))
+    @$el.html(@template(order: @order.toJSON()))
     @
+
+  getEmail: =>
+    @$('form.without-account [name=email]').val()
 
   # private
 
@@ -22,5 +25,4 @@ class Store.views.Checkout.Cart extends Backbone.View
 
   handleWithoutLoginClick: (e) ->
     e.preventDefault()
-    email = @$('form.without-account [name=email]').val()
-    @trigger('click:process-without-account', email)
+    @trigger('click:process-without-account')

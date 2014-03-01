@@ -1,0 +1,36 @@
+$form-textual-inputs: 'input[type=text], input[type=password], input[type=email], input[type=search]';
+
+@mixin input-placeholder {
+  &::-webkit-input-placeholder { @content }
+  &::-moz-placeholder          { @content }
+  &:-ms-input-placeholder      { @content }
+  &:-moz-placeholder           { @content }
+}
+
+form.aimer-form #{$form-textual-inputs} {
+  display: block;
+  width: 285px;
+  height: 45px;
+  background: asset-data-url('input-bg-1.jpg');
+  background-size: 100% 100%;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #745231;
+  border: 0;
+  outline-color: #745231;
+  padding: 0 20px;
+  margin-bottom: 10px;
+
+  @include input-placeholder {
+    font-weight: normal;
+  }
+
+  .placeholder {
+    font-weight: normal;
+  }
+
+  &:nth-child(2) {
+    background: asset-data-url('input-bg-2.jpg');
+  }
+}

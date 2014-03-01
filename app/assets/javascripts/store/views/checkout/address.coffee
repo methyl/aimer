@@ -11,6 +11,7 @@ class Store.views.Checkout.Address extends Backbone.View
   render: =>
     if @order.isLoaded()
       @$el.html(@template(current_address: @order.toJSON().order.ship_address))
+    $('[placeholder]').placeholder()
     @
 
   getAddress: ->
