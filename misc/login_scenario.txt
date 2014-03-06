@@ -1,0 +1,7 @@
+Guest opens page
+  * get order from localstorage or create new order
+  * after log in, assign order to user
+
+User opens page
+  * get last incomplete user order or create new
+  * after log out, clear localstorage order and refresh

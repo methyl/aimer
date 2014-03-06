@@ -7,12 +7,12 @@ class Store.views.Checkout.Cart extends Backbone.View
 
   constructor: (@order) ->
     super(arguments)
-    @listenTo @order, 'change', @render
+    @listenTo @order, 'add reset change', @render
 
     @load()
 
   render: =>
-    @$el.html(@template(order: @order.toJSON()))
+    @$el.html(@template(order: @order.toJSON().order))
     @
 
   getEmail: =>

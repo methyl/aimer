@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,7 +30,7 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.1.0'
 gem 'jquery-ui-rails'
 
 gem 'handlebars_assets'

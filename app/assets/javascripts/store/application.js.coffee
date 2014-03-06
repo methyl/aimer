@@ -12,11 +12,13 @@ window.Store = {}
 window.Store.models = {}
 window.Store.presenters = {}
 window.Store.views = {}
+window.Store.application = {}
 
 class Store.Router extends Backbone.Router
   routes:
     '': 'products'
     'checkout': 'checkout'
+    'login': 'login'
 
   constructor: (@app) ->
     super(arguments)
@@ -38,23 +40,40 @@ class Store.Router extends Backbone.Router
         @showView(@checkout)
 
   showView: (view) ->
-    $('#content').html(view.render().$el)
+    @app.showView(view)
+
+class Store.MessageBus
+  constructor: (@app) ->
+    $.extend(@, Backbone.Events)
+    @on 'login', @showLoginPopup
+
+  showLoginPopup: =>
+    popup = new Store.views.Account.LoginPopup
+    popup.login().done => @app.order.fetch()
 
 class Store.Application
   constructor: ->
-    @order = new Store.models.Order
     @router = new Store.Router(@)
+    @user = Store.currentUser = new Store.models.CurrentUser
+    Store.messageBus  = new Store.MessageBus(@)
+    @applicationView = new Store.views.Application
 
   prepare: ->
-    if @order.isNew()
-      @order.save().then(@setupAjax)
-    else
-      @setupAjax()
-      new $.Deferred().resolve()
+    @user.load().then =>
+      @order = @user.getOrder()
+      if @order.isNew()
+        @order.save().then(@setupAjax)
+      else
+        @setupAjax()
+        new $.Deferred().resolve()
 
   start: ->
     @router.start()
     @enableRoutedLinks()
+    @applicationView.render().$el.appendTo('body')
+
+  showView: (view) ->
+    @applicationView.showView(view)
 
   setupAjax: =>
     $.ajaxSetup
@@ -65,7 +84,8 @@ class Store.Application
     $('body').on 'click', 'a[data-route]', (e) =>
       e.preventDefault()
       @router.navigate($(e.currentTarget).attr('href'), trigger: true)
+
 $ ->
-  app = new Store.Application
-  app.prepare().then(=> app.order.fetch()).done =>
-    app.start()
+  Store.application = new Store.Application
+  Store.application.prepare().then(=> Store.application.order.fetch()).done =>
+    Store.application.start()

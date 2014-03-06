@@ -1,0 +1,35 @@
+.account-login-popup {
+  position: relative;
+
+  .overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(black, 0.5);
+    text-align: center;
+  }
+
+  .popup {
+    display: inline-block;
+    padding: 30px;
+    position: relative;
+    top: 200px;
+    background: asset-data-url('content-bg.png');
+    text-align: center;
+
+    .aimer-form {
+      .btn {
+        margin-top: 20px;
+      }
+    }
+
+    header {
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      padding-bottom: 30px;
+    }
+  }
+}

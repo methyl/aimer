@@ -6,7 +6,7 @@ class Store.views.Cart extends Backbone.View
     super(options)
     @order = options.order
 
-    @listenTo @order, 'change', @render
+    @listenTo @order, 'add reset change', @render
 
   render: =>
     @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))

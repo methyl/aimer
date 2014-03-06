@@ -16,7 +16,6 @@ class Store.views.Checkout extends Backbone.View
     super(arguments)
     @checkout = new Store.models.Checkout({}, order: @order)
     @cartPartial = new Store.views.Cart(order: @order)
-    @currentStep = @steps[0]
     @load()
 
   render: =>
@@ -27,7 +26,9 @@ class Store.views.Checkout extends Backbone.View
     @
 
   load: ->
-    @checkout.load().done(@render)
+    @checkout.load().done =>
+      @currentStep = @checkout.get('state')
+      @render()
 
   # private
 

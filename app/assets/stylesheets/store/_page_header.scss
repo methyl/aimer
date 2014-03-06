@@ -1,0 +1,23 @@
+.page-header {
+  background: asset-data-url('header-bg.jpg');
+  height: 608px;
+
+  .top {
+    height: 62px;
+    line-height: 62px;
+  }
+
+  .content {
+    width: 950px;
+    margin: 0 auto;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+}
