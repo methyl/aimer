@@ -1,7 +1,15 @@
 class Store.models.User extends Backbone.Model
-  getOrder: ->
+
+  constructor: (attrs, options = {}) ->
+    super(attrs, options)
+    @on 'change:last_incomplete_order_number', @getOrder
+
+  getOrder: =>
     @order ?= new Store.models.Order
-    @order.set('number', @get('last_incomplete_order_number')) if @get('last_incomplete_order_number')
+    if @get('last_incomplete_order_number')
+      @order.set('number', @get('last_incomplete_order_number'))
+      @order.set('email',  @get('email'))
+      @order.save()
     @order
 
 class Store.models.CurrentUser extends Store.models.User
@@ -15,6 +23,7 @@ class Store.models.UserSession
     $.post('/login.json', { spree_user: { email, password } }).done (data) =>
       @updateAuthenticityToken(data.authenticity_token)
       @user.fetch()
+      @user.getOrder().fetch()
 
   logout: ->
     $.get('/logout.json').done =>

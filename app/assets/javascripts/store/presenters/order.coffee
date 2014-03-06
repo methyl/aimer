@@ -4,7 +4,7 @@ class Store.presenters.Order
 
   toJSON: ->
     json = @order.toJSON().order
-    json.total = @total()
+    json.formatted_total = @formatTotal()
     json.line_items = @lineItems()
     json
 
@@ -14,7 +14,7 @@ class Store.presenters.Order
     @order.get('line_items').map (lineItem) ->
       new Store.presenters.Product(lineItem).toJSON()
 
-  total: ->
+  formatTotal: ->
     fixed = parseFloat(@order.toJSON().order.total).toFixed(2).replace('.', ',')
     [ whole, rest ] = fixed.split(',')
     if rest == '00'

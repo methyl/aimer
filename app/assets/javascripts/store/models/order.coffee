@@ -11,7 +11,7 @@ class Store.models.Order extends Backbone.Model
 
   parse: (args...) ->
     attrs = super(args...)
-    if attrs.line_items?
+    if attrs.line_items
       attrs.line_items = new Store.models.LineItems((if attrs.line_items.length > 0 then attrs.line_items else null), order: @)
     attrs
 

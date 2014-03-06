@@ -6,6 +6,9 @@ class Store.models.Checkout extends Backbone.Model
     @order = options.order
     @listenTo @order, 'change', =>
       @attributes = @order.attributes
+    @on 'change', =>
+      @order.attributes = @parse(@toJSON())
+      @order.trigger('change')
 
   advanceStep: =>
     @sync.call(@, 'put', @, {
@@ -38,6 +41,13 @@ class Store.models.Checkout extends Backbone.Model
   url: ->
     @urlRoot + '/' + @order.get('number')
 
+  parse: (args...) ->
+    attrs = super(args...)
+    if attrs.line_items
+      attrs.line_items = new Store.models.LineItems((if attrs.line_items.length > 0 then attrs.line_items else null), order: @)
+    attrs
+
   toJSON: ->
-    attrs = super()
-    _.omit(attrs, 'token')
+    json = super()
+    json.line_items = json.line_items.toJSON() if json.line_items?.toJSON?
+    _.omit(json, 'token')
