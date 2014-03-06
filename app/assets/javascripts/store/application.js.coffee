@@ -76,6 +76,7 @@ class Store.Application
     @applicationView.showView(view)
 
   setupAjax: =>
+    console.log @order
     $.ajaxSetup
       headers:
         'X-Spree-Order-Token': @order.get('token')

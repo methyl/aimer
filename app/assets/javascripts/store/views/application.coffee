@@ -3,11 +3,11 @@ class Store.views.Application extends Backbone.View
 
   constructor: ->
     super()
-    @header = new Store.views.Header
+    @pageHeader = new Store.views.PageHeader
 
   render: =>
     @$el.html(@template())
-    @assignSubview @header, '[data-subview=header]'
+    @assignSubview @pageHeader, '[data-subview=page-header]'
     @assignSubview @currentView, '[data-subview=current-view]' if @currentView
     @
 
