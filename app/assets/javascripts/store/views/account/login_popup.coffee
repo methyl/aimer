@@ -3,31 +3,18 @@ class Store.views.Account.LoginPopup extends Backbone.View
   className: 'account-login-popup'
 
   events:
-    'click [data-role=submit]': 'submitLogin'
-    'click .overlay': 'close'
+    'click .overlay': 'remove'
     'click .popup': (e) -> e.stopPropagation()
 
   constructor: ->
     super()
-    @loginPromise = new $.Deferred
-    @session = new Store.models.UserSession
+    @loginForm = new Store.views.Account.LoginForm
+    @listenTo @loginForm, 'log-in', @remove
 
   render: =>
     @$el.html(@template())
+    @assignSubview(@loginForm, '[data-subview=login-form]')
     @
 
-  login: ->
+  show: ->
     @render().$el.appendTo($('body'))
-    @loginPromise
-
-  close: ->
-    @loginPromise.reject()
-    @remove()
-
-  # private
-
-  submitLogin: (e) ->
-    e.preventDefault()
-    @session.login(@$('[name=email]').val(), @$('[name=password]').val()).then =>
-      @loginPromise.resolve()
-      @remove()

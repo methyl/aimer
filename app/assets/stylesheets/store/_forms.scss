@@ -37,16 +37,18 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
       background: asset-data-url('input-bg-2.jpg');
     }
   }
+}
 
-  .btn {
-    width: 197px;
-    height: 73px;
-    background: transparent asset-data-url('button-bg.png');
-    border: none;
-    padding: 0;
-    text-align: center;
-    color: #5b3816;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
+.btn {
+  width: 197px;
+  height: 73px;
+  background: transparent asset-data-url('button-bg.png');
+  background-size: 100%;
+  border: none;
+  padding: 0;
+  text-align: center;
+  color: #5b3816;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
 }

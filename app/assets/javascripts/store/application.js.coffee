@@ -49,7 +49,7 @@ class Store.MessageBus
 
   showLoginPopup: =>
     popup = new Store.views.Account.LoginPopup
-    popup.login().done => @app.order.fetch()
+    popup.show()
 
 class Store.Application
   constructor: ->

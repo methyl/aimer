@@ -1,14 +1,7 @@
-<h1>Podsumowanie koszyka</h1>
-
-<h1>Zaloguj się</h1>
-<form class="login">
-  <input type="text" name="login" />
-  <input type="password" name="password" />
-  <button>Zaloguj się</button>
-</form>
-
-<h1>Lub wprowadź email i kup bez rejestracji</h1>
-<form class="without-account">
-  <input type="email" name="email" value="{{order.email}}" />
-  <button>Kup bez rejestracji</button>
-</form>
+{{#if currentUser.email}}
+{{else}}
+  <div class="login">
+    <header>Zaloguj się i kupuj!</header>
+    <div data-subview="login-form"></div>
+  </div>
+{{/if}}

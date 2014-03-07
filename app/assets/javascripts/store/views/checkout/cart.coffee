@@ -5,23 +5,21 @@ class Store.views.Checkout.Cart extends Backbone.View
   events:
     'click .without-account button': 'handleWithoutLoginClick'
 
-  constructor: (@order) ->
+  constructor: ->
     super(arguments)
-    @listenTo @order, 'add reset change', @render
-
-    @load()
+    @loginForm = new Store.views.Account.LoginForm
+    @user = Store.currentUser
+    @listenTo @user, 'change', @render
 
   render: =>
-    @$el.html(@template(order: @order.toJSON().order))
+    @$el.html(@template(currentUser: @user.toJSON()))
+    @assignSubview(@loginForm, '[data-subview=login-form]')
     @
 
   getEmail: =>
     @$('form.without-account [name=email]').val()
 
   # private
-
-  load: =>
-    @order.load().done(@render)
 
   handleWithoutLoginClick: (e) ->
     e.preventDefault()

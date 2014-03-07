@@ -36,12 +36,11 @@
     float: left;
   }
 
-  .cart {
-    width: 500px;
-    float: right;
-  }
-
-  > .next {
+  .btn.next-step {
     clear: both;
+    float: right;
+    margin-top: 20px;
   }
 }
+
+@import 'checkout/*';
