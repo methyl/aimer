@@ -38,7 +38,8 @@ class Store.views.Product extends Backbone.View
         @setQuantity(ui.value)
 
   setQuantity: (quantity) ->
-    qunatity = parseInt(quantity, 10)
+    quantity = Math.min(parseInt(quantity, 10), 50)
+    @$('input[name=quantity]').val(quantity)
     if quantity > 0
       if @order.hasProduct(@product)
         @getLineItem().save({ quantity: quantity }, wait: true)
