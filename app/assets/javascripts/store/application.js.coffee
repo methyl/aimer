@@ -18,13 +18,14 @@ class Store.Router extends Backbone.Router
   routes:
     '': 'products'
     'checkout': 'checkout'
+    'complete': 'complete'
     'login': 'login'
 
   constructor: (@app) ->
     super(arguments)
 
   start: ->
-    Backbone.history.start()
+    Backbone.history.start(pushState: true)
 
   products: ->
     @app.order.load().done =>
@@ -38,6 +39,9 @@ class Store.Router extends Backbone.Router
       else
         @checkout = new Store.views.Checkout(@app.order)
         @showView(@checkout)
+
+  complete: ->
+    @showView new Store.views.Checkout.Complete
 
   showView: (view) ->
     @app.showView(view)

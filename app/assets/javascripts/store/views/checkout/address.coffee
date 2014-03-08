@@ -19,8 +19,6 @@ class Store.views.Checkout.Address extends Backbone.View
   constructor: (@checkout) ->
     super(arguments)
     @order = @checkout.getOrder()
-    @listenTo @order, 'change', @render
-
     @load()
 
   render: =>

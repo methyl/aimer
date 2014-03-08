@@ -2,7 +2,7 @@ class Store.models.Product extends Backbone.Model
 
 class Store.models.Products extends Backbone.Collection
   model: Store.models.Product
-  url: '/api/products'
+  url: '/spree/api/products'
 
   comparator: 'name'
 

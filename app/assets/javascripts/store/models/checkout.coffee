@@ -1,5 +1,5 @@
 class Store.models.Checkout extends Backbone.Model
-  urlRoot: '/api/checkouts'
+  urlRoot: '/spree/api/checkouts'
 
   constructor: (attrs, options = {}) ->
     super(attrs, options)
@@ -27,17 +27,8 @@ class Store.models.Checkout extends Backbone.Model
     @save(order: { shipments_attributes: shipment })
 
   updatePayment: (payment) ->
-    @save(order: {
-      payments_attributes: payment,
-      payment_source: {
-        1: {
-          number: '1'
-          name: 'John Smith'
-          expiry: '05/2018'
-          verification_value: '123'
-        }
-      }
-    })
+    console.log payment
+    @save(order: { payments_attributes: payment } )
 
   updateEmail: (email) ->
     @save(order: { email: email })

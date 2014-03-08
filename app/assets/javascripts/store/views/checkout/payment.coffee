@@ -3,11 +3,11 @@ class Store.views.Checkout.Payment extends Backbone.View
   className: 'checkout-payment'
 
   events:
-    'click form.payment input[type=radio]': 'handlePaymentChange'
+    'click [data-role=next-payment]': 'updatePayment'
 
-  constructor: (@order) ->
+  constructor: (@checkout) ->
     super(arguments)
-    @listenTo @order, 'change', @render
+    @order = @checkout.getOrder()
 
     @load()
 
@@ -24,8 +24,11 @@ class Store.views.Checkout.Payment extends Backbone.View
 
   # private
 
-  handlePaymentChange: ->
-    @trigger('change:payment', @getPayment())
+  updatePayment: ->
+    @checkout.updatePayment(@getPayment()).then(@proceed)
+
+  proceed: =>
+    @trigger('proceed')
 
   isLoaded: ->
     @order.get('payment_methods')?[0]

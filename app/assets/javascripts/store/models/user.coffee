@@ -6,27 +6,27 @@ class Store.models.User extends Backbone.Model
 
   getOrder: =>
     @order ?= new Store.models.Order
-    if @get('last_incomplete_order_number')
+    if @get('last_incomplete_order_number') and @order.get('line_items')?.length == 0
       @order.set('number', @get('last_incomplete_order_number'))
       @order.set('email',  @get('email'))
       @order.save()
     @order
 
 class Store.models.CurrentUser extends Store.models.User
-  url: "/api/current_user"
+  url: "/spree/api/current_user"
 
 class Store.models.UserSession
   constructor: ->
     @user = Store.currentUser
 
   login: (email, password) ->
-    $.post('/login.json', { spree_user: { email, password } }).done (data) =>
+    $.post('/spree/login.json', { spree_user: { email, password } }).done (data) =>
       @updateAuthenticityToken(data.authenticity_token)
       @user.fetch()
       @user.getOrder().fetch()
 
   logout: ->
-    $.get('/logout.json').done =>
+    $.get('/spree/logout.json').done =>
       @user.getOrder().clearLocalStorage()
       window.location.reload()
 

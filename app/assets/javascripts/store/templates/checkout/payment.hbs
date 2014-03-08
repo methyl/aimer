@@ -4,8 +4,10 @@
   <ul>
     {{#each paymentMethods}}
       <li>
-        <input type="radio" name="payment_method_id" value="{{id}}">{{name}}
+        <input checked type="radio" name="payment_method_id" value="{{id}}">{{name}}
       </li>
     {{/each}}
   </ul>
 </form>
+
+<button class="next-step btn" data-role="next-payment">Dalej</button>

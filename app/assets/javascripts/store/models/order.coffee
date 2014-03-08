@@ -1,5 +1,5 @@
 class Store.models.Order extends Backbone.Model
-  urlRoot: '/api/orders'
+  urlRoot: '/spree/api/orders'
   idAttribute: 'number'
 
   constructor: (attributes, options = {}) ->

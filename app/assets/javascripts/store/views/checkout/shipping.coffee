@@ -28,11 +28,14 @@ class Store.views.Checkout.Shipping extends Backbone.View
   # private
 
   proceed: ->
-    @trigger('proceed') if @order.get('shipments')[0].selected_shipping_rate
+    if @order.get('shipments')[0].selected_shipping_rate
+      if @order.get('state') == 'delivery'
+        @checkout.advanceStep().then => @trigger('proceed')
+      else
+        @trigger('proceed')
 
   handleShipmentChange: ->
     @checkout.updateShipment(@getShipment())
-    # @trigger('change:shipment', @getShipment())
 
   checkCurrentShippingRate: ->
     id = @order.get('shipments')[0].selected_shipping_rate.id
