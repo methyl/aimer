@@ -47,8 +47,9 @@ class Store.views.Product extends Backbone.View
     else
       @order.removeProduct(@product)
 
-  handleQuantityKeyup: (e) =>
+  handleQuantityKeyup: _.debounce (e) ->
     @setQuantity($(e.currentTarget).val())
+  , 300
 
   handleQuantityClick: (e) =>
     $(e.currentTarget).select()
