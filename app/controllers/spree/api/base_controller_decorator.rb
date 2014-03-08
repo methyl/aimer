@@ -6,4 +6,7 @@ Spree::Api::BaseController.class_eval do
       @current_api_user = spree_current_user
     end
   end
+
+  include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+  add_transaction_tracer :show
 end
