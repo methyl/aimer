@@ -1,5 +1,7 @@
 .checkout-cart {
   .login {
+    float: left;
+
     header {
       color: #fff;
       font-size: 24px;
@@ -11,5 +13,13 @@
   .welcome {
     text-align: center;
     font-size: 18px;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
   }
 }

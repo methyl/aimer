@@ -2,9 +2,9 @@ class Store.views.Cart extends Backbone.View
   template: HandlebarsTemplates['store/templates/cart']
   className: 'cart'
 
-  constructor: (options = {}) ->
-    super(options)
-    @order = options.order
+  constructor: (@checkout) ->
+    super(arguments)
+    @order = @checkout.getOrder()
 
     @listenTo @order, 'add reset change', @render
 

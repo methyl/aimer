@@ -2,10 +2,13 @@ class Store.models.Order extends Backbone.Model
   urlRoot: '/spree/api/orders'
   idAttribute: 'number'
 
+  NUMBER_COOKIE = 'aimer-order-number'
+  TOKEN_COOKIE = 'aimer-order-token'
+
   constructor: (attributes, options = {}) ->
     options.parse = true unless options.parse?
     super(attributes, options)
-    if order = @getFromLocalStorage()
+    if order = @loadFromCookies()
       @set('number', order.number)
       @set('token', order.token)
 
@@ -22,7 +25,7 @@ class Store.models.Order extends Backbone.Model
     { order: json } unless _.isEmpty(json)
 
   save: ->
-    super(arguments).done(@saveToLocalStorage)
+    super(arguments).done(@saveCookies)
 
   url: ->
     if @isNew()
@@ -55,21 +58,21 @@ class Store.models.Order extends Backbone.Model
   hasProduct: (product) ->
     !! @getLineItemForProduct(product)
 
-  clearLocalStorage: ->
-    localStorage.removeItem('AimerStoreOrderNumber')
-    localStorage.removeItem('AimerStoreOrderToken')
+  clearCookies: ->
+    $.removeCookie(NUMBER_COOKIE)
+    $.removeCookie(TOKEN_COOKIE)
 
   # private
 
   getLineItemsUrl: ->
     @urlRoot + '/' + @id + '/line_items'
 
-  getFromLocalStorage: ->
-    number = localStorage.AimerStoreOrderNumber
-    token  = localStorage.AimerStoreOrderToken
+  loadFromCookies: =>
+    number = $.cookie(NUMBER_COOKIE)
+    token  = $.cookie(TOKEN_COOKIE)
     if number and token
       { number, token }
 
-  saveToLocalStorage: =>
-    localStorage.AimerStoreOrderNumber = @get('number')
-    localStorage.AimerStoreOrderToken = @get('token')
+  saveCookies: =>
+    $.cookie(NUMBER_COOKIE, @get('number'))
+    $.cookie(TOKEN_COOKIE, @get('token'))

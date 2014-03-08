@@ -19,11 +19,13 @@ class Store.views.Checkout.Address extends Backbone.View
   constructor: (@checkout) ->
     super(arguments)
     @order = @checkout.getOrder()
+    @cart = new Store.views.Cart(@checkout)
     @load()
 
   render: =>
     if @order.isLoaded()
       @$el.html(@template(email: @order.toJSON().order.email, current_address: @order.toJSON().order.ship_address))
+      @assignSubview(@cart, '[data-subview=cart]')
     $('[placeholder]').placeholder()
     @
 

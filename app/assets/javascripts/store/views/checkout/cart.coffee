@@ -9,6 +9,7 @@ class Store.views.Checkout.Cart extends Backbone.View
   constructor: (@checkout) ->
     super(arguments)
     @loginForm = new Store.views.Account.LoginForm
+    @cartView = new Store.views.Cart(@checkout)
     @user = Store.currentUser
     @listenTo @user, 'change', @render
     @listenTo @loginForm, 'login', @proceed
@@ -16,6 +17,7 @@ class Store.views.Checkout.Cart extends Backbone.View
   render: =>
     @$el.html(@template(currentUser: @user.toJSON()))
     @assignSubview(@loginForm, '[data-subview=login-form]')
+    @assignSubview(@cartView, '[data-subview=cart]')
     @
 
   getEmail: =>

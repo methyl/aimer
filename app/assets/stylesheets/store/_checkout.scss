@@ -33,10 +33,11 @@
   } // .steps
 
   .content {
-    float: left;
+    position: relative;
 
     .current-view, .next-view {
       position: absolute;
+      width: 100%;
     }
 
     .next-view {

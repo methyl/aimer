@@ -5,22 +5,27 @@
     margin-bottom: 10px;
     margin-top: -7px;
   }
-  form {
-    .city {
-      input[name=zipcode] {
-        float: left;
-        width: 55px;
+
+  .form {
+    float: left;
+
+    form {
+      .city {
+        input[name=zipcode] {
+          float: left;
+          width: 55px;
+        }
+
+        input[name=city] {
+          float: right;
+          width: 179px;
+        }
       }
 
-      input[name=city] {
-        float: right;
-        width: 179px;
+      input.invalid {
+        color: red;
+        box-shadow: 0 0 3px red;
       }
-    }
-
-    input.invalid {
-      color: red;
-      box-shadow: 0 0 3px red;
     }
   }
 }

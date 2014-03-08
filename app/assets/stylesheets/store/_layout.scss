@@ -1,6 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,latin-ext);
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: asset-data-url('content-bg.png');
   font-family: 'Roboto Slab', sans-serif;
@@ -13,6 +18,7 @@ body {
   padding: 20px 0;
   min-height: 600px;
   max-width: 950px;
+  overflow-x: hidden;
 
   .page-header {
     max-width: 950px;

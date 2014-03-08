@@ -14,21 +14,19 @@ class Store.views.Checkout extends Backbone.View
   constructor: (@order) ->
     super(arguments)
     @checkout = new Store.models.Checkout({}, order: @order)
-    @cartPartial = new Store.views.Cart(order: @order)
     @user = Store.currentUser
-    @createViews()
     @load()
 
   render: =>
     if @checkout.isLoaded()
       @$el.html(@template())
       @showCurrentView(false)
-      @assignSubview(@cartPartial, '[data-subview=cart]')
     @
 
   load: ->
     @checkout.load().done =>
       @currentStep = @checkout.get('state')
+      @createViews()
       @render()
 
   # private
@@ -72,7 +70,7 @@ class Store.views.Checkout extends Backbone.View
     else
       @updateCurrentStep()
       @updateAvailableSteps()
-      if animate
+      if animate and @previousStep != @currentStep
         @assignSubview(@[@getCurrentStep()], '[data-subview=next-view]')
         @transitionViews()
       else
@@ -84,13 +82,12 @@ class Store.views.Checkout extends Backbone.View
     currentView = @$('.current-view')
     nextView.show()
     if @steps.indexOf(@previousStep) > @steps.indexOf(@currentStep)
-      nextView.css(left: window.innerWidth)
-      nextView.animate(left: '0')
-      currentView.animate(left: -(currentView.width() + currentView.offset().left))
-    else
       nextView.css(left: -(nextView.width() + nextView.offset().left))
-      nextView.animate(left: '0')
       currentView.animate(left: window.innerWidth)
+    else
+      nextView.css(left: window.innerWidth)
+      currentView.animate(left: -(currentView.width() + currentView.offset().left))
+    nextView.animate(left: '0')
     setTimeout =>
       @$('.current-view').empty().css(left: 0)
       @$('.next-view > div').attr('data-subview', 'current-view').appendTo(@$('.current-view'))
@@ -109,5 +106,5 @@ class Store.views.Checkout extends Backbone.View
     @listenTo @payment, 'proceed',  => @setCurrentStep('complete')
 
   resetOrder: ->
-    @user.getOrder().clearLocalStorage()
+    @user.getOrder().clearCookies()
     window.location.pathname = 'complete'

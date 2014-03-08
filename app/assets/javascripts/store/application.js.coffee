@@ -69,7 +69,9 @@ class Store.Application
         @order.save().then(@setupAjax)
       else
         @setupAjax()
-        new $.Deferred().resolve()
+        @order.fetch().fail =>
+          @order.clear()
+          @order.save().then(@setupAjax)
 
   start: ->
     @router.start()
@@ -91,5 +93,5 @@ class Store.Application
 
 $ ->
   Store.application = new Store.Application
-  Store.application.prepare().then(=> Store.application.order.fetch()).done =>
+  Store.application.prepare().done =>
     Store.application.start()

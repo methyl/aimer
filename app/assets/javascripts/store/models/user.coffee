@@ -27,7 +27,7 @@ class Store.models.UserSession
 
   logout: ->
     $.get('/spree/logout.json').done =>
-      @user.getOrder().clearLocalStorage()
+      @user.getOrder().clearCookies()
       window.location.reload()
 
   updateAuthenticityToken: (token) =>

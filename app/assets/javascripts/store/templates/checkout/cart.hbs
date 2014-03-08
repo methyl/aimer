@@ -6,4 +6,8 @@
   </div>
 {{/if}}
 
+<div {{#if currentUser.email}}class="left"{{else}}class="right"{{/if}}>
+  <div data-subview="cart"></div>
+</div>
+
 <button class="next-step btn" data-role="next-cart">Dalej</button>
