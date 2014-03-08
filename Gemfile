@@ -23,13 +23,11 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'spree', :path => "/Users/lucek/workspace/spree", :require => false
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
-  gem 'spree', :github => "methyl/spree", :require => false
 end
 
 gem 'jquery-rails', '~> 3.1.0'
@@ -52,4 +50,6 @@ gem 'handlebars_assets'
 # To use debugger
 # gem 'debugger'
 
+gem 'spree', :github => "methyl/spree", :require => false
+# gem 'spree', :path => "/Users/lucek/workspace/spree", :require => false
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
