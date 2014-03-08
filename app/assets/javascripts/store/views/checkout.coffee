@@ -22,7 +22,7 @@ class Store.views.Checkout extends Backbone.View
   render: =>
     if @checkout.isLoaded()
       @$el.html(@template())
-      @showCurrentView()
+      @showCurrentView(false)
       @assignSubview(@cartPartial, '[data-subview=cart]')
     @
 
@@ -50,11 +50,13 @@ class Store.views.Checkout extends Backbone.View
 
   showStep: (e) ->
     e.preventDefault()
+    return if @isAnimated
     step = $(e.currentTarget).data('step')
     @setCurrentStep(step)
 
   setCurrentStep: (step) ->
     return unless @isStepAvailable(step)
+    @previousStep = @currentStep
     @currentStep = step
     @showCurrentView()
 
@@ -64,13 +66,37 @@ class Store.views.Checkout extends Backbone.View
   getNextStep: ->
     @steps[@steps.indexOf(@getCurrentStep()) + 1]
 
-  showCurrentView: =>
+  showCurrentView: (animate = true) =>
     if @getCurrentStep() == 'complete'
       @resetOrder()
     else
       @updateCurrentStep()
       @updateAvailableSteps()
-      @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
+      if animate
+        @assignSubview(@[@getCurrentStep()], '[data-subview=next-view]')
+        @transitionViews()
+      else
+        @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
+
+  transitionViews: ->
+    @isAnimated = true
+    nextView = @$('.next-view')
+    currentView = @$('.current-view')
+    nextView.show()
+    if @steps.indexOf(@previousStep) > @steps.indexOf(@currentStep)
+      nextView.css(left: window.innerWidth)
+      nextView.animate(left: '0')
+      currentView.animate(left: -(currentView.width() + currentView.offset().left))
+    else
+      nextView.css(left: -(nextView.width() + nextView.offset().left))
+      nextView.animate(left: '0')
+      currentView.animate(left: window.innerWidth)
+    setTimeout =>
+      @$('.current-view').empty().css(left: 0)
+      @$('.next-view > div').attr('data-subview', 'current-view').appendTo(@$('.current-view'))
+      @$('.next-view').html('<div data-subview="next-view"></div>').hide()
+      @isAnimated = false
+    , 500
 
   createViews: ->
     @cart     = new Store.views.Checkout.Cart(@checkout)

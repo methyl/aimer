@@ -34,6 +34,14 @@
 
   .content {
     float: left;
+
+    .current-view, .next-view {
+      position: absolute;
+    }
+
+    .next-view {
+      display: none;
+    }
   }
 
   .btn.next-step {
