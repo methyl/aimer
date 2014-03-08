@@ -9,7 +9,7 @@ Spree::Api::OrdersController.class_eval do
   private
 
   def order_params
-    if params[:order]
+    if params.has_key? :order
       params[:order][:payments_attributes] = params[:order][:payments] if params[:order][:payments]
       params[:order][:shipments_attributes] = params[:order][:shipments] if params[:order][:shipments]
       params[:order][:line_items_attributes] = params[:order][:line_items] if params[:order][:line_items]
