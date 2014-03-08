@@ -1,13 +1,20 @@
 <header>Twoje dane:</header>
 
 <form class="aimer-form">
-  <input placeholder="Jan" type="text" name="firstname" value="{{current_address.firstname}}" />
-  <input placeholder="Kowalski" type="text" name="lastname" value="{{current_address.lastname}}" />
-  <input placeholder="Rynek 1" type="text" name="address1"  value="{{current_address.address1}}"/>
-  <div class="city">
-    <input placeholder="00-000" type="text" name="zipcode" value="{{current_address.zipcode}}" />
-    <input placeholder="Warszawa" type="text" name="city" value="{{current_address.city}}" />
+  <div data-role="address">
+    <input placeholder="Jan" type="text" name="firstname" value="{{current_address.firstname}}" />
+    <input placeholder="Kowalski" type="text" name="lastname" value="{{current_address.lastname}}" />
+    <input placeholder="Rynek 1" type="text" name="address1"  value="{{current_address.address1}}"/>
+    <div class="city">
+      <input placeholder="00-000" type="text" name="zipcode" value="{{current_address.zipcode}}" />
+      <input placeholder="Warszawa" type="text" name="city" value="{{current_address.city}}" />
+    </div>
+    <input placeholder="512-000-000" type="text" name="phone" value="{{current_address.phone}}" />
+    <input type="hidden" name="country_id" value="1" />
   </div>
-  <input placeholder="512-000-000" type="text" name="phone" value="{{current_address.phone}}" />
-  <input type="hidden" name="country_id" value="1" />
+  <div data-role="email">
+    <input type="email" name="email" placeholder="jkowalski@gmail.com" value="{{email}}" />
+  </div>
 </form>
+
+<button class="next-step btn" data-role="next-address">Dalej</button>

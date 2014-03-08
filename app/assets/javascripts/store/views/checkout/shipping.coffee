@@ -4,9 +4,11 @@ class Store.views.Checkout.Shipping extends Backbone.View
 
   events:
     'click form.shipping input[type=radio]': 'handleShipmentChange'
+    'click [data-role=next-shipping]': 'proceed'
 
-  constructor: (@order) ->
+  constructor: (@checkout) ->
     super(arguments)
+    @order = @checkout.getOrder()
     @listenTo @order, 'change', @render
 
     @load()
@@ -25,8 +27,12 @@ class Store.views.Checkout.Shipping extends Backbone.View
 
   # private
 
+  proceed: ->
+    @trigger('proceed') if @order.get('shipments')[0].selected_shipping_rate
+
   handleShipmentChange: ->
-    @trigger('change:shipment', @getShipment())
+    @checkout.updateShipment(@getShipment())
+    # @trigger('change:shipment', @getShipment())
 
   checkCurrentShippingRate: ->
     id = @order.get('shipments')[0].selected_shipping_rate.id

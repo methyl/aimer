@@ -17,5 +17,10 @@
         width: 179px;
       }
     }
+
+    input.invalid {
+      color: red;
+      box-shadow: 0 0 3px red;
+    }
   }
 }

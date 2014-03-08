@@ -4,7 +4,7 @@ class Store.views.Checkout extends Backbone.View
     'class': 'checkout'
 
   events:
-    'click .next-step': 'advanceStep'
+    # 'click .next-step': 'advanceStep'
     'click [data-step]': 'showStep'
 
   steps: ['cart', 'address', 'delivery', 'payment', 'complete']
@@ -72,35 +72,20 @@ class Store.views.Checkout extends Backbone.View
     @updateAvailableSteps()
     @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
 
-  advanceStep: (e) =>
-    e?.preventDefault?()
-    promise = switch @getCurrentStep()
-      when 'cart'
-        @processEmail()
-      when 'address'
-        @processAddress()
-      when 'delivery'
-        @processShipment()
-      when 'payment'
-        @processPayment()
-      when 'complete'
-        window.location.hash = ''
-        window.location.reload()
-        dfr = new $.Deferred; dfr.resolve(); dfr
-      else dfr = new $.Deferred; dfr.resolve(); dfr
-    promise.then =>
-      @setCurrentStep(@getNextStep())
+  advanceStep: =>
+    @setCurrentStep(@getNextStep())
 
   showCart: ->
-    @cart ?= new Store.views.Checkout.Cart(@order)
-    @listenTo @cart, 'click:process-without-account', @advanceStep
+    @cart ?= new Store.views.Checkout.Cart(@checkout)
+    @listenTo @cart, 'proceed', => @setCurrentStep('address')
 
   showAddress: ->
-    @address ?= new Store.views.Checkout.Address(@order)
+    @address ?= new Store.views.Checkout.Address(@checkout)
+    @listenTo @address, 'proceed', => @setCurrentStep('delivery')
 
   showDelivery: ->
-    @delivery ?= new Store.views.Checkout.Shipping(@order)
-    @listenTo @delivery, 'change:shipment', @processShipment
+    @delivery ?= new Store.views.Checkout.Shipping(@checkout)
+    @listenTo @delivery, 'proceed', => @setCurrentStep('payment')
 
   showPayment: ->
     @payment ?= new Store.views.Checkout.Payment(@order)

@@ -4,12 +4,14 @@ class Store.views.Checkout.Cart extends Backbone.View
 
   events:
     'click .without-account button': 'handleWithoutLoginClick'
+    'click [data-role=next-cart]': 'proceed'
 
-  constructor: ->
+  constructor: (@checkout) ->
     super(arguments)
     @loginForm = new Store.views.Account.LoginForm
     @user = Store.currentUser
     @listenTo @user, 'change', @render
+    @listenTo @loginForm, 'login', @proceed
 
   render: =>
     @$el.html(@template(currentUser: @user.toJSON()))
@@ -18,6 +20,13 @@ class Store.views.Checkout.Cart extends Backbone.View
 
   getEmail: =>
     @$('form.without-account [name=email]').val()
+
+  proceed: =>
+    if @checkout.get('state') == 'cart'
+      @checkout.advanceStep().then =>
+        @trigger('proceed')
+    else
+      @trigger('proceed')
 
   # private
 
