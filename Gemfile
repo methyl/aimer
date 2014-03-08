@@ -6,6 +6,7 @@ gem 'rails', '4.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'pry'
 
+gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
