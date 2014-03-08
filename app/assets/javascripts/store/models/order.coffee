@@ -1,5 +1,5 @@
 class Store.models.Order extends Backbone.Model
-  urlRoot: '/spree/api/orders'
+  urlRoot: '/spree/api/checkouts'
   idAttribute: 'number'
 
   NUMBER_COOKIE = 'aimer-order-number'
