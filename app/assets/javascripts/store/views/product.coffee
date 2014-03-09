@@ -36,7 +36,6 @@ class Store.views.Product extends Backbone.View
       slide: (e, ui) =>
         @$('input[name=quantity]').val(ui.value)
       stop: (e, ui) =>
-        @$('input[name=quantity]').val(ui.value)
         @setQuantity(ui.value)
 
   setQuantity: (quantity) ->
