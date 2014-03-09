@@ -3,7 +3,7 @@ class Store.presenters.Product
 
   toJSON: ->
     json = @product.toJSON()
-    _.extend(json, json.variant)
+    _.extend(json, json.variant || json.master)
     {
       id: json.id
       name: json.name
