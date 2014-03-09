@@ -34,6 +34,7 @@ class Store.views.Product extends Backbone.View
       max: 5
       value: @getLineItem()?.get('quantity') || 0
       stop: (e, ui) =>
+        @$('input[name=quantity]').val(ui.value)
         @setQuantity(ui.value)
 
   setQuantity: (quantity) ->
