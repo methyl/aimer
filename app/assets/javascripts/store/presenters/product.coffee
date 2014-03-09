@@ -3,16 +3,16 @@ class Store.presenters.Product
 
   toJSON: ->
     json = @product.toJSON()
-    variant = json.variant || json.variants[0]
+    _.extend(json, json.variant)
     {
       id: json.id
-      name: variant.name
-      description: variant.description
-      round_pln_price: parseInt(variant.price, 10) + ' pln'
-      total_pln_price: @total(variant.price * json.quantity)
-      weight: parseFloat(variant.weight).toFixed(2) + ' g'
+      name: json.name
+      description: json.description
+      round_pln_price: parseInt(json.price, 10) + ' pln'
+      total_pln_price: @total(json.price * json.quantity)
+      weight: parseFloat(json.weight).toFixed(2) + ' g'
       quantity: json.quantity || 0
-      pcs: parseInt(variant.depth, 10) + ' pcs'
+      pcs: parseInt(json.depth, 10) + ' pcs'
     }
 
   total: (price) ->
