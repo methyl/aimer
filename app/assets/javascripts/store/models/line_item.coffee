@@ -2,7 +2,7 @@ class Store.models.LineItem extends Backbone.Model
   constructor: (models, options) ->
     @order = options.order
     super(models, options)
-    @on 'change', => @order.fetch()
+    @on 'change', => @order.set(@order.parse(@attributes))
 
   queryString: ->
     "?order_token=#{@order.get('token')}"
