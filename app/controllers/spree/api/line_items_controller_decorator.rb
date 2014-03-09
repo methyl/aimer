@@ -26,6 +26,6 @@ Spree::Api::LineItemsController.class_eval do
     variant = Spree::Variant.find(@line_item.variant_id)
     @order.contents.remove(variant, @line_item.quantity)
     @order.ensure_updated_shipments
-    respond_with(@order, status: 204, default_template: 'spree/api/orders/show')
+    respond_with(@order, status: 200, default_template: 'spree/api/orders/show')
   end
 end

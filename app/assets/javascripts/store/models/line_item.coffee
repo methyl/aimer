@@ -2,7 +2,11 @@ class Store.models.LineItem extends Backbone.Model
   constructor: (models, options) ->
     @order = options.order
     super(models, options)
-    @on 'sync', => @order.set(@order.parse(@attributes))
+
+  sync: ->
+    arguments[2].success = (resp) =>
+      @order.set(@order.parse(resp))
+    Backbone.sync.apply(this, arguments)
 
   queryString: ->
     "?order_token=#{@order.get('token')}"
