@@ -4,9 +4,7 @@ Spree::Api::LineItemsController.class_eval do
     @line_item = order.contents.add(variant, params[:line_item][:quantity])
     if @line_item.save
       @order.ensure_updated_shipments
-      @order.reload
-      @order.line_items.reload
-      respond_with(@order, status: 201, default_template: 'spree/api/orders/show')
+      respond_with(order, status: 201, default_template: 'spree/api/orders/show')
     else
       invalid_resource!(@line_item)
     end
@@ -16,9 +14,7 @@ Spree::Api::LineItemsController.class_eval do
     @line_item = order.line_items.find(params[:id])
     if @order.contents.update_cart(line_items_attributes)
       @order.ensure_updated_shipments
-      @order.reload
-      @order.line_items.reload
-      respond_with(@order, default_template: 'spree/api/orders/show')
+      respond_with(order, default_template: 'spree/api/orders/show')
     else
       invalid_resource!(@line_item)
     end
@@ -30,6 +26,14 @@ Spree::Api::LineItemsController.class_eval do
     @order.contents.remove(variant, @line_item.quantity)
     @order.ensure_updated_shipments
     @order.reload
-    respond_with(@order, status: 200, default_template: 'spree/api/orders/show')
+    respond_with(order, status: 200, default_template: 'spree/api/orders/show')
+  end
+
+  private
+
+  def order
+    @order = Spree::Order.find_by!(number: params[:order_id])
+    authorize! :update, @order, order_token
+    @order
   end
 end
