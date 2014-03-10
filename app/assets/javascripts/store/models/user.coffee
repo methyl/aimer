@@ -1,4 +1,5 @@
 class Store.models.User extends Backbone.Model
+  url: '/spree/api/users'
 
   constructor: (attrs, options = {}) ->
     super(attrs, options)

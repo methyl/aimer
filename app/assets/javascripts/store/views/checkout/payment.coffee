@@ -13,7 +13,7 @@ class Store.views.Checkout.Payment extends Backbone.View
 
   render: =>
     if @isLoaded()
-      @$el.html(@template(paymentMethods: @order.toJSON().order.payment_methods))
+      @$el.html(@template(paymentMethods: @order.toJSON().payment_methods))
     @
 
   load: =>

@@ -10,10 +10,4 @@ Spree::Api::BaseController.class_eval do
     end
   end
 
-  include NewRelic::Agent::Instrumentation::ControllerInstrumentation
-  include NewRelic::Agent::Instrumentation::Rails4::ActionController
-
-  NewRelic::Agent::Instrumentation::ActionControllerSubscriber \
-    .subscribe(/^process_action.action_controller$/)
-
 end

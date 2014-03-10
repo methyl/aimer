@@ -17,8 +17,6 @@ class Store.models.LineItem extends Backbone.Model
     @set('quantity', quantity)
     @
 
-  paramRoot: 'line_item'
-
 class Store.models.LineItems extends Backbone.Collection
   model: Store.models.LineItem
 

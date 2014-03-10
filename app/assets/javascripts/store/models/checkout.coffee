@@ -27,11 +27,7 @@ class Store.models.Checkout extends Backbone.Model
     @save(order: { shipments_attributes: shipment })
 
   updatePayment: (payment) ->
-    console.log payment
     @save(order: { payments_attributes: payment } )
-
-  updateEmail: (email) ->
-    @save(order: { email: email })
 
   url: ->
     @urlRoot + '/' + @order.get('number')

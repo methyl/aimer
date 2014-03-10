@@ -51,4 +51,8 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
   text-transform: uppercase;
   font-weight: bold;
   display: inline-block;
+
+  &:focus {
+    outline: none;
+  }
 }

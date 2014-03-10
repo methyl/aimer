@@ -22,7 +22,8 @@ class Store.models.Order extends Backbone.Model
     json = super()
     json.line_items = json.line_items.toJSON() if json.line_items?.toJSON?
     json = _.omit(json, 'token')
-    { order: json } unless _.isEmpty(json)
+    json
+    # { order: json } unless _.isEmpty(json)
 
   save: ->
     super(arguments).done(@saveCookies)
