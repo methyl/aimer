@@ -17,7 +17,6 @@
 
         a {
           color: #fff;
-          text-decoration: none;
         }
       }
 
@@ -53,12 +52,7 @@
           }
 
           a {
-            text-decoration: none;
             color: #ffb351;
-
-            &:hover {
-              text-decoration: underline;
-            }
           }
         }
       } // ul

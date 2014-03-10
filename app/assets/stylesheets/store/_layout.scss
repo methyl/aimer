@@ -24,3 +24,13 @@ body {
     max-width: 950px;
   }
 }
+
+
+a {
+  text-decoration: none;
+  color: #503f29;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
