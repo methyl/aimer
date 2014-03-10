@@ -10,6 +10,8 @@ class Store.views.Product extends Backbone.View
     'keyup input[name=quantity]': 'handleQuantityKeyup'
     'click input[name=quantity]': 'handleQuantityClick'
 
+  BACKSPACE_CODE = 8
+
   constructor: (@product, @order) ->
     super(arguments)
     @listenTo @order, 'change', @render
@@ -36,7 +38,6 @@ class Store.views.Product extends Backbone.View
       slide: (e, ui) =>
         @$('input[name=quantity]').val(ui.value)
       stop: (e, ui) =>
-        @$('input[name=quantity]').val(ui.value)
         @setQuantity(ui.value)
 
   setQuantity: (quantity) ->
@@ -51,6 +52,7 @@ class Store.views.Product extends Backbone.View
       @order.removeProduct(@product)
 
   handleQuantityKeyup: _.debounce (e) ->
+    @setQuantity(0) if e.keyCode == BACKSPACE_CODE
     @setQuantity($(e.currentTarget).val())
   , 300
 
