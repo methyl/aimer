@@ -5,7 +5,6 @@ Spree::Api::LineItemsController.class_eval do
     if @line_item.save
       @order.ensure_updated_shipments
       @order.reload
-      @order.line_items.reload
       respond_with(@order, status: 201, default_template: 'spree/api/orders/show')
     else
       invalid_resource!(@line_item)
@@ -17,7 +16,6 @@ Spree::Api::LineItemsController.class_eval do
     if @order.contents.update_cart(line_items_attributes)
       @order.ensure_updated_shipments
       @order.reload
-      @order.line_items.reload
       respond_with(@order, default_template: 'spree/api/orders/show')
     else
       invalid_resource!(@line_item)
