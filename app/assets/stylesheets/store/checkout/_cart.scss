@@ -28,12 +28,14 @@
     font-size: 18px;
   }
 
-  .left {
-    float: left;
-  }
+  .center {
+    width: 500px;
+    margin: 0 auto;
 
-  .right {
-    float: right;
+    .buttons {
+      float: none;
+      text-align: center;
+    }
   }
 
   .buttons {

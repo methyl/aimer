@@ -8,9 +8,26 @@
 
     ul {
       list-style: none;
+      text-align: center;
+      padding: 0;
 
       li {
         display: inline-block;
+        vertical-align: middle;
+
+        &:after {
+          content: '';
+          width: 21px;
+          height: 32px;
+          display: inline-block;
+          background: asset-data-url('step-arrow.png') no-repeat center;
+          vertical-align: middle;
+          padding: 0 30px;
+        }
+
+        &:last-child:after {
+          display: none;
+        }
 
         a {
           padding: 10px;
@@ -18,14 +35,28 @@
           color: #d7c9b8;
           font-weight: bold;
           text-decoration: none;
+          position: relative;
+          cursor: default;
 
           &.available {
             color: #6d4d2c;
+            cursor: pointer;
           }
 
           &.current {
             color: #fff;
-            text-decoration: underline;
+          }
+
+          &.current:after, &.available:hover:after {
+            content: '';
+            width: 100%;
+            display: inline-block;
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            height: 5px;
+            background: asset-data-url('step-underline.png') no-repeat center;
+            background-size: 90% 100%;
           }
         }
       } // li

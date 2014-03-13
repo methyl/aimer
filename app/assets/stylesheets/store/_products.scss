@@ -5,11 +5,12 @@ div.products {
     h2 {
       font-size: 34px;
       display: inline-block;
+      margin-bottom: 20px;
 
       .hint {
         font-size: 13px;
         font-weight: normal;
-        margin: 25px 0 15px 0;
+        margin-top: 10px;
         text-align: right;
       }
     }
@@ -133,7 +134,7 @@ div.products {
 
   .total {
     width: 700px;
-    margin: 40px auto;
+    margin: 20px auto;
     text-align: right;
     height: 76px;
     line-height: 76px;
