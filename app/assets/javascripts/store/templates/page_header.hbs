@@ -1,21 +1,42 @@
-<div class="content">
-  <div class="top">
-    <h1><a href="/" data-route>Aimer</a></h1>
+<div class="top">
+  <h1><a href="/" data-route>Aimer</a></h1>
 
-    <ul>
-      <li class="cart">
-        Twój koszyk:
-          <a href="/checkout" data-route>
-            {{order.total_quantity}} szt.
-            {{#if order.total_quantity}}({{order.formatted_total}}){{/if}}
-          </a>
-      </li>
-      {{#if user.id}}
-        <li><a href="#" data-role="logout">Wyloguj się</a></li>
-      {{else}}
-        <li><a href="#" data-role="register">Zarejestruj się</a></li>
-        <li><a href="#" data-role="login">Zaloguj się</a></li>
-      {{/if}}
-    </ul>
-  </div>
+  <ul>
+    <li class="cart">
+      Twój koszyk:
+        <a href="/checkout" data-route>
+          {{order.total_quantity}} szt.
+          {{#if order.total_quantity}}({{order.formatted_total}}){{/if}}
+        </a>
+    </li>
+    {{#if user.id}}
+      <li><a href="#" data-role="logout">Wyloguj się</a></li>
+    {{else}}
+      <li><a href="#" data-role="register">Zarejestruj się</a></li>
+      <li><a href="#" data-role="login">Zaloguj się</a></li>
+    {{/if}}
+  </ul>
+</div>
+
+<div class="content">
+  <h2>
+    Szukasz precyzyjnych kulek<br />
+    o najwyższej jakości, gładkości i celności?
+  </h2>
+
+  <h2 class="try-our">
+    Wypróbuj: <img src="/assets/header-dum-dum.png" alt="Dum dum" />
+  </h2>
+
+  <a class="buy-now" href="#" data-role="scroll-to-content">
+    Zamów teraz
+    <em>Wysyłka gratis od 100zł</em>
+  </a>
+
+  <blockquote class="right">
+    “Dostarczoną partię oceniam<br />
+     bez wahania na ocenę celującą.”
+
+    <div class="author"><strong>Gall Anonim</strong> na <a href="http://wmasg.pl" class="source">www.wmasg.pl</a></div>
+  </blockquote>
 </div>

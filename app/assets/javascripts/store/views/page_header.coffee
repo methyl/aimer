@@ -5,6 +5,9 @@ class Store.views.PageHeader extends Backbone.View
   events:
     'click [data-role=login]': 'login'
     'click [data-role=logout]': 'logout'
+    'click [data-role=scroll-to-content]': 'scrollToContent'
+
+  BOTTOM_SCROLL_MARGIN = 100
 
   constructor: ->
     super
@@ -28,3 +31,9 @@ class Store.views.PageHeader extends Backbone.View
   logout: (e) ->
     e.preventDefault()
     @session.logout()
+
+  # private
+
+  scrollToContent: (e) ->
+    e.preventDefault()
+    $('body').animate(scrollTop: @$el.height() - BOTTOM_SCROLL_MARGIN)
