@@ -10,6 +10,7 @@ class Store.views.Checkout.Shipping extends Backbone.View
     super(arguments)
     @order = @checkout.getOrder()
     @cart = new Store.views.Cart(@checkout)
+    @listenTo @order, 'change', @render
 
     @load()
 
@@ -17,6 +18,7 @@ class Store.views.Checkout.Shipping extends Backbone.View
     if @isLoaded()
       @$el.html(@template(
         shippingRates: new Store.presenters.ShippingRates(@order.get('shipments')[0].shipping_rates).toJSON()
+        shippingFree: @order.isShippingFree()
       ))
       @assignSubview(@cart, '[data-subview=cart]')
       @checkCurrentShippingRate()

@@ -4,6 +4,11 @@
   line-height: 62px;
   background: asset-data-url('header-separator.png') repeat-x bottom;
 
+  .content {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+
   h1 {
     margin: 0;
     padding: 0;

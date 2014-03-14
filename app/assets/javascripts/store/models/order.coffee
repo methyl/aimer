@@ -61,6 +61,8 @@ class Store.models.Order extends Backbone.Model
     $.removeCookie(NUMBER_COOKIE)
     $.removeCookie(TOKEN_COOKIE)
 
+  isShippingFree: ->
+    parseFloat(@get('ship_total')) == 0
   # private
 
   getLineItemsUrl: ->

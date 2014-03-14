@@ -9,6 +9,7 @@ class Store.views.PageHeader extends Backbone.View
 
   constructor: ->
     super
+    @top = new Store.views.PageHeader.Top
 
   render: ->
     @$el.html(@template())

@@ -20,6 +20,12 @@
 
           .cost {
             float: right;
+
+            em {
+              color: #503f29;
+              font-style: normal;
+              text-decoration: line-through;
+            }
           }
 
           .description {

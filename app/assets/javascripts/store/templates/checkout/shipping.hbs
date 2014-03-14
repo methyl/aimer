@@ -6,7 +6,13 @@
         <input type="radio" name="shipping_rate_id" id="shipping_rate_{{id}}" value="{{id}}">
         <label for="shipping_rate_{{id}}">
           <span class="name">{{name}}</span>
-          <span class="cost">{{formatted_cost}}</span>
+
+          {{#if ../shippingFree}}
+            <span class="cost"><em>{{formatted_cost}}</em> 0 pln!</span>
+          {{else}}
+            <span class="cost">{{formatted_cost}}</span>
+          {{/if}}
+
           {{#if description}}
             <span class="description">({{description}})</span>
           {{/if}}

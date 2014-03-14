@@ -8,7 +8,7 @@ class Store.presenters.Order
     json.formatted_ship_total = @formatPrice(json.ship_total)
     json.line_items = @lineItems()
     json.selected_shipping_rate = json.shipments[0]?.selected_shipping_rate
-    json.shipping_free = parseFloat(json.ship_total) == 0
+    json.shipping_free = @order.isShippingFree()
     json
 
   # private
