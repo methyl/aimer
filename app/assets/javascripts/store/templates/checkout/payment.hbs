@@ -1,13 +1,28 @@
-<h1>Sposób płatności</h1>
+<div class="content">
+  <header>Sprawdź zamówienie:</header>
+  <div class="addres">
+    <strong>Dane dostawy:</strong>
+    {{order.ship_address.firstname}} {{order.ship_address.lastname}} <br />
+    {{order.ship_address.address1}} <br />
+    {{order.ship_address.zipcode}} {{order.ship_address.city}} <br />
+    tel. {{order.ship_address.phone}} <br />
+    {{order.email}}
+  </div>
 
-<form class="payment">
-  <ul>
-    {{#each paymentMethods}}
-      <li>
-        <input checked type="radio" name="payment_method_id" value="{{id}}">{{name}}
-      </li>
-    {{/each}}
-  </ul>
-</form>
+  <div class="shipment">
+    <strong>Sposób wysyłki: </strong>
+    {{order.selected_shipping_rate.name}}
+    {{#if order.selected_shipping_rate.cash_on_delivery}}
+      za pobraniem
+    {{/if}}
+  </div>
 
-<button class="next-step btn" data-role="next-payment">Dalej</button>
+  <div class="disclaimer">
+    Jeżeli widzisz błędne dane, możesz cofnąć się do dowolnego kroku, aby je poprawić.
+  </div>
+
+</div>
+
+<div data-subview="cart"></div>
+
+<button class="next-step btn" data-role="next-payment">Zamawiam!</button>

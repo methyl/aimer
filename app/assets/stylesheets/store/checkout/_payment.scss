@@ -1,0 +1,23 @@
+.checkout-payment {
+  header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .content {
+    float: left;
+    line-height: 22px;
+    width: 410px;
+
+    strong {
+      color: #503f2b;
+      font-weight: normal;
+      display: block;
+    }
+
+    > div {
+      margin-bottom: 35px;
+    }
+  }
+}

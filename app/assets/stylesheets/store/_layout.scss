@@ -21,7 +21,7 @@ body {
   z-index: 10;
   position: relative;
 
-  .content {
+  > .content {
     margin: 0 auto;
     padding: 20px 0;
     min-height: 600px;
