@@ -14,9 +14,6 @@ class Store.views.Product extends Backbone.View
 
   constructor: (@product, @order) ->
     super(arguments)
-    @listenTo @order, 'change', @render
-    @listenTo @product, 'add-to-cart', @render
-    @listenTo @product, 'remove-from-cart', @onRemoveFromCart
 
   render: (item) =>
     @$el.html(@template(

@@ -11,11 +11,12 @@ class Store.views.Products extends Backbone.View
     @order = Store.currentUser.getOrder()
 
     @order.on 'change', @render
+    @productViews = []
     @load()
 
   render: =>
     @$el.html(@template(new Store.presenters.Order(@order).toJSON()))
-    @addProduct(product) for product in @products.models
+    @addProducts()
     @
 
   load: ->
@@ -23,6 +24,12 @@ class Store.views.Products extends Backbone.View
 
   # private
 
+  addProducts: ->
+    view.remove() for view in @productViews
+    @productViews = []
+    @addProduct(product) for product in @products.models
+
   addProduct: (product) =>
     view = new Store.views.Product(product, @order)
     view.render().$el.appendTo(@$('ul.products'))
+    @productViews.push(view)
