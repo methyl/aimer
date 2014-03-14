@@ -9,13 +9,16 @@ class Store.views.Checkout.Shipping extends Backbone.View
   constructor: (@checkout) ->
     super(arguments)
     @order = @checkout.getOrder()
-    @listenTo @order, 'change', @render
+    @cart = new Store.views.Cart(@checkout)
 
     @load()
 
   render: =>
     if @isLoaded()
-      @$el.html(@template(shippingRates: @order.get('shipments')[0].shipping_rates))
+      @$el.html(@template(
+        shippingRates: new Store.presenters.ShippingRates(@order.get('shipments')[0].shipping_rates).toJSON()
+      ))
+      @assignSubview(@cart, '[data-subview=cart]')
       @checkCurrentShippingRate()
     @
 

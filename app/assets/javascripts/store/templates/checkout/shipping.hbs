@@ -1,13 +1,21 @@
-<h1>Sposób wysyłki</h1>
-
-<form class="shipping">
-  <ul>
+<div class="form">
+  <header>Sposób dostawy:</header>
+  <form class="shipping aimer-form">
     {{#each shippingRates}}
-      <li>
-        <input type="radio" name="shipping_rate_id" value="{{id}}">{{name}}: {{display_cost}}
-      </li>
+      <div class="option">
+        <input type="radio" name="shipping_rate_id" id="shipping_rate_{{id}}" value="{{id}}">
+        <label for="shipping_rate_{{id}}">
+          <span class="name">{{name}}</span>
+          <span class="cost">{{formatted_cost}}</span>
+          {{#if description}}
+            <span class="description">({{description}})</span>
+          {{/if}}
+        </label>
+      </div>
     {{/each}}
-  </ul>
-</form>
+  </form>
+</div>
+
+<div data-subview="cart"></div>
 
 <button class="next-step btn" data-role="next-shipping">Dalej</button>

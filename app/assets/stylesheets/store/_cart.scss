@@ -104,18 +104,26 @@
 
   .summary {
     font-size: 18px;
-    width: 225px;
     float: right;
-    text-align: center;
+    text-align: right;
     margin-top: 20px;
     clear: both;
 
-    strong {
+    > strong {
       font-size: 24px;
       display: inline-block;
       position: relative;
       margin-left: 5px;
       top: 2px;
+    }
+
+    .ship {
+      color: #503f29;
+      font-size: 14px;
+
+      strong {
+        display: block;
+      }
     }
   }
 }

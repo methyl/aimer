@@ -21,7 +21,7 @@ class Store.models.LineItems extends Backbone.Collection
   model: Store.models.LineItem
 
   constructor: (models, options) ->
-    @order = options.order
+    @order = options.order.order || options.order
     super(models, options)
 
   create: (item, options = {}) ->

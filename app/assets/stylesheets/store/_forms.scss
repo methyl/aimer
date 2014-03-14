@@ -37,6 +37,45 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
       background: asset-data-url('input-bg-2.jpg');
     }
   }
+
+  .option {
+    margin-bottom: 10px;
+
+    input {
+      display: none;
+    }
+
+    input:checked+label {
+      border: 2px solid #9a764c;
+      padding: 6px;
+
+      &:before {
+        background-image: asset-data-url('form-checkbox-check.png');
+        left: -36px;
+      }
+    }
+
+    label {
+      cursor: pointer;
+      font-size: 18px;
+      padding: 8px;
+      margin-left: 34px;
+      position: relative;
+      display: inline-block;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background: asset-data-url('form-checkbox.png') no-repeat left center;
+        left: -34px;
+        top: 50%;
+        margin-top: -12px;
+      }
+    }
+  }
 }
 
 .btn {

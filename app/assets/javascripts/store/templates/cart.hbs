@@ -20,5 +20,14 @@
 </table>
 
 <div class="summary">
-  do zapłaty: <strong>{{order.formatted_total}}</strong>
+  razem: <strong>{{order.formatted_total}}</strong>
+  {{#if order.selected_shipping_rate}}
+    <div class="ship">
+      {{#if order.shipping_free}}
+        <strong>wysyłka gratis!</strong>
+      {{else}}
+        w tym wysyłka: <strong>{{order.selected_shipping_rate.name}} {{order.formatted_ship_total}}</strong>
+      {{/if}}
+    </div>
+  {{/if}}
 </div>
