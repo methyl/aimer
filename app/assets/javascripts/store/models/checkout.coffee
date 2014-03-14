@@ -7,9 +7,11 @@ class Store.models.Checkout extends Backbone.Model
 
     @listenTo @order, 'change', =>
       @attributes = @order.attributes
-    @on 'change', =>
-      @order.attributes = @parse(@toJSON())
-      @order.trigger('change')
+
+  sync: ->
+    arguments[2].success = (resp) =>
+      @order.set(@order.parse(resp))
+    Backbone.sync.apply(this, arguments)
 
   getOrder: ->
     @order
