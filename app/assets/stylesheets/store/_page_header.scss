@@ -26,60 +26,6 @@
     background: url('header-bottom.png') repeat-x 50%;
   }
 
-  .top {
-    padding: 0 20px;
-    height: 62px;
-    line-height: 62px;
-    background: asset-data-url('header-separator.png') repeat-x bottom;
-
-    h1 {
-      margin: 0;
-      padding: 0;
-      position: absolute;
-
-      a {
-        color: #fff;
-      }
-    }
-
-    ul {
-      list-style: none;
-      text-align: right;
-      margin: 0;
-      padding: 0;
-
-      li {
-        display: inline-block;
-        padding: 0 10px;
-        letter-spacing: 1px;
-        font-weight: bold;
-        vertical-align: top;
-
-        &.cart {
-          color: #be9665;
-
-          a {
-            color: #fff;
-            margin-right: 5px;
-          }
-
-          &:before {
-            content: '';
-            display: inline-block;
-            width: 21px;
-            height: 18px;
-            margin-top: 1px;
-            margin-right: 3px;
-          }
-        }
-
-        a {
-          color: #ffb351;
-        }
-      }
-    } // ul
-  } // .top
-
   .content {
     position: relative;
     z-index: 1;
@@ -162,3 +108,5 @@
     }
   } // .content
 }
+
+@import 'page_header/*'
