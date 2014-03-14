@@ -63,7 +63,7 @@ class Store.models.Order extends Backbone.Model
   isShippingFree: ->
     parseFloat(@get('ship_total')) == 0
 
-  reload: ->
+  reload: =>
     @clearCookies()
     @set('number', null)
     @attributes = {}

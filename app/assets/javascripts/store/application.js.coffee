@@ -68,8 +68,7 @@ class Store.Application
       if @order.isNew()
         @order.save()
       else
-        @order.fetch().fail =>
-          @order.reload()
+        @order.fetch().then(true, @order.reload)
 
   start: ->
     @router.start()
