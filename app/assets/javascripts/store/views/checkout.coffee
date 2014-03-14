@@ -15,6 +15,7 @@ class Store.views.Checkout extends Backbone.View
     super(arguments)
     @user = Store.currentUser
     @checkout = new Store.models.Checkout
+    @order = @user.getOrder()
     @load()
 
   render: =>
