@@ -11,10 +11,10 @@ class Store.views.Checkout extends Backbone.View
   ITEM_MARGIN = 10
   ANIMATION_DURATION = 500
 
-  constructor: (@order) ->
+  constructor: ->
     super(arguments)
-    @checkout = new Store.models.Checkout({}, order: @order)
     @user = Store.currentUser
+    @checkout = new Store.models.Checkout
     @load()
 
   render: =>
@@ -65,16 +65,13 @@ class Store.views.Checkout extends Backbone.View
     @steps[@steps.indexOf(@getCurrentStep()) + 1]
 
   showCurrentView: (animate = true) =>
-    if @getCurrentStep() == 'complete'
-      @resetOrder()
+    @updateCurrentStep()
+    @updateAvailableSteps()
+    if animate and @previousStep != @currentStep
+      @assignSubview(@[@getCurrentStep()], '[data-subview=next-view]')
+      @transitionViews()
     else
-      @updateCurrentStep()
-      @updateAvailableSteps()
-      if animate and @previousStep != @currentStep
-        @assignSubview(@[@getCurrentStep()], '[data-subview=next-view]')
-        @transitionViews()
-      else
-        @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
+      @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
 
   transitionViews: ->
     @isAnimated = true
@@ -103,8 +100,7 @@ class Store.views.Checkout extends Backbone.View
     @listenTo @cart, 'proceed',     => @setCurrentStep('address')
     @listenTo @address, 'proceed',  => @setCurrentStep('delivery')
     @listenTo @delivery, 'proceed', => @setCurrentStep('payment')
-    @listenTo @payment, 'proceed',  => @setCurrentStep('complete')
-
-  resetOrder: ->
-    @user.getOrder().clearCookies()
-    window.location.pathname = 'complete'
+    @listenTo @payment, 'proceed',  =>
+      @complete = new Store.views.Checkout.Complete(_.clone(@order))
+      @order.reload()
+      @setCurrentStep('complete')

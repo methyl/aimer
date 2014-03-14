@@ -3,7 +3,8 @@ class Store.models.Checkout extends Backbone.Model
 
   constructor: (attrs, options = {}) ->
     super(attrs, options)
-    @order = options.order
+    @order = Store.currentUser.getOrder()
+
     @listenTo @order, 'change', =>
       @attributes = @order.attributes
     @on 'change', =>

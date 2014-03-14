@@ -28,17 +28,16 @@ class Store.Router extends Backbone.Router
     Backbone.history.start(pushState: true)
 
   products: ->
-    @app.order.load().done =>
-      @products = new Store.views.Products(@app.order)
-      @showView(@products)
+    @products = new Store.views.Products
+    @showView(@products)
 
   checkout: ->
-    @app.order.load().done =>
-      if @app.order.get('step') == 'products' || @app.order.get('line_items').length == 0
-        @navigate('/', trigger: true)
-      else
-        @checkout = new Store.views.Checkout(@app.order)
-        @showView(@checkout)
+    order = Store.currentUser.getOrder()
+    if order.get('step') == 'products' || order.get('line_items').length == 0
+      @navigate('/', trigger: true)
+    else
+      @checkout = new Store.views.Checkout
+      @showView(@checkout)
 
   complete: ->
     @showView new Store.views.Checkout.Complete
@@ -61,17 +60,16 @@ class Store.Application
     @user = Store.currentUser = new Store.models.CurrentUser
     Store.messageBus  = new Store.MessageBus(@)
     @applicationView = new Store.views.Application
+    @setupAjax()
 
   prepare: ->
     @user.load().then =>
       @order = @user.getOrder()
       if @order.isNew()
-        @order.save().then(@setupAjax)
+        @order.save()
       else
-        @setupAjax()
         @order.fetch().fail =>
-          @order.clear()
-          @order.save().then(@setupAjax)
+          @order.reload()
 
   start: ->
     @router.start()
@@ -82,9 +80,10 @@ class Store.Application
     @applicationView.showView(view)
 
   setupAjax: =>
-    $.ajaxSetup
-      headers:
-        'X-Spree-Order-Token': @order.get('token')
+    $.ajaxPrefilter (options) =>
+      if options.url.match(/\/spree\/api\/(orders|checkouts)\/R\d+/)
+        options.beforeSend = (xhr) =>
+          xhr.setRequestHeader('X-Spree-Order-Token', @order.get('token'))
 
   enableRoutedLinks: ->
     $('body').on 'click', 'a[data-route]', (e) =>

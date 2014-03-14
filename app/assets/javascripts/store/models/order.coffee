@@ -23,7 +23,6 @@ class Store.models.Order extends Backbone.Model
     json.line_items = json.line_items.toJSON() if json.line_items?.toJSON?
     json = _.omit(json, 'token')
     json
-    # { order: json } unless _.isEmpty(json)
 
   save: ->
     super(arguments).done(@saveCookies)
@@ -63,6 +62,13 @@ class Store.models.Order extends Backbone.Model
 
   isShippingFree: ->
     parseFloat(@get('ship_total')) == 0
+
+  reload: ->
+    @clearCookies()
+    @set('number', null)
+    @attributes = {}
+    @save()
+
   # private
 
   getLineItemsUrl: ->

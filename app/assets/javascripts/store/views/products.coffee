@@ -5,9 +5,10 @@ class Store.views.Products extends Backbone.View
   events:
     'click ul.products [data-id]': 'handleProductClick'
 
-  constructor: (@order) ->
+  constructor: ->
     super(arguments)
     @products = new Store.models.Products
+    @order = Store.currentUser.getOrder()
 
     @order.on 'change', @render
     @load()
