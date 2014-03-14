@@ -1,5 +1,6 @@
 class Store.models.Checkout extends Backbone.Model
   urlRoot: '/spree/api/checkouts'
+  idAttribute: 'number'
 
   constructor: (attrs, options = {}) ->
     super(attrs, options)
@@ -7,11 +8,9 @@ class Store.models.Checkout extends Backbone.Model
 
     @listenTo @order, 'change', =>
       @attributes = @order.attributes
-
-  sync: ->
-    arguments[2].success = (resp) =>
-      @order.set(@order.parse(resp))
-    Backbone.sync.apply(this, arguments)
+    @on 'sync', (model, resp) =>
+      @order.attributes = @attributes
+      @order.trigger('change')
 
   getOrder: ->
     @order
