@@ -102,6 +102,6 @@ class Store.views.Checkout extends Backbone.View
     @listenTo @address, 'proceed',  => @setCurrentStep('delivery')
     @listenTo @delivery, 'proceed', => @setCurrentStep('payment')
     @listenTo @payment, 'proceed',  =>
-      @complete = new Store.views.Checkout.Complete(_.clone(@order))
+      @complete = new Store.views.Checkout.Complete(_.clone(@order), @order.get('number'))
       @order.reload()
       @setCurrentStep('complete')

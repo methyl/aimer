@@ -1,0 +1,50 @@
+.checkout-complete {
+  text-align: center;
+  color: #503f29;
+  width: 610px;
+  margin: 0 auto;
+
+  header {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px
+  }
+
+  .white {
+    color: #fff;
+  }
+
+  .company {
+    color: #fff;
+    width: 400px;
+    margin: 20px auto;
+    text-align: left;
+    overflow: hidden;
+
+    dl {
+      margin: 0;
+      padding: 0;
+      margin-top: 15px;
+
+      dt {
+        font-weight: normal;
+        width: 140px;
+        float: left;
+        clear: left;
+        color: #503f29;
+      }
+
+      dd {
+        float: left;
+        margin: 0;
+      }
+    }
+  }
+
+  .btn {
+    clear: both;
+    display: block;
+    margin: 40px auto;
+    line-height: 73px;
+  }
+}

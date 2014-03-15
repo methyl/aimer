@@ -18,7 +18,6 @@ class Store.Router extends Backbone.Router
   routes:
     '': 'products'
     'checkout': 'checkout'
-    'complete': 'complete'
     'login': 'login'
 
   constructor: (@app) ->
@@ -38,9 +37,6 @@ class Store.Router extends Backbone.Router
     else
       @checkout = new Store.views.Checkout
       @showView(@checkout)
-
-  complete: ->
-    @showView new Store.views.Checkout.Complete
 
   showView: (view) ->
     @app.showView(view)

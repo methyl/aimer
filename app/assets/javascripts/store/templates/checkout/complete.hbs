@@ -1,0 +1,27 @@
+<header>Dziękujemy za zakup!</header>
+
+Potwierdzenie zamówienia
+{{#unless selected_shipping_rate.cash_on_delivery}}
+  oraz dane do przelewu
+{{/unless}}
+wysłaliśmy na <span class="white">{{email}}.</span><br />
+Wysyłkę towaru potwierdzimy w osobnej wiadomości.<br />
+<strong>Powodzenia na froncie!</strong>
+
+{{#unless selected_shipping_rate.cash_on_delivery}}
+  <div class="company">
+    Aimer Lucjan Suski<br />
+    ul. Rynek 32<br />
+    38-230 Nowy Żmigród
+    <dl>
+      <dt>Nr konta:</dt>
+      <dd>71 2490 1044 0000 4200 2375 3276</dd>
+      <dt>Tytuł przelewu:</dt>
+      <dd>{{ship_address.firstname}} {{ship_address.lastname}} - {{number}}</dd>
+      <dt>Kwota:</dt>
+      <dd>{{formatted_total}}</dd>
+    </dl>
+  </div>
+{{/unless}}
+
+<a href="/" class="btn">Koniec</a>

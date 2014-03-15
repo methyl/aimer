@@ -3,7 +3,7 @@ class Store.presenters.Order
     @order = order
 
   toJSON: ->
-    json = @order.toJSON()
+    json = @order.toJSON?() ? @order
     json.formatted_total = @formatPrice(json.total)
     json.formatted_ship_total = @formatPrice(json.ship_total)
     json.line_items = @lineItems()
