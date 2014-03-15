@@ -6,4 +6,5 @@
 #= require lib/backbone
 #= require lib/backbone-rails-sync
 #= require lib/backbone-ext
+#= require lib/skrollr.min
 #= require handlebars.runtime
