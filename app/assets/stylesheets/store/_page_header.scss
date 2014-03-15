@@ -45,9 +45,14 @@
       line-height: 52px;
       vertical-align: middle;
 
-      img {
+      i {
         vertical-align: middle;
         margin-left: 10px;
+        width: 186px;
+        height: 52px;
+        background: asset-data-url('header-dum-dum.png');
+        display: inline-block;
+        color: transparent;
       }
     }
 
