@@ -1,4 +1,18 @@
-@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,latin-ext);
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url(http://themes.googleusercontent.com/static/fonts/robotoslab/v3/dazS1PrQQuCxC3iOAJFEJXZ4362_PV5aPD5jU0S2ELI.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(http://themes.googleusercontent.com/static/fonts/robotoslab/v3/y7lebkjgREBJK96VQi37ZqfTCPadK0KLfdEfFtGWCYw.woff) format('woff');
+}
+
+
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url(//fonts.googleapis.com/css?family=PT+Sans:400italic);
 @import url(//fonts.googleapis.com/css?family=Bitter:400,700);
@@ -24,7 +38,6 @@ body {
   > .content {
     margin: 0 auto;
     padding: 20px 0;
-    min-height: 600px;
     max-width: 950px;
   }
 }
