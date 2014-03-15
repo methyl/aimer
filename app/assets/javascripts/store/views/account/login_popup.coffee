@@ -9,7 +9,7 @@ class Store.views.Account.LoginPopup extends Backbone.View
   constructor: ->
     super()
     @loginForm = new Store.views.Account.LoginForm
-    @listenTo @loginForm, 'log-in', @remove
+    @listenTo @loginForm, 'login', @remove
 
   render: =>
     @$el.html(@template())
@@ -18,3 +18,10 @@ class Store.views.Account.LoginPopup extends Backbone.View
 
   show: ->
     @render().$el.appendTo($('body'))
+    @$('.popup').css(top: -@$('.popup').height())
+    @$('.popup').animate({ top: 200 }, 500, 'easeOutCubic')
+    $('body').css(overflow: 'hidden', height: window.innerHeight)
+
+  remove: =>
+    super
+    $('body').css(overflow: 'auto', height: 'auto')

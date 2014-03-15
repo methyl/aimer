@@ -1,4 +1,5 @@
 #= require jquery.ui.slider
+#= require jquery.ui.effect
 #= require lib/jquery.placeholder
 #= require lib/jquery.cookie
 #= require lib/underscore
