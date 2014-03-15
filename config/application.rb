@@ -80,7 +80,9 @@ module Aimer
     config.assets.precompile += ['store.js', 'store.css']
 
     config.assets.paths += [
-      Rails.root.join("app", "assets", "fonts")
+      Rails.root.join("vendor", "assets", "fonts")
     ]
+
+    config.assets.precompile += %w( .svg .eot .woff .ttf)
   end
 end
