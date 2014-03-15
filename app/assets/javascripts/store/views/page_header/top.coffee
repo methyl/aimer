@@ -1,5 +1,6 @@
 class Store.views.PageHeader.Top extends Backbone.View
   template: HandlebarsTemplates['store/templates/page_header/top']
+  cartTemplate: HandlebarsTemplates['store/templates/page_header/cart']
   className: 'page-header-top'
 
   events:
@@ -14,16 +15,41 @@ class Store.views.PageHeader.Top extends Backbone.View
     @session = new Store.models.UserSession
     @listenTo @user, 'add remove reset change', @render
     @order = @user.getOrder()
-    @listenTo @order, 'change', @render
+    @listenTo @order, 'change', @renderCart
+
+    $(window).on 'scroll', @applyFixed
 
   render: =>
     @$el.html(@template(
       user: @user.toJSON()
-      order: new Store.presenters.Order(@order).toJSON() if @isLoaded()
     ))
+    @renderCart() if @isLoaded()
+    @applyFixed()
     @
 
   # private
+
+  renderCart: ->
+    @$('li.cart').html(@cartTemplate(
+      order: new Store.presenters.Order(@order).toJSON()
+    ))
+
+  remove: ->
+    super
+    $(window).off 'scroll', @applyFixed
+
+  applyFixed: =>
+    scrollTop = $(window).scrollTop()
+    if scrollTop > 10
+      @$('.content').addClass('fixed')
+    else
+      @$('.content').removeClass('fixed')
+    if scrollTop > 21
+      @$('.content').addClass('dark')
+      @$('.separator').addClass('fixed')
+    else
+      @$('.content').removeClass('dark')
+      @$('.separator').removeClass('fixed')
 
   login: (e) ->
     e.preventDefault()

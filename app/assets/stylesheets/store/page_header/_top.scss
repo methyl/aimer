@@ -2,9 +2,47 @@
   padding: 0 20px;
   height: 62px;
   line-height: 62px;
-  background: asset-data-url('header-separator.png') repeat-x bottom;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  .separator {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: asset-data-url('header-separator.png') repeat-x bottom;
+
+    &.fixed {
+      position: fixed;
+      top: 40px;
+    }
+  }
 
   .content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 100%;
+    @include transition-property(background);
+    @include transition-duration(300ms);
+
+    &.fixed {
+      height: 40px;
+      line-height: 40px;
+      position: fixed;
+    }
+
+    &.dark {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .middle {
     max-width: 950px;
     margin: 0 auto;
   }
