@@ -1,5 +1,6 @@
 class Store.views.Products extends Backbone.View
   template: HandlebarsTemplates['store/templates/products']
+  totalTemplate: HandlebarsTemplates['store/templates/products/total']
   className: 'products'
 
   events:
@@ -10,12 +11,15 @@ class Store.views.Products extends Backbone.View
     @products = new Store.models.Products
     @order = Store.currentUser.getOrder()
 
-    @order.on 'change', @render
+    @presenter = new Store.presenters.Order(@order)
+
+    @order.on 'change', @renderTotal
     @productViews = []
     @load()
 
   render: =>
-    @$el.html(@template(new Store.presenters.Order(@order).toJSON()))
+    @$el.html(@template())
+    @renderTotal()
     @addProducts()
     @
 
@@ -23,6 +27,9 @@ class Store.views.Products extends Backbone.View
     $.when(@products.fetch()).then(@render)
 
   # private
+
+  renderTotal: =>
+    @$('[data-template=total]').html(@totalTemplate(@presenter.toJSON()))
 
   addProducts: ->
     view.remove() for view in @productViews

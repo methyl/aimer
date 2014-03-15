@@ -19,7 +19,7 @@ class Store.views.Checkout.Payment extends Backbone.View
     @
 
   load: =>
-    @order.fetch().done(@render)
+    @order.load().done(@render)
 
   getPayment: ->
     { payment_method_id: @order.get('payment_methods')[0].id }

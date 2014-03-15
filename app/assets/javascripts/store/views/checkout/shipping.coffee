@@ -10,7 +10,6 @@ class Store.views.Checkout.Shipping extends Backbone.View
     super(arguments)
     @order = @checkout.getOrder()
     @cart = new Store.views.Cart(@checkout)
-    @listenTo @order, 'change', @render
 
     @load()
 
@@ -47,7 +46,7 @@ class Store.views.Checkout.Shipping extends Backbone.View
     @$("input[name=shipping_rate_id][value=#{id}]").prop('checked', true)
 
   load: =>
-    @order.fetch().done(@render)
+    @order.load().done(@render)
 
   isLoaded: ->
     @order.get('shipments')?[0]
