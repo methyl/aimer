@@ -1,8 +1,21 @@
 @font-face {
-  font-family: 'Roboto Slab';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url(http://themes.googleusercontent.com/static/fonts/robotoslab/v3/dazS1PrQQuCxC3iOAJFEJXZ4362_PV5aPD5jU0S2ELI.woff) format('woff');
+    font-family: 'Roboto Slab';
+    src: url('RobotoSlab-Light-webfont.eot');
+    src: url('RobotoSlab-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('RobotoSlab-Light-webfont.woff') format('woff'),
+         url('RobotoSlab-Light-webfont.ttf') format('truetype'),
+         url('RobotoSlab-Light-webfont.svg#roboto_slablight') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'Roboto Slab';
+    src: url('RobotoSlab-Light-webfont.svg') format('svg');
+    font-weight: 400;
+    font-style: normal;
+  }
 }
 
 @font-face {

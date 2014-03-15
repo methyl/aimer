@@ -78,5 +78,9 @@ module Aimer
     config.assets.version = '1.0'
 
     config.assets.precompile += ['store.js', 'store.css']
+
+    config.assets.paths += [
+      Rails.root.join("app", "assets", "fonts")
+    ]
   end
 end
