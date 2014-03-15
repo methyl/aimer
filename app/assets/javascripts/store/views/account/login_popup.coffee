@@ -21,6 +21,7 @@ class Store.views.Account.LoginPopup extends Backbone.View
     @$('.popup').css(top: -@$('.popup').height())
     @$('.popup').animate({ top: 200 }, 500, 'easeOutCubic')
     $('body').css(overflow: 'hidden', height: window.innerHeight)
+    @$('input').first().focus()
 
   remove: =>
     super
