@@ -19,7 +19,7 @@ class Store.views.PageHeader.Top extends Backbone.View
   render: =>
     @$el.html(@template(
       user: @user.toJSON()
-      order: new Store.presenters.Order(@order).toJSON() if @order.isLoaded()
+      order: new Store.presenters.Order(@order).toJSON() if @order.get('line_items')?
     ))
     @
 
