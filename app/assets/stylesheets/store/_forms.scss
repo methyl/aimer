@@ -1,4 +1,4 @@
-$form-textual-inputs: 'input[type=text], input[type=password], input[type=email], input[type=search]';
+$form-textual-inputs: 'input[type=text], input[type=password], input[type=email], input[type=search], textarea';
 
 @mixin input-placeholder {
   &::-webkit-input-placeholder { @content }
@@ -19,7 +19,7 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
     font-weight: bold;
     color: #745231;
     border: 0;
-    outline-color: #745231;
+    outline: 0;
     padding: 0 20px;
     margin-bottom: 10px;
 
@@ -88,7 +88,7 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
   text-align: center;
   color: #5b3816;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 900;
   display: inline-block;
 
   &:focus {

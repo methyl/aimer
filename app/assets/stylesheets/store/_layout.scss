@@ -12,6 +12,12 @@
   src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(http://themes.googleusercontent.com/static/fonts/robotoslab/v3/y7lebkjgREBJK96VQi37ZqfTCPadK0KLfdEfFtGWCYw.woff) format('woff');
 }
 
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url(http://themes.googleusercontent.com/static/fonts/robotoslab/v3/dazS1PrQQuCxC3iOAJFEJRbnBKKEOwRKgsHDreGcocg.woff) format('woff');
+}
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url(//fonts.googleapis.com/css?family=PT+Sans:400italic);
@@ -34,10 +40,10 @@ body {
   overflow-x: hidden;
   z-index: 10;
   position: relative;
+  padding: 20px;
 
   > .content {
-    margin: 0 auto;
-    padding: 20px 0;
+    margin: 0px auto;
     max-width: 950px;
   }
 }
