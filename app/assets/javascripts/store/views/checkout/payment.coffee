@@ -10,16 +10,11 @@ class Store.views.Checkout.Payment extends Backbone.View
     @order = @checkout.getOrder()
     @cart = new Store.views.Cart(@checkout)
 
-    @load()
-
   render: =>
     if @isLoaded()
       @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))
       @assignSubview(@cart, '[data-subview=cart]')
     @
-
-  load: =>
-    @order.load().done(@render)
 
   getPayment: ->
     { payment_method_id: @order.get('payment_methods')[0].id }

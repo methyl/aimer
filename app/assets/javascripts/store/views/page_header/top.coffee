@@ -19,7 +19,7 @@ class Store.views.PageHeader.Top extends Backbone.View
   render: =>
     @$el.html(@template(
       user: @user.toJSON()
-      order: new Store.presenters.Order(@order).toJSON() if @order.get('line_items')?
+      order: new Store.presenters.Order(@order).toJSON() if @isLoaded()
     ))
     @
 
@@ -32,3 +32,6 @@ class Store.views.PageHeader.Top extends Backbone.View
   logout: (e) ->
     e.preventDefault()
     @session.logout()
+
+  isLoaded: ->
+    @order.get('line_items')?

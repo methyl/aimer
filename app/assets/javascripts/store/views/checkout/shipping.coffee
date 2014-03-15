@@ -11,8 +11,6 @@ class Store.views.Checkout.Shipping extends Backbone.View
     @order = @checkout.getOrder()
     @cart = new Store.views.Cart(@checkout)
 
-    @load()
-
   render: =>
     if @isLoaded()
       @$el.html(@template(
@@ -44,9 +42,6 @@ class Store.views.Checkout.Shipping extends Backbone.View
   checkCurrentShippingRate: ->
     id = @order.get('shipments')[0].selected_shipping_rate.id
     @$("input[name=shipping_rate_id][value=#{id}]").prop('checked', true)
-
-  load: =>
-    @order.load().done(@render)
 
   isLoaded: ->
     @order.get('shipments')?[0]
