@@ -6,7 +6,7 @@ class Store.views.Application extends Backbone.View
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
     @viewSwitcher = new Store.views.ViewSwitcher
-    @initializeSkrollr()
+    @initializeSkrollr() unless @isVieportSmall()
 
   render: =>
     @$el.html(@template())
@@ -30,10 +30,14 @@ class Store.views.Application extends Backbone.View
       easing: 0
       smoothScrolling: false
       forceHeight: false
+      mobileCheck: -> false
     })
 
   refreshSkrollr: =>
-    @skrollr.refresh()
+    @skrollr.refresh() unless @isVieportSmall()
 
   waitForDom: (fn) =>
     setTimeout(fn, 0)
+
+  isVieportSmall: ->
+    window.innerWidth < 950

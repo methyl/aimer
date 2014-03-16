@@ -39,6 +39,7 @@ class Store.views.PageHeader.Top extends Backbone.View
     $(window).off 'scroll', @applyFixed
 
   applyFixed: =>
+    return if window.innerWidth < 950
     scrollTop = $(window).scrollTop()
     if scrollTop > 3
       @$('.header').addClass('fixed')
