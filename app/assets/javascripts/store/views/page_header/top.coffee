@@ -40,16 +40,18 @@ class Store.views.PageHeader.Top extends Backbone.View
 
   applyFixed: =>
     scrollTop = $(window).scrollTop()
-    if scrollTop > 10
-      @$('.content').addClass('fixed')
+    if scrollTop > 3
+      @$('.header').addClass('fixed')
     else
-      @$('.content').removeClass('fixed')
-    if scrollTop > 21
-      @$('.content').addClass('dark')
-      @$('.separator').addClass('fixed')
+      @$('.header').removeClass('fixed')
+    if scrollTop > 15
+      @$el.addClass('fixed')
     else
-      @$('.content').removeClass('dark')
-      @$('.separator').removeClass('fixed')
+      @$el.removeClass('fixed')
+    if scrollTop > 38
+      @$('.submenu').addClass('fixed')
+    else
+      @$('.submenu').removeClass('fixed')
 
   login: (e) ->
     e.preventDefault()
