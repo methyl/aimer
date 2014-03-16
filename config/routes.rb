@@ -9,6 +9,7 @@ Aimer::Application.routes.draw do
 
   root to: 'spree/home#index'
   get :checkout, controller: 'spree/home', action: 'index'
-  get :complete, controller: 'spree/home', action: 'index'
+  get :about, controller: 'spree/home', action: 'index'
+  get :contact, controller: 'spree/home', action: 'index'
 end
 

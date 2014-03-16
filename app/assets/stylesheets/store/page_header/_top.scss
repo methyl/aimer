@@ -41,8 +41,6 @@
     top: 0;
     right: 0;
     height: 62px;
-    @include transition-property(background);
-    @include transition-duration(500ms);
     z-index: 1;
 
     .wrapper {
@@ -110,6 +108,7 @@
 
         a {
           color: #ffb351;
+          font-weight: bold;
         }
       }
     }

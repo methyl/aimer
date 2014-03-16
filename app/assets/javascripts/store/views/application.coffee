@@ -5,21 +5,21 @@ class Store.views.Application extends Backbone.View
     super()
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
+    @viewSwitcher = new Store.views.ViewSwitcher
     @initializeSkrollr()
 
   render: =>
     @$el.html(@template())
     @assignSubview @pageHeader, '[data-subview=page-header]'
     @assignSubview @pageFooter, '[data-subview=page-footer]'
-    @assignSubview @currentView, '[data-subview=current-view]' if @currentView
+    @assignSubview @viewSwitcher, '[data-subview=view-switcher]'
     @waitForDom(@refreshSkrollr)
     @
 
   # private
 
   showView: (view) ->
-    @currentView = view
-    @render()
+    @viewSwitcher.setView(view)
 
   initializeSkrollr: =>
     @skrollr = skrollr.init({

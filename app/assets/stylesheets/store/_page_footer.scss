@@ -23,11 +23,16 @@
     header {
       font-size: 25px;
       font-weight: bold;
+      @include transition(300ms);
     }
 
     .about {
       float: left;
       width: 334px;
+
+      &.highlight header {
+        color: #ffb351;
+      }
     }
 
     .contact {
@@ -84,6 +89,10 @@
     .form {
       width: 320px;
       float: right;
+
+      &.highlight header {
+        color: #ffb351;
+      }
 
       header {
         margin-bottom: 10px;

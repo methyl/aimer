@@ -16,9 +16,11 @@ window.Store.application = {}
 
 class Store.Router extends Backbone.Router
   routes:
-    '': 'products'
+    '': 'home'
     'checkout': 'checkout'
     'login': 'login'
+    'contact': 'contact'
+    'about': 'about'
 
   constructor: (@app) ->
     super(arguments)
@@ -26,7 +28,7 @@ class Store.Router extends Backbone.Router
   start: ->
     Backbone.history.start(pushState: true)
 
-  products: ->
+  home: ->
     @products = new Store.views.Products
     @showView(@products)
 
@@ -37,6 +39,18 @@ class Store.Router extends Backbone.Router
     else
       @checkout = new Store.views.Checkout
       @showView(@checkout)
+
+  about: ->
+    @home()
+    setTimeout =>
+      $('body, html').scrollTop($('#about').offset().top)
+    , 0
+
+  contact: ->
+    @home()
+    setTimeout =>
+      $('body, html').scrollTop($('#contact').offset().top)
+    , 0
 
   showView: (view) ->
     @app.showView(view)
@@ -69,6 +83,7 @@ class Store.Application
   start: ->
     @router.start()
     @enableRoutedLinks()
+    @enableAnchorLinks()
     @applicationView.render().$el.appendTo('body')
 
   showView: (view) ->
@@ -84,6 +99,19 @@ class Store.Application
     $('body').on 'click', 'a[data-route]', (e) =>
       e.preventDefault()
       @router.navigate($(e.currentTarget).attr('href'), trigger: true)
+
+  enableAnchorLinks: ->
+    $('body').on 'click', 'a[data-anchor]', (e) =>
+      e.preventDefault()
+      el = $($(e.currentTarget).attr('href'))
+      el.addClass('highlight')
+      @router.navigate(el.attr('id'))
+      $('html, body').animate
+        scrollTop: el.offset().top - $('.page-header-top').height()
+      500
+      setTimeout ->
+        el.removeClass('highlight')
+      , 2000
 
 $ ->
   Store.application = new Store.Application
