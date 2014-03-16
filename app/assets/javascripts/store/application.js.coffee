@@ -21,6 +21,7 @@ class Store.Router extends Backbone.Router
     'login': 'login'
     'contact': 'contact'
     'about': 'about'
+    ':name': 'static'
 
   constructor: (@app) ->
     super(arguments)
@@ -51,6 +52,9 @@ class Store.Router extends Backbone.Router
     setTimeout =>
       $('body, html').scrollTop($('#contact').offset().top)
     , 0
+
+  static: (name) ->
+    @showView(new Store.views.StaticPage(name))
 
   showView: (view, options) ->
     @app.showView(view, options)
@@ -102,6 +106,9 @@ class Store.Application
     $('body').on 'click', 'a[data-route]', (e) =>
       e.preventDefault()
       @router.navigate($(e.currentTarget).attr('href'), trigger: true)
+      scrollTop = $('#content').offset().top - window.innerHeight / 2
+      time = Math.abs(scrollTop - $(window).scrollTop()) * 1.5
+      $('body, html').animate({ scrollTop }, time)
 
   enableAnchorLinks: ->
     $('body').on 'click', 'a[data-anchor]', (e) =>
@@ -109,9 +116,9 @@ class Store.Application
       el = $($(e.currentTarget).attr('href'))
       el.addClass('highlight')
       @router.navigate(el.attr('id'))
-      $('html, body').animate
-        scrollTop: el.offset().top - $('.page-header-top').height()
-      500
+      scrollTop = el.offset().top - $('.page-header-top').height()
+      time = Math.abs(scrollTop - $(window).scrollTop())
+      $('html, body').animate({ scrollTop }, time)
       setTimeout ->
         el.removeClass('highlight')
       , 2000

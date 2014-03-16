@@ -1,8 +1,8 @@
 .page-footer {
   width: 100%;
   height: 500px;
-  background: url('header-bg.jpg');
   position: relative;
+  overflow: hidden;
 
   &:before {
     content: '';
@@ -13,6 +13,16 @@
     top: 0;
     height: 43px;
     background: url('footer-top.png') repeat-x 50%;
+  }
+
+  .background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -300px;
+    bottom: 0px;
+    background: url('header-bg.jpg');
+    z-index: -1;
   }
 
   .content {

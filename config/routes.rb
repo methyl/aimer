@@ -11,5 +11,8 @@ Aimer::Application.routes.draw do
   get :checkout, controller: 'spree/home', action: 'index'
   get :about, controller: 'spree/home', action: 'index'
   get :contact, controller: 'spree/home', action: 'index'
+  get 'why_dum_dum', controller: 'spree/home', action: 'index'
+  get 'tos', controller: 'spree/home', action: 'index'
+  get 'cooperation', controller: 'spree/home', action: 'index'
 end
 

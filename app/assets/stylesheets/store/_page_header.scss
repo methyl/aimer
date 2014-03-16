@@ -1,17 +1,27 @@
 .page-header {
-  background: url('header-bg.jpg');
   height: 608px;
   width: 100%;
   position: relative;
 
-  .soldier {
+  .background {
     display: block;
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -50px;
-    height: 562px;
-    background: url('header-picture.png') no-repeat 50%;
+    bottom: 0;
+    top: -300px;
+    background: url('header-bg.jpg');
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -50px;
+      height: 562px;
+      background: url('header-picture.png') no-repeat 50%;
+    }
   }
 
   &:after {
