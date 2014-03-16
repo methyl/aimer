@@ -15,13 +15,16 @@ class Store.views.Checkout extends Backbone.View
     super(arguments)
     @user = Store.currentUser
     @checkout = new Store.models.Checkout
+    @viewSwitcher = new Store.views.ViewSwitcher
     @order = @user.getOrder()
     @load()
 
   render: =>
     if @checkout.isLoaded()
       @$el.html(@template())
-      @showCurrentView(false)
+      @assignSubview @viewSwitcher, '[data-subview=view-switcher]'
+      @showCurrentView()
+      @trigger('change:height', @$el.outerHeight())
     @
 
   load: ->
@@ -57,41 +60,25 @@ class Store.views.Checkout extends Backbone.View
     return unless @isStepAvailable(step)
     @previousStep = @currentStep
     @currentStep = step
-    @showCurrentView()
+    @showCurrentView(animate: true)
 
   getCurrentStep: ->
     @currentStep
 
+  getCurrentView: ->
+    @[@getCurrentStep()]
+
   getNextStep: ->
     @steps[@steps.indexOf(@getCurrentStep()) + 1]
 
-  showCurrentView: (animate = true) =>
+  showCurrentView: (options = {}) =>
     @updateCurrentStep()
     @updateAvailableSteps()
-    if animate and @previousStep != @currentStep
-      @assignSubview(@[@getCurrentStep()], '[data-subview=next-view]')
-      @transitionViews()
-    else
-      @assignSubview(@[@getCurrentStep()], '[data-subview=current-view]')
+    _.extend(options, { direction: @getDirection() })
+    @viewSwitcher.setView(@getCurrentView(), options)
 
-  transitionViews: ->
-    @isAnimated = true
-    nextView = @$('.next-view')
-    currentView = @$('.current-view')
-    nextView.show()
-    if @steps.indexOf(@previousStep) > @steps.indexOf(@currentStep)
-      nextView.css(left: -(nextView.width() + nextView.offset().left))
-      currentView.animate(left: window.innerWidth)
-    else
-      nextView.css(left: window.innerWidth)
-      currentView.animate(left: -(currentView.width() + currentView.offset().left))
-    nextView.animate(left: '0')
-    setTimeout =>
-      @$('.current-view').empty().css(left: 0)
-      @$('.next-view > div').attr('data-subview', 'current-view').appendTo(@$('.current-view'))
-      @$('.next-view').html('<div data-subview="next-view"></div>').hide()
-      @isAnimated = false
-    , 500
+  getDirection: ->
+    if @steps.indexOf(@previousStep) > @steps.indexOf(@currentStep) then 'left' else 'right'
 
   createViews: ->
     @cart     = new Store.views.Checkout.Cart(@checkout)

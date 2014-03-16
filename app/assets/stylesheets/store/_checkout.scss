@@ -1,6 +1,7 @@
 .checkout {
   position: relative;
   padding-top: 35px;
+  height: 490px;
 
   .steps {
     height: 35px;
@@ -62,20 +63,6 @@
       } // li
     } // ul
   } // .steps
-
-  .content {
-    position: relative;
-    height: 410px;
-
-    .current-view, .next-view {
-      position: absolute;
-      width: 100%;
-    }
-
-    .next-view {
-      display: none;
-    }
-  }
 
   .btn.next-step {
     float: right;

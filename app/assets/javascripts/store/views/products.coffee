@@ -25,7 +25,9 @@ class Store.views.Products extends Backbone.View
     @
 
   load: ->
-    $.when(@products.fetch()).then(@render)
+    $.when(@products.fetch()).then =>
+      @render()
+      @trigger('change:height', @$el.outerHeight())
 
   # private
 

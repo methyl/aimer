@@ -30,7 +30,7 @@ class Store.Router extends Backbone.Router
 
   home: ->
     @products = new Store.views.Products
-    @showView(@products)
+    @showView(@products, animate: @app.getView() == @checkout)
 
   checkout: ->
     order = Store.currentUser.getOrder()
@@ -38,7 +38,7 @@ class Store.Router extends Backbone.Router
       @navigate('/', trigger: true)
     else
       @checkout = new Store.views.Checkout
-      @showView(@checkout)
+      @showView(@checkout, animate: true, direction: 'right', persistHeight: true)
 
   about: ->
     @home()
@@ -52,8 +52,8 @@ class Store.Router extends Backbone.Router
       $('body, html').scrollTop($('#contact').offset().top)
     , 0
 
-  showView: (view) ->
-    @app.showView(view)
+  showView: (view, options) ->
+    @app.showView(view, options)
 
 class Store.MessageBus
   constructor: (@app) ->
@@ -86,8 +86,11 @@ class Store.Application
     @enableAnchorLinks()
     @applicationView.render().$el.appendTo('body')
 
-  showView: (view) ->
-    @applicationView.showView(view)
+  showView: (view, options) ->
+    @applicationView.showView(view, options)
+
+  getView: ->
+    @applicationView.getView()
 
   setupAjax: =>
     $.ajaxPrefilter (options) =>

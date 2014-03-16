@@ -16,10 +16,14 @@ class Store.views.Application extends Backbone.View
     @waitForDom(@refreshSkrollr)
     @
 
+  getView: ->
+    @view
+
   # private
 
-  showView: (view) ->
-    @viewSwitcher.setView(view)
+  showView: (view, options) ->
+    @view = view
+    @viewSwitcher.setView(view, options)
 
   initializeSkrollr: =>
     @skrollr = skrollr.init({
