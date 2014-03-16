@@ -19,3 +19,4 @@ class Store.views.Account.LoginForm extends Backbone.View
     e.preventDefault()
     @session.login(@$('[name=email]').val(), @$('[name=password]').val()).then =>
       @trigger('login')
+    , => @trigger('fail')

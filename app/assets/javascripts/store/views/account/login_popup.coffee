@@ -10,6 +10,7 @@ class Store.views.Account.LoginPopup extends Backbone.View
     super()
     @loginForm = new Store.views.Account.LoginForm
     @listenTo @loginForm, 'login', @remove
+    @listenTo @loginForm, 'fail', @shake
 
   render: =>
     @$el.html(@template())
@@ -18,11 +19,38 @@ class Store.views.Account.LoginPopup extends Backbone.View
 
   show: ->
     @render().$el.appendTo($('body'))
-    @$('.popup').css(top: -@$('.popup').height())
-    @$('.popup').animate({ top: 200 }, 500, 'easeOutCubic')
-    $('body').css(overflow: 'hidden', height: window.innerHeight)
+    @showPopup(animate: true)
+    @setBodyProperties()
     @$('input').first().focus()
 
   remove: =>
-    super
+    @hidePopup(animate: true).then =>
+      super
+      @unsetBodyProperties()
+
+  # private
+
+  shake: =>
+    @$('.popup').effect('shake')
+
+  setBodyProperties: ->
+    $('body').css(overflow: 'hidden', height: window.innerHeight)
+
+  unsetBodyProperties: ->
     $('body').css(overflow: 'auto', height: 'auto')
+
+  hidePopup: (options = {}) ->
+    if options.animate
+      @showPopup()
+    @movePopup(-@$('.popup').outerHeight(), options)
+
+  showPopup: (options = {}) ->
+    if options.animate
+      @hidePopup()
+    @movePopup(200, options)
+
+  movePopup: (top, options = {} ) ->
+    if options.animate
+      @$('.popup').animate({ top }, 500, 'easeOutCubic').promise()
+    else
+      @$('.popup').css { top }
