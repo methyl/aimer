@@ -15,9 +15,6 @@
       height: 70px;
       background-color: rgba(#7c5324, 0.8);
 
-      ul.menu a {
-        color: #fff;
-      }
     }
 
     &:after {
@@ -46,6 +43,7 @@
     height: 62px;
     @include transition-property(background);
     @include transition-duration(500ms);
+    z-index: 1;
 
     .wrapper {
       max-width: 950px;
@@ -64,12 +62,10 @@
         display: inline-block;
         vertical-align: top;
         padding: 0 10px;
-        position: relative;
-        z-index: 1;
       }
 
       a {
-        color: #be9665;
+        color: #e2c296;
         font-weight: bold;
         @include transition-property(color);
         @include transition-duration(300ms);
@@ -83,6 +79,7 @@
     left: 0;
     right: 0;
     top: 75px;
+    z-index: 10;
 
     &.fixed {
       top: 36px;
@@ -123,20 +120,21 @@
     left: 0;
     right: 0;
     top: 0;
-    z-index: 1;
 
-    &.fixed {
+    &.fixed h1 a {
       position: fixed;
       top: -3px;
     }
-  }
 
-  h1 {
-    max-width: 950px;
-    margin: 0 auto;
+    h1 {
+      max-width: 950px;
+      margin: 0 auto;
 
-    a {
-      color: #fff;
+      a {
+        position: absolute;
+        z-index: 10;
+        color: #fff;
+      }
     }
   }
 }
