@@ -34,7 +34,7 @@ class Store.views.Account.LoginPopup extends Backbone.View
     @$('.popup').effect('shake')
 
   setBodyProperties: ->
-    $('body').css(overflow: 'hidden', height: window.innerHeight)
+    $('body').css(overflowY: 'scroll', height: window.innerHeight)
 
   unsetBodyProperties: ->
     $('body').css(overflow: 'auto', height: 'auto')
