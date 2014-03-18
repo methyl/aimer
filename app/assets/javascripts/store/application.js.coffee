@@ -108,7 +108,7 @@ class Store.Application
       @router.navigate($(e.currentTarget).attr('href'), trigger: true)
       scrollTop = $('#content').offset().top - window.innerHeight / 2
       time = Math.abs(scrollTop - $(window).scrollTop()) * 1.5
-      $('body, html').animate({ scrollTop }, time)
+      $('body, html').animate({ scrollTop }, time) if $(window).scrollTop() == 0
 
   enableAnchorLinks: ->
     $('body').on 'click', 'a[data-anchor]', (e) =>
