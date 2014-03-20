@@ -14,5 +14,7 @@ Aimer::Application.routes.draw do
   get 'why_dum_dum', controller: 'spree/home', action: 'index'
   get 'tos', controller: 'spree/home', action: 'index'
   get 'cooperation', controller: 'spree/home', action: 'index'
+
+  resources :contacts, only: :create
 end
 
