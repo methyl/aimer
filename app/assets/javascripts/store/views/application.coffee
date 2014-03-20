@@ -6,7 +6,7 @@ class Store.views.Application extends Backbone.View
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
     @viewSwitcher = new Store.views.ViewSwitcher
-    @initializeSkrollr() unless @isVieportSmall()
+    @initializeSkrollr()# unless @isVieportSmall()
 
   render: =>
     @$el.html(@template())
@@ -26,12 +26,17 @@ class Store.views.Application extends Backbone.View
     @viewSwitcher.setView(view, options)
 
   initializeSkrollr: =>
-    @skrollr = skrollr.init({
-      easing: 0
-      smoothScrolling: false
-      forceHeight: false
-      mobileCheck: -> false
-    })
+    $(window).on 'scroll', (e) ->
+      el = $('.background')
+      top = $(window).scrollTop() / 3.5
+      el.css(transform: "translate3d(0, #{top}px, 0)")
+
+    # @skrollr = skrollr.init({
+    #   easing: 0
+    #   smoothScrolling: false
+    #   forceHeight: false
+    #   mobileCheck: -> false
+    # })
 
   refreshSkrollr: =>
     @skrollr.refresh() unless @isVieportSmall()
