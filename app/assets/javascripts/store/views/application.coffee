@@ -27,7 +27,6 @@ class Store.views.Application extends Backbone.View
 
   initializeSkrollr: =>
     @skrollr = skrollr.init({
-      easing: 0
       forceHeight: false
       mobileCheck: -> false
     })
