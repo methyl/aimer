@@ -1,0 +1,33 @@
+Witaj <% if @order.user.orders.completed.count > 1 %>ponownie, <% end %> Żołnierzu!
+
+  Twoje zamówienie na amunicję zostało przyjęte:
+    <% @order.line_items.each do |item| %>
+      <strong><%= item.name %></strong> x <%= item.quantity %> - <%= item.display_total %>
+    <% end %>
+
+  Zespół aimer.pl dołoży wszelkich starań, aby jak najszybciej zorganizować transport amunicji pod adres:
+    <%= @order.ship_address.full_name %>
+    <%= @order.ship_address.address1 %>
+    <%= "#{@order.ship_address.zipcode} #{@order.ship_address.city}" %>
+    <%= @order.ship_address.phone %>
+
+<% unless @order.shipments.first.selected_shipping_rate.shipping_method.cash_on_delivery %>
+
+    Dane do przelewu środków:
+      Aimer Lucjan Suski
+      Rynek 32
+      38-230 Nowy Żmigród
+      Nr konta: 71 2490 1044 0000 4200 2375 3276
+      Tytuł: <%= @order.ship_address.full_name %> - <%= @order.number %>
+      Kwota: <%= @order.display_total %>
+
+<% end %>
+
+  Wyczekuj kolejnej wiadomości, w której potwierdzimy nadanie paczki.
+
+  Chcesz gratisowych paczek? Odwiedź i polub http://facebook.com/dumdumasg
+
+  Celnych strzałów,
+  www.aimer.pl
+  tel. 783 387 275
+

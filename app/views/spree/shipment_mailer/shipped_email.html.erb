@@ -1,0 +1,26 @@
+<p>Witaj ponownie, Żołnierzu!</p>
+
+<p>
+  Twoje zamówienie na amunicję jest już w drodze!<br />
+  W przesyłce znajdują się:
+  <div style="padding-left: 10px">
+    <% @shipment.manifest.each do |item| %>
+      <strong><%= item.variant.product.name %></strong> x <%= item.quantity %> <br />
+    <% end %>
+  </div>
+</p>
+
+<p>
+  Wyczekuj przesyłki w każdej chwili. <br />
+  Możesz też śledzić transport pod adresem: <a href="<%= @shipment.tracking_url %>"><%= @shipment.tracking %></a>
+</p>
+
+<p>
+  Z niecierpliwością czekamy na Twoją opinię: http://facebook.com/dumdumasg
+</p>
+
+<p style="font-weight: bold">
+  Celnych strzałów,<br />
+  www.aimer.pl<br />
+  tel. 783 387 275
+</p>

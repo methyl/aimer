@@ -1,0 +1,18 @@
+Witaj ponownie, Żołnierzu!
+
+Twoje zamówienie na amunicję jest już w drodze!
+
+W przesyłce znajdują się:
+<% @shipment.manifest.each do |item| %>
+  <strong><%= item.variant.product.name %></strong> x <%= item.quantity %>
+<% end %>
+
+Wyczekuj przesyłki w każdej chwili.
+Możesz śledzić transport pod adresem: <%= @shipment.tracking_url %>
+
+Z niecierpliwością czekamy na Twoją opinię: http://facebook.com/dumdumasg
+
+Celnych strzałów,
+www.aimer.pl
+tel. 783 387 275
+
