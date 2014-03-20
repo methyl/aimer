@@ -3,6 +3,6 @@ class ContactMailer < ActionMailer::Base
 
   def contact(contact)
     @contact = contact
-    mail(to: 'kontakt@aimer.pl', subject: @contact.subject, reply_to: @contact.email)
+    mail(from: @contact.email, to: 'kontakt@aimer.pl', subject: @contact.subject)
   end
 end
