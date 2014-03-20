@@ -36,16 +36,17 @@ div.products {
 
       .price {
         width: 59px;
-        height: 57px;
+        height: 39px;
         background: asset-data-url('price-bg.jpg');
         color: #ff9a1a;
         font-size: 14px;
         font-weight: bold;
-        line-height: 57px;
+        line-height: 13px;
         @include transform(rotate(-20deg));
         text-align: center;
         float: left;
-        margin-right: 6px
+        margin-right: 6px;
+        padding-top: 18px;
       }
 
       .weight {

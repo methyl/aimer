@@ -1,4 +1,4 @@
-Witaj <% if @order.user.orders.completed.count > 1 %>ponownie, <% end %> Żołnierzu!
+Witaj <% if @order.user and @order.user.orders.completed.count > 1 %>ponownie, <% end %> Żołnierzu!
 
   Twoje zamówienie na amunicję zostało przyjęte:
     <% @order.line_items.each do |item| %>

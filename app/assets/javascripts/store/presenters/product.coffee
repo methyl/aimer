@@ -9,7 +9,7 @@ class Store.presenters.Product
       name: json.name
       description: json.description
       round_pln_price: parseInt(json.price, 10) + ' pln'
-      total_pln_price: @total(json.price * json.quantity)
+      display_price: @total(json.price)
       weight: parseFloat(json.weight).toFixed(2) + ' g'
       quantity: json.quantity || 0
       pcs: parseInt(json.depth, 10) + ' pcs'
@@ -18,7 +18,4 @@ class Store.presenters.Product
   total: (price) ->
     fixed = parseFloat(price).toFixed(2).replace('.', ',')
     [ whole, rest ] = fixed.split(',')
-    if rest == '00'
-      whole + ' pln'
-    else
-      whole + '.' + rest + ' pln'
+    whole + ',' + rest

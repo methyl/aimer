@@ -20,7 +20,4 @@ class Store.presenters.Order
   formatPrice: (price) ->
     fixed = parseFloat(price).toFixed(2).replace('.', ',')
     [ whole, rest ] = fixed.split(',')
-    if rest == '00'
-      whole + ' pln'
-    else
-      whole + '.' + rest + ' pln'
+    whole + ',' + rest + ' pln'
