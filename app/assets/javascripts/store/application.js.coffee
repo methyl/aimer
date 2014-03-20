@@ -39,7 +39,10 @@ class Store.Router extends Backbone.Router
       @navigate('/', trigger: true)
     else
       @checkout = new Store.views.Checkout
-      @showView(@checkout, animate: true, direction: 'right', persistHeight: true)
+      if @app.getView() and @app.getView() == @products
+        @showView(@checkout, animate: true, direction: 'right', persistHeight: true)
+      else
+        @showView(@checkout)
 
   about: ->
     @home()
@@ -106,9 +109,9 @@ class Store.Application
     $('body').on 'click', 'a[data-route]', (e) =>
       e.preventDefault()
       @router.navigate($(e.currentTarget).attr('href'), trigger: true)
-      scrollTop = $('#content').offset().top - window.innerHeight / 2
+      scrollTop = $('#content').offset().top - 100
       time = Math.abs(scrollTop - $(window).scrollTop()) * 1.5
-      $('body, html').animate({ scrollTop }, time) if $(window).scrollTop() == 0
+      $('body, html').animate({ scrollTop }, time)
 
   enableAnchorLinks: ->
     $('body').on 'click', 'a[data-anchor]', (e) =>

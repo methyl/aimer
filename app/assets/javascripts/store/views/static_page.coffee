@@ -6,4 +6,6 @@ class Store.views.StaticPage extends Backbone.View
 
   render: ->
     @$el.html(@template())
-    @trigger('update:height', @$el.outerHeight())
+    setTimeout =>
+      @trigger('change:height', @$el.outerHeight())
+    , 0
