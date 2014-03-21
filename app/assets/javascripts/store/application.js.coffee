@@ -65,10 +65,15 @@ class Store.Router extends Backbone.Router
 class Store.MessageBus
   constructor: (@app) ->
     $.extend(@, Backbone.Events)
-    @on 'login', @showLoginPopup
+    @on 'login',    @showLoginPopup
+    @on 'register', @showRegistrationPopup
 
   showLoginPopup: =>
     popup = new Store.views.Account.LoginPopup
+    popup.show()
+
+  showRegistrationPopup: =>
+    popup = new Store.views.Account.RegistrationPopup
     popup.show()
 
 class Store.Application

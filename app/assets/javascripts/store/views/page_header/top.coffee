@@ -5,6 +5,7 @@ class Store.views.PageHeader.Top extends Backbone.View
 
   events:
     'click [data-role=login]': 'login'
+    'click [data-role=register]': 'register'
     'click [data-role=logout]': 'logout'
 
   BOTTOM_SCROLL_MARGIN = 100
@@ -61,6 +62,10 @@ class Store.views.PageHeader.Top extends Backbone.View
   logout: (e) ->
     e.preventDefault()
     @session.logout()
+
+  register: (e) ->
+    e.preventDefault()
+    Store.messageBus.trigger('register')
 
   isLoaded: ->
     @order.get('line_items')?

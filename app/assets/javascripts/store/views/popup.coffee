@@ -1,9 +1,16 @@
 class Store.views.Popup extends Backbone.View
+  events:
+    'click .overlay': 'hide'
+    'click .modal': (e) -> e.stopPropagation()
+
   show: ->
     @render().$el.appendTo($('body'))
     @showPopup(animate: true)
     @setBodyProperties()
     @$('input').first().focus()
+
+  hide: =>
+    @remove()
 
   remove: =>
     @hidePopup(animate: true).then =>

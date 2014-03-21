@@ -4,10 +4,6 @@ class Store.views.Account.LoginPopup extends Store.views.Popup
   template: HandlebarsTemplates['store/templates/account/login_popup']
   className: 'popup account-login-popup'
 
-  events:
-    'click .overlay': 'remove'
-    'click .popup': (e) -> e.stopPropagation()
-
   constructor: ->
     super()
     @loginForm = new Store.views.Account.LoginForm
@@ -22,4 +18,4 @@ class Store.views.Account.LoginPopup extends Store.views.Popup
   # private
 
   shake: =>
-    @$('.popup').effect('shake')
+    @$('.modal').effect('shake')

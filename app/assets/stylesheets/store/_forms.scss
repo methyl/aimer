@@ -36,6 +36,11 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
     &:nth-child(2) {
       background: asset-data-url('input-bg-2.jpg');
     }
+
+    &.invalid {
+      color: red;
+      box-shadow: 0 0 3px red;
+    }
   }
 
   .option {
