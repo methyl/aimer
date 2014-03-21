@@ -1,0 +1,46 @@
+.popup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 40;
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(black, 0.5);
+    text-align: center;
+  }
+
+  .modal {
+    display: block;
+    padding: 30px 0;
+    position: relative;
+    top: 200px;
+    background: asset-data-url('content-bg.png');
+    width: 360px;
+    text-align: center;
+    margin: 0 auto;
+
+    .aimer-form {
+      input {
+        display: inline-block;
+      }
+
+      .btn {
+        margin-top: 20px;
+      }
+    }
+
+    header {
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      padding-bottom: 30px;
+    }
+  }
+}
