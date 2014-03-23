@@ -3,10 +3,28 @@
     font-size: 38px;
   }
 
-  p {
+  .center {
+    text-align: center;
+  }
+
+  p, dl, ol {
     max-width: 800px;
     font-size: 18px;
     line-height: 24px;
     margin: 2em 0;
+  }
+
+  p.long {
+    max-width: 900px;
+  }
+
+  dt {
+    width: 450px;
+    float: left;
+    clear: left;
+  }
+
+  dd {
+    font-weight: bold;
   }
 }
