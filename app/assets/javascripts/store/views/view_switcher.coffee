@@ -28,6 +28,7 @@ class Store.views.ViewSwitcher extends Backbone.View
 
   updateHeight: (height) =>
     @$el.height(height)
+    @trigger('change:height', height)
 
   transitionViews: (direction = 'left') ->
     @isAnimated = true

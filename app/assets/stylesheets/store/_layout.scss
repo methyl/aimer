@@ -51,6 +51,16 @@ body {
   font-size: 16px;
 }
 
+.page-background {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -300px;
+  background: url('header-bg.jpg');
+}
+
 #content {
   background: asset-data-url('content-bg.png');
   overflow-x: hidden;

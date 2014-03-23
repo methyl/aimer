@@ -6,13 +6,15 @@ class Store.views.Application extends Backbone.View
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
     @viewSwitcher = new Store.views.ViewSwitcher
-    @initializeParallax()
+    @listenTo @viewSwitcher, 'change:height', @onHeightChange
+    $(window).on 'scroll', @onScroll
 
   render: =>
     @$el.html(@template())
     @assignSubview @pageHeader, '[data-subview=page-header]'
     @assignSubview @pageFooter, '[data-subview=page-footer]'
     @assignSubview @viewSwitcher, '[data-subview=view-switcher]'
+    @initializeParallax()
     @
 
   getView: ->
@@ -25,6 +27,16 @@ class Store.views.Application extends Backbone.View
     @viewSwitcher.setView(view, options)
 
   initializeParallax: =>
-    $(window).on 'scroll', (e) ->
-      top = $(window).scrollTop() / 2.3
-      $('.background').css(transform: "translate3d(0, #{top}px, 0)")
+    @parallelObjects = []
+    for el in @$('[data-parallax]')
+      $el = $(el)
+      factor = parseFloat($(el).data('parallax-factor') ? 1)
+      @parallelObjects.push { $el, factor }
+
+  onScroll: =>
+    for obj in @parallelObjects
+      top = $(window).scrollTop() / obj.factor
+      obj.$el.css(transform: "translate3d(0, #{top}px, 0)")
+
+  onHeightChange: (height) =>
+    @$('.page-background').css(bottom: -height)
