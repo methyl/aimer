@@ -21,6 +21,7 @@ class Store.views.PageHeader.Top extends Backbone.View
     $(window).on 'scroll', @applyFixed
 
   render: =>
+    @$el.attr('style', 'position: relative')
     @$el.html(@template(
       user: @user.toJSON()
     ))
@@ -41,6 +42,10 @@ class Store.views.PageHeader.Top extends Backbone.View
 
   applyFixed: =>
     return if window.innerWidth < 950
+
+    # fix for elements not rendering after changing content
+    @$el.css(position: 'static').css(position: 'fixed')
+
     scrollTop = $(window).scrollTop()
     if scrollTop > 3
       @$('.header').addClass('fixed')

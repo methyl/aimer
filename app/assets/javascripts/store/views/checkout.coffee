@@ -56,8 +56,8 @@ class Store.views.Checkout extends Backbone.View
     step = $(e.currentTarget).data('step')
     @setCurrentStep(step)
 
-  setCurrentStep: (step) ->
-    return unless @isStepAvailable(step)
+  setCurrentStep: (step, options = {}) ->
+    return unless @isStepAvailable(step) or options.force
     @previousStep = @currentStep
     @currentStep = step
     @showCurrentView(animate: true)
@@ -89,6 +89,8 @@ class Store.views.Checkout extends Backbone.View
     @listenTo @address, 'proceed',  => @setCurrentStep('delivery')
     @listenTo @delivery, 'proceed', => @setCurrentStep('payment')
     @listenTo @payment, 'proceed',  =>
-      @complete = new Store.views.Checkout.Complete(_.clone(@order), @order.get('number'))
-      @order.reload()
-      @setCurrentStep('complete')
+      order = _.clone(@order)
+      number = @order.get('number')
+      @order.reload().done =>
+        @complete = new Store.views.Checkout.Complete(order, number)
+        @setCurrentStep('complete', force: true)
