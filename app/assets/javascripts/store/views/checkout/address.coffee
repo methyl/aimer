@@ -4,6 +4,7 @@ class Store.views.Checkout.Address extends Backbone.View
 
   events:
     'click [data-role=next-address]': (e) -> e.preventDefault(); @updateAddress()
+    'submit form': (e) -> e.preventDefault(); @updateAddress()
     'keyup input': 'removeError'
 
   VALIDATIONS = {

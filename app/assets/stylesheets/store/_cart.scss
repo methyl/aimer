@@ -14,6 +14,12 @@
     th {
       padding-bottom: 30px;
       font-weight: normal;
+
+      &.price {
+        padding-left: 10px;
+        padding-right: 20px;
+        text-align: center;
+      }
     }
   }
 
@@ -33,7 +39,7 @@
     }
 
     &:before {
-      top: 32px;
+      top: 28px;
     }
 
     &:after {
@@ -41,7 +47,7 @@
     }
 
     tr:last-child td {
-      padding-bottom: 25px;
+      padding-bottom: 20px;
     }
 
     .number {
@@ -63,6 +69,7 @@
     .name {
       font-weight: bold;
       font-size: 20px;
+      padding-right: 10px;
 
       em {
         color: #503f29;
@@ -70,35 +77,27 @@
         font-weight: normal;
         font-size: 14px;
       }
-
-      &:after {
-        content: '';
-        display: inline-block;
-        width: 92px;
-        height: 2px;
-        background: asset-data-url('dots.jpg');
-        margin-left: 20px;
-      }
     }
 
     .quantity {
-      padding-left: 17px;
+      text-align: center;
       font-size: 18px;
-
-      &:after {
-        content: '';
-        display: inline-block;
-        width: 65px;
-        height: 2px;
-        background: asset-data-url('dots.jpg');
-        margin-left: 17px;
-        margin-right: 17px;
-      }
     }
 
     .price {
       font-size: 18px;
       padding-right: 20px;
+      padding-left: 10px;
+    }
+
+    .separator {
+      width: 92px;
+      background: asset-data-url('dots.jpg') repeat-x 0 14px;
+      margin: 5px;
+
+      &.narrow {
+        width: 65px;
+      }
     }
   }
 
