@@ -35,6 +35,7 @@ class Store.views.PageHeader.Top extends Backbone.View
     @$('li.cart').html(@cartTemplate(
       order: new Store.presenters.Order(@order).toJSON()
     ))
+    @applyFixed()
 
   remove: ->
     super
@@ -43,8 +44,6 @@ class Store.views.PageHeader.Top extends Backbone.View
   applyFixed: =>
     return if window.innerWidth < 950
 
-    # fix for elements not rendering after changing content
-    @$el.css(position: 'static').css(position: 'fixed')
 
     scrollTop = $(window).scrollTop()
     if scrollTop > 3
@@ -57,8 +56,12 @@ class Store.views.PageHeader.Top extends Backbone.View
       @$el.removeClass('fixed')
     if scrollTop > 38
       @$('.submenu').addClass('fixed')
+
+      # fix for elements not rendering after changing content
+      @$el.css(position: 'fixed')
     else
       @$('.submenu').removeClass('fixed')
+      @$el.css(position: 'absolute')
 
   login: (e) ->
     e.preventDefault()

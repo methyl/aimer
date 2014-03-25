@@ -1,13 +1,12 @@
 class Store.views.Popup extends Backbone.View
   events:
-    'click .overlay': 'hide'
     'click .modal': (e) -> e.stopPropagation()
+    'click .overlay': 'hide'
 
   show: ->
     @render().$el.appendTo($('body'))
-    @showPopup(animate: true)
-    @setBodyProperties()
-    @$('input').first().focus()
+    @showPopup(animate: true).then =>
+      @$('input').first().focus()
 
   hide: =>
     @remove()
@@ -15,13 +14,6 @@ class Store.views.Popup extends Backbone.View
   remove: =>
     @hidePopup(animate: true).then =>
       super
-      @unsetBodyProperties()
-
-  setBodyProperties: ->
-    $('body').css(overflowY: 'scroll', height: window.innerHeight)
-
-  unsetBodyProperties: ->
-    $('body').css(overflow: 'auto', height: 'auto')
 
   hidePopup: (options = {}) ->
     if options.animate

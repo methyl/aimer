@@ -72,9 +72,9 @@ class Store.MessageBus
     popup = new Store.views.Account.LoginPopup
     popup.show()
 
-  showRegistrationPopup: =>
+  showRegistrationPopup: (doneFn) =>
     popup = new Store.views.Account.RegistrationPopup
-    popup.show()
+    popup.show().done(doneFn)
 
 class Store.Application
   constructor: ->

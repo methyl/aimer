@@ -7,11 +7,13 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
   events:
     'submit form': 'onFormSubmit'
     'keyup input': 'onInputKeyup'
+    'click .overlay': 'hide'
+    'click .modal': (e) -> e.stopPropagation()
 
   VALIDATIONS = {
-    'email':     (val) -> val.match /.+@.+\..+/
-    'password':  (val) -> val.match /.{5,}/
-    'password_confirmation':  (val) -> val.match(/.{5,}/) and val == @$('[name=password]').val()
+    'email':    (val) -> val.match /.+@.+\..+/
+    'password': (val) -> val.match /.{6,}/
+    'password_confirmation': (val) -> val.match(/.{6,}/) and val == @$('[name=password]').val()
   }
 
   constructor: ->
@@ -21,6 +23,12 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
     @$el.html(@template())
     @assignSubview(@loginForm, '[data-subview=login-form]')
     @
+
+  show: =>
+    @promise = new $.Deferred()
+    super()
+    @promise
+
 
   # private
 
@@ -37,6 +45,7 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
         password_confirmation: @$('[name=password_confirmation]').val()
       }}).done =>
         Store.currentUser.fetch().then(@hide)
+        @promise.resolve()
       .fail(@shake)
 
   shake: =>
@@ -46,7 +55,7 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
     result = true
     for name, validate of VALIDATIONS
       field = @$("form [name=#{name}]")
-      unless validate(field.val())
+      unless _.bind(validate, @, field.val())()
         result = false
         field.addClass('invalid')
     result

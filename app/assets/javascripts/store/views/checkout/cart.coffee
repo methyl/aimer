@@ -5,6 +5,7 @@ class Store.views.Checkout.Cart extends Backbone.View
   events:
     'click .without-account button': 'handleWithoutLoginClick'
     'click [data-role=next-cart]': 'proceed'
+    'click .buttons [data-role=register]': 'showRegistration'
 
   constructor: (@checkout) ->
     super(arguments)
@@ -29,6 +30,10 @@ class Store.views.Checkout.Cart extends Backbone.View
         @trigger('proceed')
     else
       @trigger('proceed')
+
+  showRegistration: (e) =>
+    e?.preventDefault()
+    Store.messageBus.trigger('register', @proceed)
 
   # private
 

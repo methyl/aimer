@@ -4,6 +4,7 @@ class Store.views.Account.LoginForm extends Backbone.View
 
   events:
     'click [data-role=submit]': 'submitLogin'
+    'click [data-role=register]': 'showRegistration'
 
   constructor: ->
     super()
@@ -14,6 +15,10 @@ class Store.views.Account.LoginForm extends Backbone.View
     @
 
   # private
+
+  showRegistration: (e) ->
+    e.preventDefault()
+    Store.messageBus.trigger('register', => @trigger('login'))
 
   submitLogin: (e) ->
     e.preventDefault()
