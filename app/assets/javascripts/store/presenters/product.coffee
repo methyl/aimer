@@ -10,6 +10,7 @@ class Store.presenters.Product
       description: json.description
       round_pln_price: parseInt(json.price, 10) + ' pln'
       display_price: @total(json.price)
+      display_total_price: @total(json.price * json.quantity)
       weight: parseFloat(json.weight).toFixed(2) + ' g'
       quantity: json.quantity || 0
       pcs: parseInt(json.depth, 10) + ' pcs'

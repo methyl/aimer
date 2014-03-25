@@ -17,7 +17,7 @@
         <td class="separator wide"></td>
         <td class="quantity">{{quantity}}</td>
         <td class="separator narrow"></td>
-        <td class="price">{{display_price}} pln</td>
+        <td class="price">{{display_total_price}} pln</td>
       </tr>
     {{/each}}
   </tbody>
@@ -30,7 +30,14 @@
       {{#if order.shipping_free}}
         <strong>wysyłka gratis!</strong>
       {{else}}
-        w tym wysyłka: <strong>{{order.selected_shipping_rate.name}} {{order.formatted_ship_total}}</strong>
+        w tym wysyłka:
+        <strong>
+          {{order.selected_shipping_rate.name}}
+          {{#if order.selected_shipping_rate.cash_on_delivery}}
+            za pobraniem
+          {{/if}}
+          {{order.formatted_ship_total}}
+        </strong>
       {{/if}}
     </div>
   {{/if}}
