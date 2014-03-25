@@ -13,7 +13,7 @@ class Store.views.Checkout.Address extends Backbone.View
     'address1':  (val) -> val.match /[A-Za-z0-9]+ [0-9]*/
     'zipcode':   (val) -> val.match /[0-9]{2}-[0-9]{3}/
     'city':      (val) -> val.match /[A-Za-z]+/
-    'phone':     (val) -> val.match /^[0-9]{3}-?[0-9]{3}-?[0-9]{3}$/
+    'phone':     (val) -> val.match /^[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{3}$/
     'email':     (val) -> val.match /.+@.+\..+/
   }
 
