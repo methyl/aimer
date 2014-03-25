@@ -6,7 +6,6 @@ class Store.views.Application extends Backbone.View
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
     @viewSwitcher = new Store.views.ViewSwitcher
-    @listenTo @viewSwitcher, 'change:height', @onHeightChange
     $(window).on 'scroll', @onScroll
 
   render: =>
@@ -37,6 +36,3 @@ class Store.views.Application extends Backbone.View
     for obj in @parallelObjects
       top = $(window).scrollTop() / obj.factor
       obj.$el.css(transform: "translate3d(0, #{top}px, 0)")
-
-  onHeightChange: (height) =>
-    @$('.page-background').css(bottom: -height)

@@ -48,7 +48,9 @@ html {
 body {
   font-family: 'Roboto Slab', sans-serif;
   color: #fff;
+  overflow: hidden;
   font-size: 16px;
+  position: relative;
 }
 
 .page-background {
@@ -63,7 +65,6 @@ body {
 
 #content {
   background: asset-data-url('content-bg.png');
-  overflow: hidden;
   z-index: 10;
   position: relative;
   padding: 20px;
