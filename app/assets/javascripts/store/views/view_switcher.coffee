@@ -10,6 +10,7 @@ class Store.views.ViewSwitcher extends Backbone.View
     @
 
   setView: (view, options = {}) ->
+    return if @isAnimated
     @previousView = @currentView
     @currentView = view
 
