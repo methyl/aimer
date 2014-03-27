@@ -46,6 +46,7 @@ html {
 }
 
 body {
+  background: asset-data-url('header-bg.jpg');
   font-family: 'Roboto Slab', sans-serif;
   color: #fff;
   overflow: hidden;
@@ -59,7 +60,7 @@ body {
   right: 0;
   bottom: 0;
   top: -300px;
-  background: url('header-bg.jpg');
+  background: asset-data-url('header-bg.jpg');
 }
 
 #content {

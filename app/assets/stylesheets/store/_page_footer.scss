@@ -12,17 +12,7 @@
     right: 0;
     top: 0;
     height: 43px;
-    background: url('footer-top.png') repeat-x 50%;
-  }
-
-  .background {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -700px;
-    bottom: 0px;
-    background: url('header-bg.jpg');
-    z-index: -1;
+    background: asset-data-url('footer-top.png') repeat-x 50%;
   }
 
   .content {
@@ -60,7 +50,7 @@
           position: absolute;
           top: 0;
           left: 0;
-          background: url('footer-icons.png') no-repeat;
+          background: asset-data-url('footer-icons.png') no-repeat;
         }
       }
 
@@ -158,7 +148,7 @@
   .shadow {
     width: 100%;
     height: 83px;
-    background: url('footer-bottom-shadow.png') repeat-x 50%;
+    background: asset-data-url('footer-bottom-shadow.png') repeat-x 50%;
     position: absolute;
     bottom: 0;
 

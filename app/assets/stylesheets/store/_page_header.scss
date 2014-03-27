@@ -10,7 +10,7 @@
     right: 0;
     bottom: -50px;
     height: 562px;
-    background: url('header-picture.png') no-repeat 50%;
+    background: asset-data-url('header-picture.png') no-repeat 50%;
   }
 
   &:after {
@@ -21,7 +21,7 @@
     right: 0;
     bottom: 0;
     height: 36px;
-    background: url('header-bottom.png') repeat-x 50%;
+    background: asset-data-url('header-bottom.png') repeat-x 50%;
   }
 
   > .content {
