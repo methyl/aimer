@@ -6,5 +6,6 @@
 #= require lib/backbone
 #= require lib/backbone-rails-sync
 #= require lib/backbone-ext
+#= require lib/backbone-analytics
 #= require lib/modernizr
 #= require handlebars.runtime
