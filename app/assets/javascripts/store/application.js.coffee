@@ -124,8 +124,7 @@ class Store.Application
       el.addClass('highlight')
       @router.navigate(el.attr('id'))
       scrollTop = el.offset().top - $('.page-header-top').height()
-      time = Math.abs(scrollTop - $(window).scrollTop())
-      $('html, body').animate({ scrollTop }, time)
+      $('html, body').scrollTop(scrollTop)
       setTimeout ->
         el.removeClass('highlight')
       , 2000
