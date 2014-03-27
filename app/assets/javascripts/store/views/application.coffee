@@ -6,7 +6,6 @@ class Store.views.Application extends Backbone.View
     @pageHeader = new Store.views.PageHeader
     @pageFooter = new Store.views.PageFooter
     @viewSwitcher = new Store.views.ViewSwitcher
-    $(window).on 'scroll', @onScroll
 
   render: =>
     @$el.html(@template())
@@ -31,6 +30,7 @@ class Store.views.Application extends Backbone.View
       $el = $(el)
       factor = parseFloat($(el).data('parallax-factor') ? 1)
       @parallelObjects.push { $el, factor }
+    $(window).on 'scroll', @onScroll
 
   onScroll: =>
     for obj in @parallelObjects
