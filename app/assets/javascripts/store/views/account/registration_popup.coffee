@@ -27,16 +27,13 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
 
   constructor: ->
     super()
+    @currentUser = Store.currentUser
 
   render: =>
     @$el.html(@template())
+    @attachButtons()
     @assignSubview(@loginForm, '[data-subview=login-form]')
     @
-
-  show: =>
-    @promise = new $.Deferred()
-    super()
-    @promise
 
   # private
 
@@ -45,18 +42,23 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
 
   onFormSubmit: (e) ->
     e.preventDefault()
+    @$('[data-action=submit]').data('view').fire()
+
+  submit: ->
     if @validate()
-      @$('button').prop('disabled', true)
       user = new Store.models.User
-      user.save({ user: {
+      user.save(@getUser())
+        .then(@hide, @onFail)
+        .fail()
+
+  getUser: ->
+    {
+      user: {
         email: @$('[name=email]').val()
         password: @$('[name=password]').val()
         password_confirmation: @$('[name=password_confirmation]').val()
-      }}).done =>
-        Store.currentUser.fetch().then(@hide)
-        @promise.resolve()
-      .fail(@onFail)
-      .always => @$('button').prop('disabled', false)
+      }
+    }
 
   onFail: (data) =>
     @shake()

@@ -3,7 +3,6 @@ class Store.views.Account.LoginForm extends Backbone.View
   className: 'account-login-form'
 
   events:
-    'click [data-role=submit]': 'submitLogin'
     'click [data-role=register]': 'showRegistration'
 
   constructor: ->
@@ -12,6 +11,7 @@ class Store.views.Account.LoginForm extends Backbone.View
 
   render: =>
     @$el.html(@template())
+    @attachButtons()
     @
 
   # private
@@ -20,14 +20,5 @@ class Store.views.Account.LoginForm extends Backbone.View
     e.preventDefault()
     @trigger('show-registration')
 
-  submitLogin: (e) ->
-    e.preventDefault()
-    @$('button').prop('disabled', true)
+  submitLogin: ->
     @session.login(@$('[name=email]').val(), @$('[name=password]').val())
-    .always =>
-      @$('button').prop('disabled', false)
-    .then =>
-      @trigger('login')
-    , =>
-      @trigger('fail')
-      @$('button').html('Zaloguj się')

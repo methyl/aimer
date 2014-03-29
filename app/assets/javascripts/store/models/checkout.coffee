@@ -16,11 +16,10 @@ class Store.models.Checkout extends Backbone.Model
     @order
 
   advanceStep: =>
-    $.ajax
-      url: @url() + '/next'
-      type: 'PUT'
-    .then =>
-      @fetch()
+    @sync('update', @, url: @url() + '/next').then (data) =>
+      @set(@parse(data))
+      @order.attributes = @attributes
+      @order.trigger('change')
 
   updateAddressAndEmail: (address, email) ->
     @save(order: { email: email, bill_address_attributes: address, ship_address_attributes: address })

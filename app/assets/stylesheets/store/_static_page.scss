@@ -27,4 +27,24 @@
   dd {
     font-weight: bold;
   }
+
+  ul.partners {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      &.milcord {
+        width: 354px;
+        height: 90px;
+        background: image-url('cooperation/milcord.png');
+        text-indent: -100000px;
+      }
+
+      a {
+        display: block;
+        height: 100%;
+      }
+    }
+  }
 }

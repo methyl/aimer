@@ -3,6 +3,7 @@
 #= require lib/jquery.placeholder
 #= require lib/jquery.cookie
 #= require lib/underscore
+#= require lib/underscore.string
 #= require lib/backbone
 #= require lib/backbone-rails-sync
 #= require lib/backbone-ext

@@ -96,7 +96,6 @@ class Store.Application
     @router.start()
     @enableRoutedLinks()
     @enableAnchorLinks()
-    @enableActionButtons()
     @applicationView.render().$el.appendTo('body')
 
   showView: (view, options) ->
@@ -110,13 +109,6 @@ class Store.Application
       if options.url.match(/\/spree\/api\/(orders|checkouts)\/R\d+/)
         options.beforeSend = (xhr) =>
           xhr.setRequestHeader('X-Spree-Order-Token', @order.get('token'))
-
-  enableActionButtons: ->
-    $('body').on 'click', '[data-action]', (e) =>
-      @btnSpinner ?= new Store.views.Spinner
-      $(e.currentTarget).prop('disabled', true)
-      $(e.currentTarget).empty()
-      @btnSpinner.show($(e.currentTarget))
 
   enableRoutedLinks: ->
     $('body').on 'click', 'a[data-route]', (e) =>

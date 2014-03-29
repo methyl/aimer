@@ -2,9 +2,6 @@ class Store.views.Checkout.Payment extends Backbone.View
   template: HandlebarsTemplates['store/templates/checkout/payment']
   className: 'checkout-payment'
 
-  events:
-    'click [data-role=next-payment]': 'updatePayment'
-
   constructor: (@checkout) ->
     super(arguments)
     @order = @checkout.getOrder()
@@ -13,6 +10,7 @@ class Store.views.Checkout.Payment extends Backbone.View
   render: =>
     if @isLoaded()
       @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))
+      @attachButtons()
       @assignSubview(@cart, '[data-subview=cart]')
     @
 
@@ -21,11 +19,12 @@ class Store.views.Checkout.Payment extends Backbone.View
 
   # private
 
-  updatePayment: ->
-    @checkout.updatePayment(@getPayment()).then(@proceed)
-
-  proceed: =>
-    @trigger('proceed')
+  proceed: ->
+    order = _.clone(@order)
+    number = @order.get('number')
+    @checkout.updatePayment(@getPayment())
+      .then => @order.reload()
+      .then => @trigger('proceed', order, number)
 
   isLoaded: ->
     @order.get('payment_methods')?[0]

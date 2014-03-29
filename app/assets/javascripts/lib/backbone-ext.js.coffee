@@ -14,6 +14,13 @@ _.extend Backbone.View.prototype,
   detach: ->
     @$el.detach()
 
+  attachButtons: ->
+    for el in @$('[data-action]')
+      $(el).data('view')?.remove()
+      actionFn = _.bind @[_.str.camelize $(el).data('action')], @
+      view = new Store.views.Button({ el, actionFn })
+      $(el).data('view', view)
+
 syncer = new class
   sync: (method, model, options) =>
     options.url ?= _.result(model, 'url')

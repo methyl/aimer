@@ -5,6 +5,10 @@ class Store.models.User extends Backbone.Model
     super(attrs, options)
     @on 'change:last_incomplete_order_number', @getOrder
 
+  save: (key, val, options) ->
+    super(key, val, options).then ->
+      Store.currentUser.fetch()
+
   getOrder: =>
     @order ?= new Store.models.Order
     if @get('last_incomplete_order_number') and @order.get('line_items')?.length == 0
@@ -21,10 +25,10 @@ class Store.models.UserSession
     @user = Store.currentUser
 
   login: (email, password) ->
-    $.post('/spree/login.json', { spree_user: { email, password } }).done (data) =>
+    $.post('/spree/login.json', { spree_user: { email, password } }).then (data) =>
       @updateAuthenticityToken(data.authenticity_token)
       @user.fetch()
-      @user.getOrder().fetch()
+    .then => @user.getOrder().fetch()
 
   logout: ->
     $.get('/spree/logout.json').done =>

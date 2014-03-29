@@ -17,6 +17,7 @@ class Store.views.Checkout.Shipping extends Backbone.View
         shippingRates: new Store.presenters.ShippingRates(@order.get('shipments')[0].shipping_rates).toJSON()
         shippingFree: @order.isShippingFree()
       ))
+      @attachButtons()
       @assignSubview(@cart, '[data-subview=cart]')
       @checkCurrentShippingRate()
     @
@@ -29,17 +30,20 @@ class Store.views.Checkout.Shipping extends Backbone.View
 
   # private
 
+  triggerProceed: =>
+    @trigger('proceed')
+
   proceed: ->
     if @order.get('shipments')[0].selected_shipping_rate
       if @order.get('state') == 'delivery'
-        @checkout.advanceStep().then => @trigger('proceed')
+        @checkout.advanceStep().then(@triggerProceed)
       else
-        @trigger('proceed')
+        @triggerProceed()
 
   handleShipmentChange: ->
-    @$('[data-action]').prop('disabled', true)
+    @disableBtn()
     @cart.showSpinner()
-    @checkout.updateShipment(@getShipment()).then => @$('[data-action]').prop('disabled', false)
+    @checkout.updateShipment(@getShipment()).then(@enableBtn)
 
   checkCurrentShippingRate: ->
     id = @order.get('shipments')[0].selected_shipping_rate.id
@@ -47,3 +51,9 @@ class Store.views.Checkout.Shipping extends Backbone.View
 
   isLoaded: ->
     @order.get('shipments')?[0]
+
+  disableBtn: =>
+    @$('[data-action=proceed]').prop('disabled', true)
+
+  enableBtn: =>
+    @$('[data-action=proceed]').prop('disabled', false)

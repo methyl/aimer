@@ -3,40 +3,33 @@ class Store.views.Checkout.Cart extends Backbone.View
   className: 'checkout-cart'
 
   events:
-    'click .without-account button': 'handleWithoutLoginClick'
-    'click [data-role=next-cart]': 'proceed'
     'click .buttons [data-role=register]': 'showRegistration'
 
   constructor: (@checkout) ->
     super(arguments)
     @loginForm = new Store.views.Account.LoginForm
-    @cartView = new Store.views.Cart(@checkout)
-    @user = Store.currentUser
-    @listenTo @user, 'change', @render
-    @listenTo @loginForm, 'login', @proceed
+    @cartView  = new Store.views.Cart(@checkout)
+    @currentUser = Store.currentUser
+    @currentUser.on 'change', @render
 
   render: =>
-    @$el.html(@template(currentUser: @user.toJSON()))
+    @$el.html(@template(currentUser: @currentUser.toJSON()))
+    @attachButtons()
     @assignSubview(@loginForm, '[data-subview=login-form]')
     @assignSubview(@cartView, '[data-subview=cart]')
     @
 
-  getEmail: =>
-    @$('form.without-account [name=email]').val()
+  # private
 
   proceed: =>
     if @checkout.get('state') == 'cart'
-      @checkout.advanceStep().then =>
-        @trigger('proceed')
+      @checkout.advanceStep().done(@triggerProceed)
     else
-      @trigger('proceed')
+      @triggerProceed()
+
+  triggerProceed: =>
+    @trigger('proceed')
 
   showRegistration: (e) =>
     e?.preventDefault()
-    Store.messageBus.trigger('register', @proceed)
-
-  # private
-
-  handleWithoutLoginClick: (e) ->
-    e.preventDefault()
-    @trigger('click:process-without-account')
+    Store.messageBus.trigger('register')

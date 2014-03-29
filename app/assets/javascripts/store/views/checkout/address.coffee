@@ -3,8 +3,7 @@ class Store.views.Checkout.Address extends Backbone.View
   className: 'checkout-address'
 
   events:
-    'click [data-role=next-address]': (e) -> e.preventDefault(); @updateAddress()
-    'submit form': (e) -> e.preventDefault(); @updateAddress()
+    'submit form': (e) -> e.preventDefault(); @$('[data-action=proceed]').data('view').fire()
     'keyup input': 'removeError'
 
   VALIDATIONS = {
@@ -29,15 +28,19 @@ class Store.views.Checkout.Address extends Backbone.View
       email: @order.toJSON().email || @user.toJSON().email,
       current_address: @order.toJSON().ship_address || @user.toJSON().address
     ))
+    @attachButtons()
     @assignSubview(@cart, '[data-subview=cart]')
     $('[placeholder]').placeholder()
     @
 
-  updateAddress: ->
-    if @validate()
-      @checkout.updateAddressAndEmail(@getAddress(), @getEmail()).then(@proceed)
-
   # private
+
+  proceed: =>
+    if @validate()
+      @checkout.updateAddressAndEmail(@getAddress(), @getEmail()).then(@triggerProceed)
+
+  triggerProceed: =>
+    @trigger('proceed')
 
   validate: ->
     result = true
@@ -50,9 +53,6 @@ class Store.views.Checkout.Address extends Backbone.View
 
   removeError: (e) ->
     $(e.currentTarget).removeClass('invalid')
-
-  proceed: =>
-    @trigger('proceed')
 
   load: =>
     @order.load().done(@render)

@@ -14,7 +14,7 @@ class Store.views.PageHeader.Top extends Backbone.View
     super
     @user = Store.currentUser
     @session = new Store.models.UserSession
-    @listenTo @user, 'add remove reset change', @render
+    @listenTo @user, 'reset change', @render
     @order = @user.getOrder()
     @listenTo @order, 'change', @renderCart
 
