@@ -1,0 +1,8 @@
+.spinner {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background: asset-data-url('spinner.png') no-repeat;
+  background-size: 576px 48px;
+  opacity: 0.6;
+}

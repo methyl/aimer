@@ -31,6 +31,10 @@ class Store.views.Products extends Backbone.View
 
   # private
 
+  showSpinner: =>
+    @spinner ?= new Store.views.Spinner
+    @spinner.show(@$('.total span'))
+
   renderTotal: =>
     @$('[data-template=total]').html(@totalTemplate(@presenter.toJSON()))
 
@@ -42,4 +46,5 @@ class Store.views.Products extends Backbone.View
   addProduct: (product) =>
     view = new Store.views.Product(product, @order)
     view.render().$el.appendTo(@$('ul.products'))
+    @listenTo view, 'before-load', @showSpinner
     @productViews.push(view)

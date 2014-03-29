@@ -41,13 +41,14 @@ class Store.views.Product extends Backbone.View
     quantity = Math.min(parseInt(quantity, 10), 50)
     @$('input[name=quantity]').val(quantity)
     @$('.slider').slider("value", quantity)
-    if quantity > 0
+    @trigger('before-load')
+    (if quantity > 0
       if @order.hasProduct(@product)
         @getLineItem().save({ quantity: quantity }, wait: true)
       else
         @order.addProduct(@product, quantity: quantity)
     else
-      @order.removeProduct(@product)
+      @order.removeProduct(@product)).done => @trigger('after-load')
 
   handleQuantityKeyup: _.debounce (e) ->
     @setQuantity(0) if e.keyCode == BACKSPACE_CODE
