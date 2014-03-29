@@ -1,3 +1,4 @@
+
 class Store.views.Button extends Backbone.View
   events:
     'click': 'onClick'
@@ -10,8 +11,10 @@ class Store.views.Button extends Backbone.View
     @loading = @$el.attr('data-loading') || 'Czekaj'
 
   fire: =>
-    @lock()
-    @actionFn()?.always?(@unlock)
+    promise = @actionFn()
+    if promise?
+      @lock()
+      promise.always(@unlock)
 
   lock: =>
     @$el.html(@loading)
