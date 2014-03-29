@@ -8,6 +8,7 @@ class Store.views.Account.LoginPopup extends Store.views.Popup
     super()
     @loginForm = new Store.views.Account.LoginForm
     @listenTo @loginForm, 'login', @remove
+    @listenTo @loginForm, 'show-registration', @showRegistration
     @listenTo @loginForm, 'fail', @shake
 
   render: =>
@@ -16,6 +17,9 @@ class Store.views.Account.LoginPopup extends Store.views.Popup
     @
 
   # private
+
+  showRegistration: ->
+    @hide().done -> Store.messageBus.trigger('register', => @trigger('login'))
 
   shake: =>
     @$('.modal').effect('shake')

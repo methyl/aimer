@@ -11,3 +11,7 @@ class Store.views.Cart extends Backbone.View
   render: =>
     @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))
     @
+
+  showSpinner: ->
+    @spinner ?= new Store.views.Spinner
+    @spinner.show(@$('.total'))

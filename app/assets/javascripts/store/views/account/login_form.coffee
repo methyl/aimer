@@ -18,10 +18,16 @@ class Store.views.Account.LoginForm extends Backbone.View
 
   showRegistration: (e) ->
     e.preventDefault()
-    Store.messageBus.trigger('register', => @trigger('login'))
+    @trigger('show-registration')
 
   submitLogin: (e) ->
     e.preventDefault()
-    @session.login(@$('[name=email]').val(), @$('[name=password]').val()).then =>
+    @$('button').prop('disabled', true)
+    @session.login(@$('[name=email]').val(), @$('[name=password]').val())
+    .always =>
+      @$('button').prop('disabled', false)
+    .then =>
       @trigger('login')
-    , => @trigger('fail')
+    , =>
+      @trigger('fail')
+      @$('button').html('Zaloguj się')

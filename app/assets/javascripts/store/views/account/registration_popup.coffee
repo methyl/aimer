@@ -11,9 +11,18 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
     'click .modal': (e) -> e.stopPropagation()
 
   VALIDATIONS = {
-    'email':    (val) -> val.match /.+@.+\..+/
-    'password': (val) -> val.match /.{6,}/
-    'password_confirmation': (val) -> val.match(/.{6,}/) and val == @$('[name=password]').val()
+    'email':    {
+      fn: (val) -> val.match /.+@.+\..+/
+      message: 'Wprowadź poprawny email'
+    }
+    'password': {
+      fn: (val) -> val.match /.{6,}/
+      message: 'Hasło musi mieć co najmniej 6 znaków'
+    }
+    'password_confirmation': {
+      fn: (val) -> val.match(/.{6,}/) and val == @$('[name=password]').val()
+      message: 'Hasło i potwierdzenie muszą się zgadzać'
+    }
   }
 
   constructor: ->
@@ -29,15 +38,15 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
     super()
     @promise
 
-
   # private
 
   onInputKeyup: (e) ->
-    $(e.currentTarget).removeClass('invalid')
+    @clearErrors() unless e.keyCode == 13
 
   onFormSubmit: (e) ->
     e.preventDefault()
     if @validate()
+      @$('button').prop('disabled', true)
       user = new Store.models.User
       user.save({ user: {
         email: @$('[name=email]').val()
@@ -46,16 +55,33 @@ class Store.views.Account.RegistrationPopup extends Store.views.Popup
       }}).done =>
         Store.currentUser.fetch().then(@hide)
         @promise.resolve()
-      .fail(@shake)
+      .fail(@onFail)
+      .always => @$('button').prop('disabled', false)
+
+  onFail: (data) =>
+    @shake()
+    @showErrors(data)
+
+  clearErrors: =>
+    @$('input').removeClass('invalid')
+    @$('.error').remove()
+
+  showErrors: (data) =>
+    for field, errorMessages of data.responseJSON.errors
+      @showError(@$("[name=#{field}]"), message) for message in errorMessages
+
+  showError: (field, message) =>
+    field.addClass('invalid').after("<div class='error'>#{message}</div>")
 
   shake: =>
     @$('.modal').effect('shake')
 
   validate: ->
+    @clearErrors()
     result = true
-    for name, validate of VALIDATIONS
+    for name, validation of VALIDATIONS
       field = @$("form [name=#{name}]")
-      unless _.bind(validate, @, field.val())()
+      unless _.bind(validation.fn, @, field.val())()
         result = false
-        field.addClass('invalid')
+        @showError(field, validation.message)
     result

@@ -37,7 +37,9 @@ class Store.views.Checkout.Shipping extends Backbone.View
         @trigger('proceed')
 
   handleShipmentChange: ->
-    @checkout.updateShipment(@getShipment())
+    @$('[data-action]').prop('disabled', true)
+    @cart.showSpinner()
+    @checkout.updateShipment(@getShipment()).then => @$('[data-action]').prop('disabled', false)
 
   checkCurrentShippingRate: ->
     id = @order.get('shipments')[0].selected_shipping_rate.id

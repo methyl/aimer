@@ -11,10 +11,10 @@
 
   <div class="buttons">
     {{#if currentUser.email}}
-      <button class="with-account btn" data-role="next-cart">Dalej</button>
+      <button class="with-account btn" data-role="next-cart" data-action>Dalej</button>
     {{else}}
       <button class="register btn" data-role="register">Zarejestruj się</button>
-      <button class="no-account btn" data-role="next-cart">Kup teraz bez rejestracji</button>
+      <button class="no-account btn" data-role="next-cart" data-action>Kup teraz bez rejestracji</button>
     {{/if}}
   </div>
 </div>

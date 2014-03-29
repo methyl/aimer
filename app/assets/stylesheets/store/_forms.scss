@@ -39,8 +39,14 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
 
     &.invalid {
       color: red;
-      box-shadow: 0 0 3px red;
+      box-shadow: 0 0 5px red;
     }
+  }
+
+  .error {
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: 5px;
   }
 
   .option {
@@ -95,8 +101,19 @@ $form-textual-inputs: 'input[type=text], input[type=password], input[type=email]
   text-transform: uppercase;
   font-weight: 900;
   display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  .spinner {
+    vertical-align: middle;
+    margin-left: 5px;
+  }
 
   &:focus {
     outline: none;
+  }
+
+  &[disabled] {
+    color: #84693a;
   }
 }
