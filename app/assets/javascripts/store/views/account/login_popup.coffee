@@ -7,7 +7,7 @@ class Store.views.Account.LoginPopup extends Store.views.Popup
   constructor: ->
     super()
     @loginForm = new Store.views.Account.LoginForm
-    @listenTo @loginForm, 'login', @remove
+    @listenTo @loginForm, 'login', @hide
     @listenTo @loginForm, 'show-registration', @showRegistration
     @listenTo @loginForm, 'fail', @shake
 

@@ -21,4 +21,10 @@ class Store.views.Account.LoginForm extends Backbone.View
     @trigger('show-registration')
 
   submitLogin: ->
-    @session.login(@$('[name=email]').val(), @$('[name=password]').val())
+    @session.login(@$('[name=email]').val(), @$('[name=password]').val()).then(@triggerLogin, @triggerFail)
+
+  triggerLogin: =>
+    @trigger('login')
+
+  triggerFail: =>
+    @trigger('fail')

@@ -12,7 +12,7 @@ class Store.views.Button extends Backbone.View
 
   fire: =>
     promise = @actionFn()
-    if promise?
+    if promise?.always?
       @lock()
       promise.always(@unlock)
 
