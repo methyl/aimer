@@ -55,11 +55,11 @@ body {
 
 .page-background {
   display: block;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  top: -300px;
+  top: 0;
   background: asset-data-url('header-bg.jpg');
 }
 
