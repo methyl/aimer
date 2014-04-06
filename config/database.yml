@@ -26,3 +26,10 @@ production:
   database: aimer
   pool: 5
   username: lucek
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: aimer
+  pool: 5
+  username: lucek
