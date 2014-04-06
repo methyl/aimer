@@ -1,9 +1,10 @@
 class ContactsController < ApplicationController
 
   def create
-    return head :forbidden if Contact.find_by(contact_params)
-    contact = Contact.create!(contact_params)
-    ContactMailer.contact(contact).deliver
+    contact = Contact.create(contact_params)
+    if contact.valid?
+      ContactMailer.contact(contact).deliver
+    end
     head :no_content
   end
 
