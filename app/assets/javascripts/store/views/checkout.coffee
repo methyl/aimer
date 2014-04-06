@@ -17,6 +17,7 @@ class Store.views.Checkout extends Backbone.View
     @checkout = new Store.models.Checkout
     @viewSwitcher = new Store.views.ViewSwitcher
     @order = @user.getOrder()
+    @listenTo @order, 'change:state', @updateAvailableSteps
     @load()
 
   render: =>
@@ -30,6 +31,7 @@ class Store.views.Checkout extends Backbone.View
   load: ->
     @checkout.load().done =>
       @currentStep = @checkout.get('state')
+      @order.set('current-step', @currentStep)
       @createViews()
       @render()
 
@@ -45,7 +47,7 @@ class Store.views.Checkout extends Backbone.View
     @$("[data-step]").removeClass('current')
     @$("[data-step=#{@getCurrentStep()}]").addClass('current')
 
-  updateAvailableSteps: ->
+  updateAvailableSteps: =>
     @$("[data-step]").removeClass('available')
     for step in @steps
       @$("[data-step=#{step}]").addClass('available') if @isStepAvailable(step)
@@ -60,6 +62,7 @@ class Store.views.Checkout extends Backbone.View
     return unless @isStepAvailable(step) or options.force
     @previousStep = @currentStep
     @currentStep = step
+    @order.set('current-step', step)
     @showCurrentView(animate: true)
 
   getCurrentStep: ->

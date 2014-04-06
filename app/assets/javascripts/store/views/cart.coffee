@@ -18,6 +18,7 @@ class Store.views.Cart extends Backbone.View
   render: =>
     @$el.html(@template(order: new Store.presenters.Order(@order).toJSON()))
     @hideRemoveButton() if @order.getLineItems().length == 1
+    @hideActionButtons() unless @actionButtonsEnabled()
     @
 
   showSpinner: ->
@@ -25,6 +26,9 @@ class Store.views.Cart extends Backbone.View
     @spinner.show(@$('.total'))
 
   # private
+
+  actionButtonsEnabled: ->
+    @order.get('current-step') == 'cart' || @order.get('current-step') == 'address'
 
   hideRemoveButton: ->
     @$('[data-role=remove]').hide()
