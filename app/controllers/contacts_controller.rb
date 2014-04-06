@@ -2,9 +2,7 @@ class ContactsController < ApplicationController
 
   def create
     contact = Contact.create(contact_params)
-    if contact.valid?
-      ContactMailer.contact(contact).deliver
-    end
+    ContactMailer.contact(contact).deliver
     head :no_content
   end
 
