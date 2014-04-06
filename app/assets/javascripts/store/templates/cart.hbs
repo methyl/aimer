@@ -3,21 +3,31 @@
     <tr>
       <th>&nbsp;</th>
       <th>Produkt</th>
-      <th>&nbsp;</th>
-      <th>Ilość</th>
-      <th>&nbsp;</th>
+      <th class="quantity">Ilość</th>
       <th class="price">Kwota</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     {{#each order.line_items}}
-      <tr>
+      <tr data-id="{{id}}">
         <td class="number"></td>
-        <td class="name">{{weight}} <em>({{pcs}})</em></td>
-        <td class="separator wide"></td>
-        <td class="quantity">{{quantity}}</td>
-        <td class="separator narrow"></td>
-        <td class="price">{{display_total_price}} pln</td>
+        <td class="name">
+          <div class="separator-text">{{weight}} <em>({{pcs}})</em></div>
+          <div class="separator"></div>
+        </td>
+        <td class="quantity">
+          <span data-role="quantity">{{quantity}}</span>
+          <button class="more action" data-role="increase-quantity" data-id="{{id}}"><i class="fa fa-angle-up"></i></button>
+          <button class="less action" data-role="decrease-quantity" data-id="{{id}}"><i class="fa fa-angle-down"></i></button>
+        </td>
+        <td class="price">
+          <div class="separator-text">{{display_total_price}} pln</div>
+          <div class="separator"></div>
+        </td>
+        <td class="remove">
+          <button class="remove action" data-role="remove" data-id="{{id}}"></button>
+        </td>
       </tr>
     {{/each}}
   </tbody>

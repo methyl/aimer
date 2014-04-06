@@ -40,18 +40,22 @@ class Store.models.Order extends Backbone.Model
     @get('line_items')
 
   addLineItem: (item) ->
-    @getLineItems().add(item)[0].save()
+    @getLineItems().add(item)[0].save?()
 
   addProduct: (product, options = {}) ->
     @addLineItem({ variant_id: product.get('master').id, quantity: options.quantity || 1 })
-      .done(=> product.trigger('add-to-cart'))
 
   removeProduct: (product) ->
-    @getLineItems().getItemByVariantId(product.get('master').id).destroy(wait: true)
-      .done(=> product.trigger('remove-from-cart'))
+    @removeLineItem @getLineItems().getItemByVariantId(product.get('master').id)
+
+  removeLineItem: (lineItem) ->
+    lineItem.destroy(wait: true)
 
   getLineItemForProduct: (product) ->
-    @getLineItems()?.getItemByVariantId(product.get('master')?.id)
+    @getLineItemForProductId(product.get('master')?.id)
+
+  getLineItemForProductId: (productId) ->
+    @getLineItems()?.getItemByVariantId(productId)
 
   hasProduct: (product) ->
     !! @getLineItemForProduct(product)

@@ -4,6 +4,7 @@
   table {
     position: relative;
     float: right;
+    width: 500px;
   }
 
   thead {
@@ -15,9 +16,7 @@
       padding-bottom: 30px;
       font-weight: normal;
 
-      &.price {
-        padding-left: 10px;
-        padding-right: 20px;
+      &.price, &.quantity {
         text-align: center;
       }
     }
@@ -50,13 +49,17 @@
       padding-bottom: 20px;
     }
 
+    td {
+      padding-bottom: 10px;
+    }
+
     .number {
       color: #503f29;
-      vertical-align: bottom;
-      padding-right: 5px;
+      vertical-align: middle;
       position: relative;
       overflow: hidden;
-      padding-left: 25px;
+      padding-left: 13px;
+      padding-top: 7px;
 
       &:after {
         counter-increment: index;
@@ -68,8 +71,7 @@
 
     .name {
       font-weight: bold;
-      font-size: 20px;
-      padding-right: 10px;
+      font-size: 26px;
 
       em {
         color: #503f29;
@@ -81,22 +83,67 @@
 
     .quantity {
       text-align: center;
-      font-size: 18px;
+      font-size: 26px;
+      position: relative;
+
+      .more, .less {
+        color: #8f6e3e;
+        position: absolute;
+        right: -3px;
+        
+        height: 12px;
+        font-size: 18px;
+        outline: 0;
+      }
+
+      .more {
+        top: 0;
+      }
+
+      .less {
+        top: 12px;
+      }
     }
 
     .price {
-      font-size: 18px;
-      padding-right: 20px;
+      font-size: 26px;
+      padding-right: 10px;
       padding-left: 10px;
+      text-align: right;
+
+      .separator-text {
+        float: right;
+        padding-right: 0;
+        padding-left: 10px;
+      }
+    }
+
+    .separator-text {
+      float: left;
+      display: inline-block;
+      padding-right: 10px;
     }
 
     .separator {
-      width: 92px;
-      background: asset-data-url('dots.jpg') repeat-x 0 14px;
-      margin: 5px;
+      background: asset-data-url('dots.jpg') repeat-x bottom;
+      height: 22px;
+      overflow: hidden;
+    }
 
-      &.narrow {
-        width: 65px;
+    .action {
+      background: 0;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    .remove {
+      padding-right: 5px;
+
+      button {
+        width: 10px;
+        height: 12px;
+        background: asset-data-url('cross.png') no-repeat;
       }
     }
   }
@@ -110,7 +157,7 @@
     position: relative;
 
     > strong {
-      font-size: 24px;
+      font-size: 26px;
       display: inline-block;
       position: relative;
       margin-left: 5px;
