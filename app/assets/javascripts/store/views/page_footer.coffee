@@ -5,9 +5,6 @@ class Store.views.PageFooter extends Backbone.View
   events:
     'submit #contact form': 'onFormSubmit'
 
-  constructor: ->
-    super
-
   render: ->
     @$el.html(@template())
     @
@@ -18,9 +15,10 @@ class Store.views.PageFooter extends Backbone.View
       email: @$('[name=email]').val()
       subject: @$('[name=subject]').val()
       message: @$('[name=message]').val()
-    contact.save().then =>
-      alert('Wiadomość została odebrana!')
-      @clearForm()
+    contact.save()
+      .always =>
+        alert('Wiadomość została odebrana!')
+        @clearForm()
 
   clearForm: ->
     @$('[name=email]').val('')

@@ -14,7 +14,7 @@ class Store.views.Products extends Backbone.View
     @presenter = new Store.presenters.Order(@order)
 
     @order.on 'change', @renderTotal
-    @order.on 'change:number', @render
+    @order.on 'change:number change:line_items', @render
     @productViews = []
     @load()
 
