@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 
 gem 'newrelic_rpm'
+gem 'money', '6.0.1'
 
 group :assets do
   gem 'sass-rails',   '~> 4.0.0'
