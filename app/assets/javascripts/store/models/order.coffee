@@ -5,6 +5,8 @@ class Store.models.Order extends Backbone.Model
   NUMBER_COOKIE = 'aimer-order-number'
   TOKEN_COOKIE = 'aimer-order-token'
 
+  FREE_SHIPPING_FROM = 100
+
   constructor: (attributes, options = {}) ->
     options.parse = true unless options.parse?
     super(attributes, options)
@@ -65,7 +67,7 @@ class Store.models.Order extends Backbone.Model
     $.removeCookie(TOKEN_COOKIE)
 
   isShippingFree: ->
-    parseFloat(@get('ship_total')) == 0
+    @get('total') >= FREE_SHIPPING_FROM
 
   reload: =>
     @clearCookies()
