@@ -88,11 +88,13 @@ class Store.Application
     @user.load().then =>
       @order = @user.getOrder()
       if @order.isNew()
+        @order.set('source_track', window.SourceTrack)
         @order.save()
       else
         @order.fetch().then(true, @order.reload)
 
   start: ->
+    console.log 'start'
     @router.start()
     @enableRoutedLinks()
     @enableAnchorLinks()

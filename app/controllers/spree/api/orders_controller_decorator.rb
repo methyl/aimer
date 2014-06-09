@@ -21,4 +21,8 @@ Spree::Api::OrdersController.class_eval do
       {}
     end
   end
+
+  def permitted_order_attributes
+    super << :source_track
+  end
 end
