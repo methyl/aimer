@@ -94,7 +94,6 @@ class Store.Application
         @order.fetch().then(true, @order.reload)
 
   start: ->
-    console.log 'start'
     @router.start()
     @enableRoutedLinks()
     @enableAnchorLinks()
