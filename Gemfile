@@ -1,17 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.8'
 
 gem 'newrelic_rpm'
 gem 'money', '6.0.1'
-
-group :assets do
-  gem 'sass-rails',   '~> 4.0.0'
-  gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
   gem 'compass',                      '= 0.12.2'
   gem 'compass-rails',                '~> 1.1.2'
   gem 'uglifier', '>= 1.0.3'
-end
 
 group :development do
   gem 'sqlite3'
