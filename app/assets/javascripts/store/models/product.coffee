@@ -4,7 +4,7 @@ class Store.models.Products extends Backbone.Collection
   model: Store.models.Product
   url: '/spree/api/products'
 
-  comparator: 'name'
+  comparator: 'price'
 
   constructor: (attributes, options = {}) ->
     options.parse = true unless options.parse?
