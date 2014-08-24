@@ -106,6 +106,7 @@ class Store.Application
     @applicationView.getView()
 
   setupAjax: =>
+    $.ajaxSetup(cache: false)
     $.ajaxPrefilter (options) =>
       if options.url.match(/\/spree\/api\/(orders|checkouts)\/R\d+/)
         options.beforeSend = (xhr) =>
