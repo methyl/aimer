@@ -11,7 +11,7 @@ class Store.models.Products extends Backbone.Collection
   parse: (response) ->
     response.products
 
-  comparator: (a) ->
+  comparator: (a, b) ->
     weight1 = parseFloat(a.get('master').weight)
     weight2 = parseFloat(b.get('master').weight)
     n = weight1 - weight2
