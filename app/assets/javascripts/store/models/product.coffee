@@ -12,14 +12,14 @@ class Store.models.Products extends Backbone.Collection
     response.products
 
   comparator: (a) ->
-    console.log parseFloat(a.get('master').weight)
-    parseFloat(a.get('master').weight)
-    # weight1 = parseInt(a.get('master').weight)
-    # weight2 = parseInt(b.get('master').weight)
-    # n = weight1 - weight2
-    # if n != 0
-    #   return n
-    #
-    # pcs1 = parseInt(a.get('master').depth)
-    # pcs2 = parseInt(b.get('master').depth)
-    # return pcs1 - pcs2
+    # console.log parseFloat(a.get('master').weight)
+    # parseFloat(a.get('master').weight)
+    weight1 = parseFloat(a.get('master').weight)
+    weight2 = parseFloat(b.get('master').weight)
+    n = weight1 - weight2
+    if n != 0
+      return n
+
+    pcs1 = parseInt(a.get('master').depth)
+    pcs2 = parseInt(b.get('master').depth)
+    return pcs1 - pcs2
