@@ -34,18 +34,31 @@
     padding: 0;
 
     li {
+      text-indent: -100000px;
+      display: inline-block;
+      margin: 5px;
+      height: 164px;
+      background-position: center;
+      background-repeat: no-repeat;
+
       &.milcord {
         width: 354px;
-        height: 90px;
-        background: image-url('cooperation/milcord.png');
-        text-indent: -100000px;
+        background-image: image-url('cooperation/milcord.png');
       }
 
       &.wojskowe {
-        width: 180px;
-        height: 22px;
-        background: image-url('cooperation/wojskowe.jpg');
-        text-indent: -100000px;
+        width: 308px;
+        background-image: image-url('cooperation/wojskowe.jpg');
+      }
+
+      &.redberet {
+        width: 341px;
+        background-image: image-url('cooperation/redberet.png');
+      }
+
+      &.sniper {
+        width: 231px;
+        background: image-url('cooperation/sniper.png');
       }
 
       a {
